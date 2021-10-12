@@ -14,4 +14,5 @@ public interface PcommentRepo  extends CrudRepository<Pcomment, Integer>{
 	List<LocCategory> findLocCategoryByCommentContentContaining(String comment);
 	
 
+
 }
