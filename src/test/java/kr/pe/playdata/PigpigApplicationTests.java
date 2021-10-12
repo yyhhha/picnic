@@ -23,20 +23,21 @@ class PigpigApplicationTests {
 		mock = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
+
 	@Autowired
 	private Controller controller;
+	
 	private MockMvc mock;
+	
 	
 	@BeforeEach
 	public void init() {
-		mock = MockMvcBuilders.standaloneSetup(controller).build();
-	}
+	      mock = MockMvcBuilders.standaloneSetup(controller).build();
+	   }
 	
 	@Test
 	void contextLoads() {
-
-		System.out.println(12);
-		System.out.println(11111);
+		System.out.println("11");
 
 	}
 
