@@ -11,8 +11,19 @@ import kr.pe.playdata.controller.Controller;
 
 @SpringBootTest
 class PigpigApplicationTests {
-
 	
+	@Autowired
+	private Controller controller;
+	
+	private MockMvc mock;
+	
+	@BeforeEach
+	public void init() {
+		System.out.println("init()");
+		mock = MockMvcBuilders.standaloneSetup(controller).build();
+	}
+
+
 	@Autowired
 	private Controller controller;
 	
@@ -27,6 +38,7 @@ class PigpigApplicationTests {
 	@Test
 	void contextLoads() {
 		System.out.println("11");
+
 	}
 
 }
