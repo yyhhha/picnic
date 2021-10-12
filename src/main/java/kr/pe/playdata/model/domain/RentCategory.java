@@ -1,9 +1,10 @@
 package kr.pe.playdata.model.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,13 +15,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+
 @Entity
 @Table(name = "rent_category")
 public class RentCategory {
 	@Id
-	@ManyToMany
 	@Column(name = "rent_cate_id")
 	private int rentCateId;
+	
+	@OneToMany(mappedBy = "rentCategory")
+	@Column(name = "rent_id")
+	private List<BoardRent> boardRent;
+	
+	
+	
+	
 	@Column(name = "rent_cate_name")
 	private String rentCateName;
 }

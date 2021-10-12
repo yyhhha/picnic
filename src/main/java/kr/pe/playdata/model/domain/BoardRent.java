@@ -1,6 +1,6 @@
 package kr.pe.playdata.model.domain;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,6 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="rentId_seq", sequenceName="rentId_seq", initialValue=1, allocationSize=1)
@@ -36,26 +36,44 @@ public class BoardRent {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rentId_seq")
 	@Column(name = "rent_id")
 	private int rentId;
-	@ManyToMany(mappedBy = "rentCateId")
-	@JoinTable( name = "rent_category")
-	private Set<RentCategory> rentCate;
-	@Column(name = "loc_id")
-	private LocCategory locCate;//LocCategory 
-	@JoinColumn(name = "user_email")
+	
 	@ManyToOne
+	@JoinColumn(name = "rent_cate_id")
+	private RentCategory rentCategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "loc_id")
+	private LocCategory locCate;//LocCategory 
+	
+	@ManyToOne
+	@JoinColumn(name = "user_email")
 	private Puser puser;
+	
+	@OneToMany(mappedBy = "boardRent")
+	@Column(name = "pcomment")
+	private List<Pcomment> pcomment;
+	
+	
+	
+	
 	@Column(name = "rent_name")
 	private String rentName;
+	
 	@Column(name = "rent_link")
 	private String rentLink;
+	
 	@Column(name = "rent_price")
 	private int rentPrice;
+	
 	@Column(name = "rent_time")
 	private String rentTime; // 대여시간
+	
 	@Column(name = "rent_content")
 	private String rentContent;
+	
 	@Column(name = "rent_img")
 	private String rentImg;
+	
 	@Column(name = "rent_del")
 	private int rentDel;
 }

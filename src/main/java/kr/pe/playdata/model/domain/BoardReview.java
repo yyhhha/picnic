@@ -21,6 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="reviewId_seq", sequenceName="reviewId_seq", initialValue=1, allocationSize=1)
@@ -30,22 +31,33 @@ public class BoardReview {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="reviewId_seq")
 	@Column(name = "review_id")
 	private int reviewId;
+	
 //	private PlaceCategory placeCate; //placeId.userEmail
 //	private locid;
-	@JoinColumn(name = "user_email")
+	
 	@ManyToOne
-	private Puser puser;
 	@JoinColumn(name = "place_id")
-	@ManyToOne
 	private BoardPlace boardPlace;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_email")
+	private Puser puser;
+	
+	
+	
+	
 	@Column(name = "review_title")
 	private String reviewTitle;
+	
 	@Column(name = "review_content")
 	private String reviewContent;
+	
 	@Column(name = "review_date")
 	private String reviewDate; //YYYYMMDD
+	
 	@Column(name = "review_del")
 	private int reviewDel; //boolean -> int
+	
 	//리뷰 스코어 추가
 	@Column(name="review_score")
 	private int reviewScore;
