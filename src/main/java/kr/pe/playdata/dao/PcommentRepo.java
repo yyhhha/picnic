@@ -1,5 +1,5 @@
 package kr.pe.playdata.dao;
 
-public interface CommentRepo {
+public interface PcommentRepo {
 
 }

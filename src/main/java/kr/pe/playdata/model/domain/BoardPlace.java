@@ -57,7 +57,7 @@ public class BoardPlace  {
 	
 	
 	@Column(name = "place_name")
-	private String palceName;
+	private String placeName;
 	
 	@Column(name = "place_content")
 	private String placeContent;
