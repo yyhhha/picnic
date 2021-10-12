@@ -51,13 +51,13 @@ public class BoardPlace  {
 	
 	@OneToMany(mappedBy = "boardPlace")
 	@Column(name = "review_id")
-	private List<BoardReview> BoardReviewList;
+	private List<BoardReview> BoardReviewLiSst;
 	
 	
 	
 	
 	@Column(name = "place_name")
-	private String palceName;
+	private String placeName;
 	
 	@Column(name = "place_content")
 	private String placeContent;
