@@ -155,13 +155,13 @@ public class Controller {
 	@GetMapping("addBoardReview")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
+		
 		A.setReviewId(1);
 		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
 		A.setReviewTitle("review title");
 		A.setReviewContent("review content");
 		
 		A.setReviewScore(0);
-		
 		
 		System.out.println(A.toString());
 		brer.save(A);

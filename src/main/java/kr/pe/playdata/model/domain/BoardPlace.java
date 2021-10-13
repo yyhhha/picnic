@@ -2,10 +2,8 @@ package kr.pe.playdata.model.domain;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,12 +48,9 @@ public class BoardPlace  {
 	@JoinColumn(name = "user_email")
 	private Puser puser;
 	
-	@OneToMany(mappedBy = "board_Place")
+	@OneToMany//(mappedBy = "board_place")
 	@Column(name = "review_id")
 	private List<BoardReview> BoardReviewList;
-	
-	
-	
 	
 	@Column(name = "place_name")
 	private String placeName;
