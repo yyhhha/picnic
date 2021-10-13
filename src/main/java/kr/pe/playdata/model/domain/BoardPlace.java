@@ -19,13 +19,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 @DynamicInsert
@@ -39,6 +37,7 @@ public class BoardPlace  {
 	
 	@ManyToOne
 	@JoinColumn(name = "loc_id")
+	
 	private LocCategory locCate;
 	
 	//loc_id -> place_cate_id
@@ -49,12 +48,9 @@ public class BoardPlace  {
 	@JoinColumn(name = "user_email")
 	private Puser puser;
 	
-	@OneToMany(mappedBy = "boardPlace")
+	@OneToMany//(mappedBy = "board_place")
 	@Column(name = "review_id")
-	private List<BoardReview> BoardReviewLiSst;
-	
-	
-	
+	private List<BoardReview> BoardReviewList;
 	
 	@Column(name = "place_name")
 	private String placeName;
