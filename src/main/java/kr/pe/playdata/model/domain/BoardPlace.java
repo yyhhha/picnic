@@ -51,7 +51,7 @@ public class BoardPlace  {
 	
 	@OneToMany(mappedBy = "boardPlace")
 	@Column(name = "review_id")
-	private List<BoardReview> BoardReviewLiSst;
+	private List<BoardReview> BoardReviewList;
 	
 	
 	

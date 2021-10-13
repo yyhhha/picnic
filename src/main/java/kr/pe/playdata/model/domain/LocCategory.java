@@ -32,7 +32,7 @@ public class LocCategory {
 	@Column(name = "loc_id")
 	private int locId;
 	
-	@OneToMany(mappedBy = "locCate")
+	@OneToMany//(mappedBy = "locCate")
 	@Column(name = "place_id")
 	private List<BoardPlace> boardPlaceList;
 	
