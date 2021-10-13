@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<link  href="css/signup.css" rel="stylesheet">
+<title>회원가입</title>
+<style type="text/css"> 
+		a { text-decoration:none } 
+		a:visited { color: black; text-decoration: none;}
+		</style>
+</head>
+<body>
+<h2>피그닉 회원 가입</h2>
+    <div class="container">
+	    <form action="review" method="post">
+		<input type="hidden" name="command" value="userInsert">
+	      <label for="email"><b>e-mail</b></label>
+	      <input type="text" placeholder="이메일을 입력하세요" name="email" required>
+	      <label for="psw"><b>Password</b></label>
+	      <input type="password" placeholder="비밀번호를 입력하세요" name="psw" required>
+	      <label for="nickname"><b>Nickname</b></label>
+	      <input type="text" placeholder="닉네임을 입력하세요" name="nickname" required>
+	      
+	      
+	      <button type="submit">sign up</button>
+	     </form>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+    <form action="review" method="post">
+      <button type="button" onclick="location.href='login.jsp'" class="cancelbtn"> Cancel</button>
+ 	 </form>
+    </div>
+</div>
+
+</body>
+</html>

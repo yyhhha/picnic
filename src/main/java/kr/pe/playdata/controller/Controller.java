@@ -1,9 +1,13 @@
 package kr.pe.playdata.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
@@ -24,6 +28,7 @@ import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.domain.RentCategory;
 
 @RestController
+@RequestMapping("/con")
 public class Controller {
 
 	@Autowired
@@ -43,6 +48,34 @@ public class Controller {
 	@Autowired
 	private RentCategoryRepo pcr;
 	
+	
+	/***
+	 * 
+	 * @return
+	 * add yyh
+	 */
+	
+	@GetMapping("signup")
+	public void signin(HttpServletResponse response) {
+		String redirect_uri="http://localhost/signup.html";
+    	try {
+			response.sendRedirect(redirect_uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@GetMapping("login")
+	public void login(HttpServletResponse response) {
+		String redirect_uri="http://localhost/login.html";
+    	try {
+			response.sendRedirect(redirect_uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**/
+	 
 	@GetMapping("addRentCate")
 	@Transactional
 	public String addRentCate() {
