@@ -25,7 +25,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 @DynamicInsert

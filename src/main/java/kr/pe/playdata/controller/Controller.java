@@ -16,7 +16,10 @@ import kr.pe.playdata.dao.PuserRepo;
 import kr.pe.playdata.dao.RentCategoryRepo;
 import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
+import kr.pe.playdata.model.domain.BoardReview;
+import kr.pe.playdata.model.domain.BoardTip;
 import kr.pe.playdata.model.domain.LocCategory;
+import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.domain.RentCategory;
 
@@ -42,17 +45,16 @@ public class Controller {
 	
 	@GetMapping("addRentCate")
 	@Transactional
-	public RentCategory addRentCate() {
-		RentCategory A= new RentCategory(1,null,"test rent category");
-		System.out.println(A.toString());
+	public String addRentCate() {
+		RentCategory A = new RentCategory(1,null,"test rent category");
 		pcr.save(A);
 		
-		return A;
+		return "Rent cate 저장 성공";
 	}
 	
 	@GetMapping("addBoardRent")
 	@Transactional
-	public BoardRent addBoardRent() {
+	public String addBoardRent() {
 		BoardRent A = new BoardRent();
 		A.setRentCategory(pcr.findRentCategoryByRentCateId(1).get(0));
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
@@ -67,12 +69,12 @@ public class Controller {
 		A.setRentDel(0);
 		System.out.println(A.toString());
 		brr.save(A);
-		return null;
+		return "Rent 저장 성공";
 	}
 	
 	@GetMapping("addPUser")
 	@Transactional
-	public Puser addPUser() {
+	public String addPUser() {
 		Puser B = new Puser();
 		B.setUserEmail("aa.gmail.com");
 		B.setUserPassword("aaab");
@@ -82,12 +84,12 @@ public class Controller {
 		System.out.println(B.toString());
 		pur.save(B);
 		
-		return B;
+		return "puser 저장 성공";
 	}
 	
 	@GetMapping("addLocCate")
 	@Transactional
-	public LocCategory addLocCate() {
+	public String addLocCate() {
 		LocCategory A = new LocCategory();
 		A.setLocId(1);
 		A.setLocName("test loc");
@@ -97,46 +99,73 @@ public class Controller {
 		A.setPlaceCategory("강/공원/피크닉");
 		lcr.save(A);
 		
-		return A;
+		return "loc 저장 성공";
 	}
 	
 	@GetMapping("addBoardPlace")
 	@Transactional
-	public BoardPlace addBoardPlace() {
-		BoardPlace A = new BoardPlace(1,lcr.findLocCategoryByLocId(1).get(0),pur.findPuserByUserEmail("aa.gmail.com"),null,"test place name", "test place content", "img",0);
+	public String addBoardPlace() {
+		BoardPlace A = new BoardPlace();
 		A.setPlaceId(1);
+		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
+		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+		A.setPlaceName("test place name");
+		A.setPlaceContent("test place content");
+		A.setPlaceImg("img");
 		
 		bpr.save(A);
 		
-		return A;
+		return "place 저장 성공";
 	}
 	
 	@GetMapping("addBoardTip")
 	@Transactional
 	public String addBoardTip() {
-		
+		BoardTip A = new BoardTip();
+		A.setTipId(1);
+		A.setTipTitle("tip title");
+		A.setTipContent("tip content");
+		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+		A.setTipImg("img");
+		A.setTipLike(0);
+		A.setTipDel(0);
+				
 		System.out.println(A.toString());
 		btr.save(A);
 		
-		return A;
+		return "tip 저장 성공";
 	}
 	@GetMapping("addPComment")
 	public String addPComment() {
-		
+		Pcomment A = new Pcomment();
+		A.setCommentId(1);
+		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+		A.setCommentContent("comment content");
+		A.setCommentDel(0);
+		A.setBoardRent(brr.findBoardRentByRentId(1));
+		A.setBoardTip(btr.findTipTitleByTipId(1).get(0));
 		
 		System.out.println(A.toString());
 		pcor.save(A);
 		
-		return A;
+		return "comment 저장 성공";
 	}
 	
 	
 	@GetMapping("addBoardReview")
 	public String addBoardReview() {
+		BoardReview A = new BoardReview();
+		A.setReviewId(1);
+		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+		A.setReviewTitle("review title");
+		A.setReviewContent("review content");
+		
+		A.setReviewScore(0);
+		
 		
 		System.out.println(A.toString());
 		brer.save(A);
 		
-		return A;
+		return "리뷰 저장 성공";
 	}
 }
