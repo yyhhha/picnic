@@ -27,8 +27,8 @@ import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.domain.RentCategory;
 
-@RestController
-@RequestMapping("/con")
+//@RestController
+//@RequestMapping("/con")
 public class Controller {
 
 	@Autowired

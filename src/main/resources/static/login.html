@@ -12,20 +12,18 @@
 <body>
 <h2>피그닉 로그인</h2>
     <div class="container">
-    	<form action="review" method="post">
+    	<form action="con/checkLogin" method="post">
     	<input type="hidden" name="command" value="userLogin">
       <label for="email"><b>e-mail</b></label>
-	      <input type="text" placeholder="이메일을 입력하세요" name="email" required>
+	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="비밀번호를 입력하세요" name="psw" required>
+      <input type="password" placeholder="비밀번호를 입력하세요" name="psw" required th:value="${psw}"><br>
       <button type="submit">Login</button>
       </form>
-      <button type="button" onclick="location.href='signin.jsp'">sign up</button>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <button type="button" onclick="location.href='deleteUser.jsp'" class="cancelbtn">Delete</button>
-      <span class="psw"> <a href="findUserEmail.jsp">비밀번호 찾기</a></span>
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw"> <button type="button"  class="cancelbtn">비밀번호 찾기</button></span>
     </div>
   </form>
 </div>
