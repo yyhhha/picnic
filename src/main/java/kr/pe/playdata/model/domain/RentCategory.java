@@ -12,36 +12,36 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-//@ToString(exclude = "boardRent")
-
-@Entity
-@Table(name = "rent_category")
-public class RentCategory {
-	@Id
-	@Column(name = "rent_cate_id")
-	private int rentCateId;
-	
-	@OneToMany(mappedBy = "rentCategory")
-	@Column(name = "rent_id")
-	private List<BoardRent> boardRent;
-	
-	
-	
-	
-	@Column(name = "rent_cate_name")
-	private String rentCateName;
-
-
-
-
-	@Override
-	public String toString() {
-		return "RentCategory [rentCateId=" + rentCateId + ", rentCateName=" + rentCateName + "]";
-	}
-	
-	
-}
+//
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Getter
+////@ToString(exclude = "boardRent")
+//
+//@Entity
+//@Table(name = "rent_category")
+//public class RentCategory {
+//	@Id
+//	@Column(name = "rent_cate_id")
+//	private int rentCateId;
+//	
+//	@OneToMany(mappedBy = "rentCategory")
+//	@Column(name = "rent_id")
+//	private List<BoardRent> boardRent;
+//	
+//	
+//	
+//	
+//	@Column(name = "rent_cate_name")
+//	private String rentCateName;
+//
+//
+//
+//
+//	@Override
+//	public String toString() {
+//		return "RentCategory [rentCateId=" + rentCateId + ", rentCateName=" + rentCateName + "]";
+//	}
+//	
+//	
+//}

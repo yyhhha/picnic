@@ -37,9 +37,9 @@ public class BoardRent {
 	@Column(name = "rent_id")
 	private int rentId;
 	
-	@ManyToOne
-	@JoinColumn(name = "rent_cate_id")
-	private RentCategory rentCategory;
+//	@ManyToOne
+//	@JoinColumn(name = "rent_cate_id")
+//	private RentCategory rentCategory;
 	
 	@ManyToOne
 	@JoinColumn(name = "loc_id")
@@ -76,6 +76,14 @@ public class BoardRent {
 	
 	@Column(name = "rent_del")
 	private int rentDel;
+	
+	//새로 추가
+	@Column(name = "rent_cate_name")
+	private String rentCateName;
+	
+	
+	
+	
 
 	@Override
 	public String toString() {
