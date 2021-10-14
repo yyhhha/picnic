@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.Puser;
-import kr.pe.playdata.model.domain.RentCategory;
 
 public interface BoardRentRepo extends JpaRepository<BoardRent, Integer>{
 
@@ -14,7 +13,7 @@ public interface BoardRentRepo extends JpaRepository<BoardRent, Integer>{
 	
 	BoardRent findBoardRentByRentName(String RentName);
 	
-	List<BoardRent> findBoardRentByRentCategory(RentCategory rentCategory);
+	List<BoardRent> findBoardRentByRentCateName(String RentCateName);
 	
 	List<BoardRent> findBoardRentByPuser(Puser puser);
 	

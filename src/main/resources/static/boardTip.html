@@ -216,7 +216,7 @@
                     <textarea v-model="tipContent" placeholder="상세 내용을 써주세요."></textarea><br>
         
                     <div class="input-container">
-                      <input v-model="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
+                      <input v-on:change="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
                       <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
                     <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
         
@@ -250,7 +250,7 @@
 
               axios({
                 method: "post",
-                url: "http://127.0.0.1:80/addBoardTip",
+                url: "/con/addBoardTip",
                 data: {
                   tipTitle : this.tipTitle, 
                   tipContent : this.tipContent,
