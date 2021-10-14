@@ -1,18 +1,24 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
@@ -30,6 +36,7 @@ import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
+import kr.pe.playdata.model.dto.TestDTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -90,11 +97,11 @@ public class Controller {
 		
 		btr.save(A);
 
-		return null;
+		return "";
 	}
 	
 	
-	//피크닉 rent대여업체 작성하는 메소드 -> 미완성
+	//피크닉 rent대여업체 작성하는 메소드
 	@PostMapping("/addBoardRent")
 	@Transactional
 	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
@@ -114,6 +121,24 @@ public class Controller {
 		brr.save(A);
 		return null;
 	}
+	
+	//get으로 json 가져오는 방식
+	@GetMapping("/board/tips")
+	public List<BoardTipDTO> boardTipList() {
+	Iterator<BoardTip> all = btr.findAll().iterator();
+	System.out.println(btr.findAll().iterator());
+	BoardTip tip;
+	List<BoardTipDTO> test = new ArrayList<>();
+	while (all.hasNext()) {
+		tip = all.next();
+		test.add(new BoardTipDTO(tip.getTipId(),tip.getPuser().getUserEmail() ,tip.getTipTitle(), 
+				tip.getTipContent(),tip.getTipImg(),tip.getTipDate(),tip.getTipDel(),tip.getTipLike()));
+	}
+
+	return test;
+
+}
+	
 	
 	
 	@GetMapping("addPUser")

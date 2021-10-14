@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ public class BoardTip {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_email")
-	private Puser puser;
+	private Puser puser;  
 	
 	@OneToMany(mappedBy = "boardTip")
 	@Column(name = "pcomment")
@@ -72,6 +73,17 @@ public class BoardTip {
 		return "BoardTip [tipId=" + tipId + ", tipTitle=" + tipTitle + ", tipContent=" + tipContent + ", tipImg="
 				+ tipImg + ", tipDate=" + tipDate + ", tipDel=" + tipDel + ", tipLike=" + tipLike + "]";
 	}
+	
+//	@Builder
+//	public BoardTip(int tipId, Puser puser, String tipTitle, String tipContent, String tipImg, String tipDate) {
+//		this.puser = puser.getUserEmail();
+//		this.tipId = tipId;
+//		this.tipTitle = tipTitle;
+//		this.tipContent = tipContent;
+//		this.tipImg = tipImg;
+//		this.tipDate = tipDate;
+//		
+//	}
 	
 	
 }

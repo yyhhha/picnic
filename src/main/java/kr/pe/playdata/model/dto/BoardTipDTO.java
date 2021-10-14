@@ -1,5 +1,6 @@
 package kr.pe.playdata.model.dto;
 
+import kr.pe.playdata.model.domain.BoardTip;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,10 @@ public class BoardTipDTO {
 	private int tipLike; 
 //	private List<Pcomment> pcomment;
 	
+	
 
-//	public BoardTipDTO(BoardTip boardTip) {
+
+//	public void BoardTipDTO2(BoardTip boardTip) {
 //		tipId = boardTip.getTipId();
 //		userEmail = boardTip.getPuser().getUserEmail();
 //		tipTitle = boardTip.getTipTitle();
@@ -31,6 +34,7 @@ public class BoardTipDTO {
 //		tipDate = boardTip.getTipDate();
 //		tipDel = boardTip.getTipDel();
 //		tipLike = boardTip.getTipLike();
+//		
 //		
 //	}
 }
