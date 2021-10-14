@@ -35,7 +35,7 @@ import kr.pe.playdata.model.domain.RentCategory;
 //@CrossOrigin(origins = "http://localhost:80")
 @RestController
 @RequestMapping("/con2")
-public class Controller2 {
+public class BController {
 
 	@Autowired
 	private BoardPlaceRepo bpr;

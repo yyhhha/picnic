@@ -70,11 +70,4 @@ public class BoardReview {
 				+ ", reviewDate=" + reviewDate + ", reviewDel=" + reviewDel + ", reviewScore=" + reviewScore + "]";
 	}
 	
-	
-	
-	@Override
-	public String toString() {
-		return "";
-	}
-	
 }

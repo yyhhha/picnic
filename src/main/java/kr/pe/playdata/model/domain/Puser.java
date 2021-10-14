@@ -77,12 +77,6 @@ public class Puser {
 				+ ", roles=" + roles + ", userOut=" + userOut + ", assignDate=" + assignDate + ", outDate=" + outDate
 				+ "]";
 	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "";
-	}
+
 	
 }
