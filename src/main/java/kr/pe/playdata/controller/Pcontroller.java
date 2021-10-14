@@ -9,7 +9,7 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
 
-@RestController
+//@RestController
 public class Pcontroller {
 
 	@Autowired

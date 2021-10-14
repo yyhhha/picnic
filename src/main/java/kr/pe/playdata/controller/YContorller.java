@@ -22,9 +22,9 @@ import kr.pe.playdata.dao.PuserRepo;
 import kr.pe.playdata.model.domain.Puser;
 import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+@Slf4j
 @RestController
-@RequestMapping("/con")
+@RequestMapping("/con3")
 @SessionAttributes({"puser","nickname","email"})
 public class YContorller {
 
@@ -101,6 +101,8 @@ public class YContorller {
 	//axios로 받기 위해 사용 
 	@GetMapping("checkLogininfo")
 	public Puser checkLogininfo() {
+		System.out.println(amail);
+		System.out.println(pur.findPuserByUserEmail(amail));
 		return pur.findPuserByUserEmail(amail);
 	}
 	
