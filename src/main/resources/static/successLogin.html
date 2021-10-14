@@ -45,18 +45,14 @@
                     </ul>
                     
                     <form class="d-flex">
-                     <!-- <h3 th:text="|${puser}-${sessionScope.puser.userNickname}-${nickname}-${email}|" > </h3>
-                     <input type="text" value="${nickname}"/>
-                     ${sessionScope.nickname}
-                      -->
-                      <h3 th:text="${${nickname}"></h3>
-                     ${nickname}님 환영합니다.
-                     <div value="${nickname}">님 환영합니다</div>
                      
+                      <div id="nickdiv" >{{datas.userNickname}}님 환영합니다</div>
+                      
+                     <!-- <input type="text" id="dataView"> -->
                      
-                    	<button class="btn btn-outline-dark" >
+                    	<button class="btn btn-outline-dark" onclick="logout()">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/logout">로그아웃</a>
+                            <a href="con/moveMainPage">로그아웃</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
@@ -303,40 +299,61 @@
         		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
         	},
         });
-        
-       /*  new Vue({
-			el: "#themeContent",
+        /* new Vue({
+			el: "#nickdiv",
 			data : {
-				resData: false,
 				datas: []
 			},
-			methods: {
-				reqResAjax: function(){
+        	create:{
+        		axios({
+	        		method: "get",
+	        			url: "con/checkLogininfo"
+	        	}).then(resData => {
+	        		this.resData = true;
+	        			console.log(resData.data[0]);
+	        			this.datas = resData.data;
+	        	}).catch(errorData => {
+	        		alert(errorData);
+	        	});
+        	}	
+			
+		});  */  
+       new Vue({
+			el: '#nickdiv',
+			data : {
+				datas: []
+			},
+			created: function ()  {
         			axios({
         				method: "get",
-        				url: "bookall"
+        				url: "con/checkLogininfo"
         			}).then(resData => {
-        				this.resData = true;
-        				
-        				console.log(resData.data[0]);
         				this.datas = resData.data;
-        				
+        				/* localStorage.setItem('datas', JSON.stringify(this.datas));*/
+        				sessionStorage.setItem('datas', JSON.stringify(this.datas)); 
+        				localStorage.setItem('email', this.datas.userEmail)
+        				localStorage.setItem('nickname', this.datas.userNickname)
         			}).catch(errorData => {
         				alert(errorData);
         			});
-        			
-        		}
-			}
+        	}
+			
+		});
+
+		/* axios({
+			method :"get",
+			url:"con/checkLogininfo"
+		}).then(resData=> {
+			console.log(resData);
+			console.log(resData.data);
+			document.getElementById("dataView").value = resData.data.userNickname;
+		}).catch(errorData =>{
+			alert(errorData)
 		}); */
-		
-		var req = new XMLHttpRequest();
-		req.open('GET', document.location, false);
-		req.send(null);
-		 var headers = req.getAllResponseHeaders();  
-		 /* var headers = req.getResponseHeader();  */
-		 /* var headers = req.getResponseHeader("Content-Type"); */ 
-		/*var headers = req.getResponseHeader("nickname"); */
-		alert(headers);
+		 var logout = function(){
+            localStorage.clear();
+             window.location.href="con/moveMainPage";
+        }
         </script>
     </body>
 </html>
