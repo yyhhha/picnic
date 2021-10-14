@@ -2,15 +2,16 @@ package kr.pe.playdata.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,12 +78,47 @@ public class BController {
 //	    }
 	  }
 	
-
+//	JSONObject jsonObj = null;
+//	jsonObj = (JSONObject) jsonParse.parse(al.toString());
 	
 	/* read (all) */
 	@GetMapping("boardrentpage2222")
 	@Transactional
-	public String findBoardRentAll4(){ // toString 재정의 안됨
+	public JSONArray findBoardRentAll4(@RequestParam String command){ // toString 재정의 안됨
+		List<BoardRent> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		if(command == "all") {
+			al.addAll(brr.findAll());
+			try {
+				array = (JSONArray) jsonParse.parse(al.toString());
+				return array;
+			} catch (ParseException e) {
+				System.out.println("변환에 실패");
+				e.printStackTrace();
+			}
+			return array;
+		}else if(command == "한강") {
+//			al.addAll(brr.f)
+			
+		}else if(command == "바다") {
+			
+		}else if(command == "글램핑") {
+			
+		}
+		
+		return null;
+		
+	}
+	
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage222")
+	@Transactional
+	public String findBoardRentAll3(){ // toString 재정의 안됨
 		List<BoardRent> al = new ArrayList<>();
 		
 		al.addAll(brr.findAll());

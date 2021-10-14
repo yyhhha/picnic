@@ -235,34 +235,35 @@
 
             <!-- </div> -->
           
-            <hr><br><br>
+            <!-- <hr><br><br> -->
 
 
-            <button @click="reqResAjax()">버튼 클릭하면 물품 대여 리스트</button>
-            <br><br>
+            <!-- <button @click="reqResAjax()">버튼 클릭하면 물품 대여 리스트</button>
+            <br><br> -->
 
-            <ul v-if="showBoolean">
+            <!-- <ul v-if="showBoolean">
               <li v-for="rent in rentlist">
                 {{rent.rentPrice}}
               </li>
-            </ul>
+            </ul> -->
 
 
-            <hr><br><br>
+            <!-- <hr><br><br> -->
 
 
-        
-            <section>
-              <div class="box alt">
+            
+            <section class="w3-row" v-if="showBoolean">
+              <div class="box alt"  v-for="rent in rentlist">
                 <div class="row gtr-uniform">
 
                   <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
                   <div class="col-4">
                     <article class="mini-post">
                       <header>
+                        <a href="#" class="author"><img v-bind:src="images/avatar.jpg" alt="" /></a>
                         <h3><a href="single.html">텐트 + 의자 + 돗자리 세뚜</a></h3>
-                        <time class="published" datetime="2015-10-20">October 20, 2015</time>
-                        <!-- <a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a> -->
+                        <h4>{{rent.rentName}}</h4>
+                        <h4>{{rent.rentPrice}}원</h4>
                       </header>
                       <!-- <a href="single.html" class="image"><img src="images/pigpig1.jpg" alt="" /></a> -->
                     </article>
@@ -300,28 +301,34 @@
 
 
     <script type="text/javascript">
-      new Vue({
-        el: "#main",
-        data: {
-            sorted: "",
-            showBoolean: false,
-            rentlist: []
-        },
-        methods: {
-            reqResAjax: function () {
-                axios({
-                    method: "get",
-                    url: "/con2/boardrentpage2222"
-                }).then(resData => {
-                  this.showBoolean = true;
-                  this.rentlist = resData.data;
-                  //console.log(this.rentlist);
-                }).catch(errorData => {
-                    alert(errorData);
-                });
-            }
+        window.onload = function(){
+          new Vue({
+            el: "#main",
+            data: {
+                sorted: "",
+                showBoolean: false,
+                rentlist: []
+            },
+            created: function () {
+              axios({
+                  method: "get",
+                  url: "/con2/boardrentpage2222"
+              }).then(resData => {
+                this.showBoolean = true;
+                this.rentlist = resData.data;
+                //console.log(this.rentlist);
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            },
+            
+          })
+
+
+
+          
+              
         }
-      })
     </script>
 
 

@@ -79,9 +79,14 @@ public class BoardRent {
 
 	@Override
 	public String toString() {
-		return "BoardRent [rentId=" + rentId + ", rentName=" + rentName + ", rentLink=" + rentLink + ", rentPrice="
-				+ rentPrice + ", rentTime=" + rentTime + ", rentContent=" + rentContent + ", rentImg=" + rentImg
-				+ ", rentDel=" + rentDel + "]";
+		return  "{\"rentId\":\"" + rentId + "\", "
+			   + "\"rentName\":\"" + rentName + "\", "
+			   + "\"rentLink\":\"" + rentLink + "\", " 
+			   + "\"rentPrice\":\"" + rentPrice + "\", "
+			   + "\"rentTime\":\"" + rentTime + "\", "
+			   + "\"rentContent\":\"" + rentContent + "\", "
+			   + "\"rentImg\":\"" + rentImg + "\", "
+			   + "\"rentDel\":\"" + rentDel + "\"}";
 	}
 	
 	
