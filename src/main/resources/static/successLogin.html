@@ -52,12 +52,12 @@
                      
                     	<button class="btn btn-outline-dark" onclick="logout()">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con3/moveMainPage">로그아웃</a>
+                            <a href="con/moveMainPage">로그아웃</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con3/mypage">마이 페이지</a>
+                            <a href="con/mypage">마이 페이지</a>
                         </button>
                     </form>
                 </div>
@@ -187,72 +187,6 @@
                     </div>
                 
           </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div>
                     
 	</div>
 
@@ -299,25 +233,6 @@
         		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
         	},
         });
-        /* new Vue({
-			el: "#nickdiv",
-			data : {
-				datas: []
-			},
-        	create:{
-        		axios({
-	        		method: "get",
-	        			url: "con/checkLogininfo"
-	        	}).then(resData => {
-	        		this.resData = true;
-	        			console.log(resData.data[0]);
-	        			this.datas = resData.data;
-	        	}).catch(errorData => {
-	        		alert(errorData);
-	        	});
-        	}	
-			
-		});  */  
        new Vue({
 			el: '#nickdiv',
 			data : {
@@ -326,17 +241,19 @@
 			created: function ()  {
         			axios({
         				method: "get",
-        				url: "con3/checkLogininfo"
+        				url: "con/checkLogininfo"
         			}).then(resData => {
         				this.datas = resData.data;
         				/* localStorage.setItem('datas', JSON.stringify(this.datas));*/
-        				sessionStorage.setItem('datas', JSON.stringify(this.datas)); 
-        				localStorage.setItem('email', this.datas.userEmail)
-        				localStorage.setItem('nickname', this.datas.userNickname)
+        				/* sessionStorage.setItem('datas', JSON.stringify(this.datas)); */ 
+        				/* localStorage.setItem('email', this.datas.userEmail)
+        				localStorage.setItem('nickname', this.datas.userNickname) */
+        				sessionStorage.setItem('email', this.datas.userEmail)
+        				sessionStorage.setItem('nickname', this.datas.userNickname)
         			}).catch(errorData => {
         				alert(errorData);
         			});
-        	}
+        	},
 			
 		});
 
@@ -352,7 +269,8 @@
 		}); */
 		 var logout = function(){
             localStorage.clear();
-             window.location.href="con3/moveMainPage";
+            sessionStorage.clear();
+             window.location.href="con/moveMainPage";
         }
         </script>
     </body>

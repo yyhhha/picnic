@@ -1,36 +1,66 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import kr.pe.playdata.dao.BoardPlaceRepo;
+import kr.pe.playdata.dao.BoardRentRepo;
+import kr.pe.playdata.dao.BoardReviewRepo;
+import kr.pe.playdata.dao.BoardTipRepo;
+import kr.pe.playdata.dao.LocCategoryRepo;
+import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
+import kr.pe.playdata.dao.RentCategoryRepo;
+import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.Puser;
+import kr.pe.playdata.model.dto.BoardRentDTO;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@RestController
-@RequestMapping("/con3")
-@SessionAttributes({"puser","nickname","email"})
+//@Slf4j
+//@RestController
+//@RequestMapping("/con")
+//@SessionAttributes({"puser","nickname","email"})
 public class YContorller {
 
 	static String amail="";
+	
+	@Autowired
+	private BoardPlaceRepo bpr;
+	@Autowired
+	private BoardRentRepo brr;
+	@Autowired
+	private BoardReviewRepo brer;
+	@Autowired
+	private BoardTipRepo btr;
+	@Autowired
+	private LocCategoryRepo lcr;
+	@Autowired
+	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
+	@Autowired
+	private RentCategoryRepo pcr;
 	
 	@GetMapping("signup")
 	public void signin(HttpServletResponse response) {
@@ -63,22 +93,7 @@ public class YContorller {
 			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
 				//성공 로직 
 				redirect_uri ="http://localhost/successLogin.html";
-				
 				amail =email;
-//				HttpSession session =request.getSession();
-//				session.setAttribute("puser", puser);
-//				session.setAttribute("nickname", puser.getUserNickname());
-//				session.setAttribute("email", puser.getUserEmail());
-//				
-//				
-////				System.out.println(session.getAttribute("nickname"));
-////				model.addAttribute("puser", puser);
-////				model.addAttribute("nickname", puser.getUserNickname());
-////				model.addAttribute("email", puser.getUserEmail());
-//				response.setHeader("nickname", puser.getUserNickname());
-//				response.addHeader("nickname", puser.getUserNickname());
-//				System.out.println(response.getHeader("nickname"));
-				
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
@@ -101,8 +116,6 @@ public class YContorller {
 	//axios로 받기 위해 사용 
 	@GetMapping("checkLogininfo")
 	public Puser checkLogininfo() {
-		System.out.println(amail);
-		System.out.println(pur.findPuserByUserEmail(amail));
 		return pur.findPuserByUserEmail(amail);
 	}
 	
@@ -153,5 +166,27 @@ public class YContorller {
 	public String checkEmail() {
 		
 		return"";
+	}
+	/* read (all) */
+	@GetMapping("boardrentpage2222")
+	@Transactional
+	public JSONArray findBoardRentAll4(){ // toString 재정의 안됨
+		List<BoardRent> al = new ArrayList<>();
+		
+		al.addAll(brr.findAll());
+		
+		JSONParser jsonParse = new JSONParser();
+//		JSONObject jsonObj = null;
+		JSONArray array = null;
+		try {
+//			jsonObj = (JSONObject) jsonParse.parse(al.toString());
+			array = (JSONArray) jsonParse.parse(al.toString());
+			
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
 	}
 }
