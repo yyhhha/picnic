@@ -72,7 +72,6 @@ public class BoardPlace  {
 	
 	@Column(name = "place_del")
 	private int placeDel; //boolean -> int 0,1로 구분 Y N
-	
 	@Override
 	public String toString() {
 		return "BoardPlace [placeId=" + placeId + ", placeName=" + placeName + ", placeContent=" + placeContent

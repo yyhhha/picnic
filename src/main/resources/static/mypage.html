@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>마이페이지</title>
+    <link href="css/mypage.css" rel="stylesheet" />
+       
+</head>
+
+<style>
+	<style type="text/css"> 
+		a { text-decoration:none } 
+		a:visited { color: black; text-decoration: none;}
+  </style>
+</head>
+<body>
+<div class="header">
+    <header>
+      <div style="font-size: small; text-align: right; ">
+      <button class="btn btn-outline-dark" onclick="logout()">
+                            <a href="con/moveMainPage">로그아웃</a>
+      </button>
+    </div>
+    <a>피그닉 사이트</a>
+      <div> 
+      <form class="example" action="" style="margin:auto;max-width:500px">
+        <input type="text" placeholder="Search.." name="search2">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div> <br><br>
+  
+      <nav>
+        <ul class="nav-container" >
+          <li class="nav-item"> <a href="">마이 페이지</a> </li>
+        </ul>
+      </nav>
+    </header>
+
+  </div>
+
+<div class="row">
+    <div class="column side" style="background-color:#ffffff; ">
+      <ul>
+        <li><a href="#home">회원정보 수정</a></li> <!-- /* class="active" -->
+        <li><a href="#news">내가 쓴 글</a></li>
+        <li><a href="#contact">내가 쓴 댓글</a></li>
+      </ul>
+    </div>
+    <div class="column middle" style="background-color:#ffffff;">
+
+        <div>
+            <form>
+                
+                <span>장소 명칭</span><br>
+                <input v-model="placeName" placeholder="업체 이름을 써주세요."><br>
+                <span>위치</span><br>
+                <input v-model="placeLoc" placeholder="업체 위치를 써주세요."><br>
+                <span>장소 특징</span><br>
+                  <input type="checkbox"  value="강" v-model="placeCategory">
+                  <label for="river">강</label>
+                  <input type="checkbox" value="바다" v-model="placeCategory">
+                  <label for="beach">바다</label>
+                  <input type="checkbox"  value="숲" v-model="placeCategory">
+                  <label for="forest">숲</label>
+                  <input type="checkbox" value="도시" v-model="placeCategory">
+                  <label for="city">도시</label>
+                
+                  <br>
+              
+                <span>상세 내용</span><br>
+                <textarea v-model="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
+    
+                <input style="background-color: rgb(68, 68, 248);"  type="submit" value="완료">
+                
+    
+                
+            </form>
+    
+        </div>
+
+     
+
+
+    </div>
+  
+
+  </div>
+
+  <div class="footer">
+    <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
+      게시된 정보는 무단으로 배포할 수 없습니다.</a>
+      ＠2021</p>
+  </div>
+
+</body>
+
+</html>

@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes({"puser","nickname","email"})
 public class YContorller {
 
-	
+	static String amail="";
 	@Autowired
 	private PuserRepo pur;
 	
@@ -60,24 +60,25 @@ public class YContorller {
 		String redirect_uri="";
 		try{
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
-			if(puser.getUserPassword().equals(psw)) {
+			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
 				//성공 로직 
 				redirect_uri ="http://localhost/successLogin.html";
 				
+				amail =email;
+//				HttpSession session =request.getSession();
+//				session.setAttribute("puser", puser);
+//				session.setAttribute("nickname", puser.getUserNickname());
+//				session.setAttribute("email", puser.getUserEmail());
+//				
+//				
+////				System.out.println(session.getAttribute("nickname"));
+////				model.addAttribute("puser", puser);
+////				model.addAttribute("nickname", puser.getUserNickname());
+////				model.addAttribute("email", puser.getUserEmail());
+//				response.setHeader("nickname", puser.getUserNickname());
+//				response.addHeader("nickname", puser.getUserNickname());
+//				System.out.println(response.getHeader("nickname"));
 				
-				HttpSession session =request.getSession();
-				session.setAttribute("puser", puser);
-				session.setAttribute("nickname", puser.getUserNickname());
-				session.setAttribute("email", puser.getUserEmail());
-				
-				
-//				System.out.println(session.getAttribute("nickname"));
-//				model.addAttribute("puser", puser);
-//				model.addAttribute("nickname", puser.getUserNickname());
-//				model.addAttribute("email", puser.getUserEmail());
-				response.setHeader("nickname", puser.getUserNickname());
-				response.addHeader("nickname", puser.getUserNickname());
-				System.out.println(response.getHeader("nickname"));
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
@@ -95,6 +96,12 @@ public class YContorller {
 		
 		String redirect_uri="http://localhost/login.html";
 		response.sendRedirect(redirect_uri);
+	}
+	
+	//axios로 받기 위해 사용 
+	@GetMapping("checkLogininfo")
+	public Puser checkLogininfo() {
+		return pur.findPuserByUserEmail(amail);
 	}
 	
 	//가입 메소드
@@ -131,18 +138,17 @@ public class YContorller {
 		}
 	}
 	
+	@GetMapping("mypage")
+	public void mypage(HttpServletResponse response) {
+		String redirect_uri="http://localhost/mypage.html";
+    	try {
+			response.sendRedirect(redirect_uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@GetMapping("checkEmail")
 	public String checkEmail() {
-		
-		return"";
-	}
-	@GetMapping("logout")
-	public String logout() {
-		
-		return"";
-	}
-	@GetMapping("mypage")
-	public String mypage() {
 		
 		return"";
 	}
