@@ -62,4 +62,9 @@ public class BoardReview {
 	@Column(name="review_score")
 	private int reviewScore;
 	
+	@Override
+	public String toString() {
+		return "";
+	}
+	
 }

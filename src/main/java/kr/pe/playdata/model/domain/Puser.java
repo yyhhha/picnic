@@ -70,4 +70,9 @@ public class Puser {
 	@Column(name = "out_date")
 	private String outDate;//YYYYMMDD    sql date -> java String 
 	
+	@Override
+	public String toString() {
+		return "";
+	}
+	
 }

@@ -168,127 +168,106 @@
       </style>
 </head>
 <body>
-    <div class="header">
-        <header>
-          <div style="font-size: small; text-align: right; ">
-          <a href="#" >마이페이지</a>
-          <a href="#" >로그인</a>
-          <a href="#" >회원가입</a>
-        </div>
-        <a>피그닉 사이트</a>
-          <div> 
-          <form class="example" action="" style="margin:auto;max-width:500px">
-            <input type="text" placeholder="Search.." name="search2">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div> <br><br>
-      
-          <nav>
-            <ul class="nav-container" >
-              <li class="nav-item"> <a href="">피크닉 물품대여</a> </li>
-              <li class="nav-item"> <a href="">피크닉 장소추천</a> </li>
-              <li class="nav-item"> <a href="">피크닉 장소후기</a> </li>
-              <li class="nav-item"> <a href="">피크닉 꿀팁</a> </li>
-            </ul>
-          </nav>
-        </header>
-    
+  <div class="header">
+      <header>
+        <div style="font-size: small; text-align: right; ">
+        <a href="#" >마이페이지</a>
+        <a href="#" >로그인</a>
+        <a href="#" >회원가입</a>
       </div>
-
-    <div class="row">
-        <div class="column side" style="background-color:#ffffff; ">
-          <ul>
-            <li><a class="active" href="#home">전체보기</a></li>
-           
-           
+      <a>피그닉 사이트</a>
+        <div> 
+        <form class="example" action="" style="margin:auto;max-width:500px">
+          <input type="text" placeholder="Search.." name="search2">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div> <br><br>
+    
+        <nav>
+          <ul class="nav-container" >
+            <li class="nav-item"> <a href="">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="">피크닉 꿀팁</a> </li>
           </ul>
-        </div>
+        </nav>
+      </header>
+  
+    </div>
+
+  <div class="row">
+      <div class="column side" style="background-color:#ffffff; ">
+        <ul>
+          <li><a class="active" href="#home">전체보기</a></li>
+         
+         
+        </ul>
+      </div>
 
 
-        <div class="column middle" style="background-color:#ffffff;">
-    
-            <div id="boardTip">
-        
-                    <span>제목</span><br>
-                    <input v-model="tipTitle"><br>
-        
-                    <span>상세 내용</span><br>
-                    <textarea v-model="tipContent" placeholder="상세 내용을 써주세요."></textarea><br>
-        
-                    <div class="input-container">
-                      <input v-model="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
-                      <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
-                    <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
-        
-                    
-               
-                
-            </div>
-    
+      <div class="column middle" id="tiplist" style="background-color:#ffffff;">
+  
+        <button @click="reqResAjax()">2. 클릭</button>
+        <div id="viewData" v-if="resData">
+          <table border=1>
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+              </tr>
+              <tr v-for="v in datas">
+                <td>{{v.tipId}}</td>
+                <td>{{v.tipTitle}}</td>
+                <td>{{v.tipDate}}</td>
+                <td>{{v.tipDate}}</td>
+              </tr>
+          </table>
         </div>
-      
-    
+         
+  
+  
+  
       </div>
     
-      <div class="footer">
-        <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
-          게시된 정보는 무단으로 배포할 수 없습니다.</a>
-          ＠2021</p>
-      </div>
+  
+    </div>
+  
+    <div class="footer">
+      <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
+        게시된 정보는 무단으로 배포할 수 없습니다.</a>
+        ＠2021</p>
+    </div>
 
       <script>
+     
+        
         new Vue({
-          el: "#boardTip",
+          el: "#tiplist",
           data : {
-            tipTitle : "",
-            tipContent: "",
-            tipImg: ""
-
+            resData: false,
+            datas: []
           },
-          methods :{
-            submit: function(){
-
-              axios({
-                method: "post",
-                url: "http://127.0.0.1:80/addBoardTip",
-                data: {
-                  tipTitle : this.tipTitle, 
-                  tipContent : this.tipContent,
-                  tipImg : this.tipImg
-                  }
-              }).then(resData => {
-  
-                
-              }).catch(errorData => {
-                alert(errorData);
-              });
-              
-            }
-  
+          methods: {
+            reqResAjax: function(){
+                  axios({
+                    method: "get",
+                    url: "tips"
+                  }).then(resData => {
+                    this.resData = true;
+                    
+                    console.log(resData.data[0]);
+                    this.datas = resData.data;
+                    console.log(this.datas);
+                    
+                  }).catch(errorData => {
+                    alert(errorData);
+                  });
+                  
+                }
           }
-         
         });
-
-        function showMyImage(fileInput) {
-          var files = fileInput.files;
-          for (var i = 0; i < files.length; i++) {           
-              var file = files[i];
-              var imageType = /image.*/;     
-              if (!file.type.match(imageType)) {
-                  continue;
-              }           
-              var img=document.getElementById("thumbnil");            
-              img.file = file;    
-              var reader = new FileReader();
-              reader.onload = (function(aImg) { 
-                  return function(e) { 
-                      aImg.src = e.target.result; 
-                  }; 
-              })(img);
-              reader.readAsDataURL(file);
-          }    
-      }
-      </script>
+        </script>
     
     </body>
     

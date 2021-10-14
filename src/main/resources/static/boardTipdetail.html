@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <title>Document</title>
-  
+
     <style>
         * {
           box-sizing: border-box;
@@ -203,51 +200,31 @@
           <ul>
             <li><a class="active" href="#home">전체보기</a></li>
            
-            <li><a href="#news">한강 피크닉</a></li>
-            <li><a href="#contact">바다 피크닉</a></li>
-            <li><a href="#about">글램핑</a></li>
+           
           </ul>
         </div>
+
+
         <div class="column middle" style="background-color:#ffffff;">
     
-            <div id="rentboard">
-                
-                    <span>카테고리</span><br>
-                    <input type="radio" id="one" value="한강피크닉" v-model="rendCategory">
-                    <label for="one">한강 피크닉</label>
+            <div id="boardTip">
+                <form action="/tip/{{tipId}}" method="post">
         
-                    <input type="radio" id="two" value="바다피크닉" v-model="rendCategory">
-                    <label for="two">바다 피크닉</label>
-        
-                    <input type="radio" id="three" value="글램핑" v-model="rendCategory">
-                    <label for="three">글램핑</label>
-        
-                    <input type="radio" id="four" value="그 외" v-model="rendCategory">
-                    <label for="four">그 외</label>
-        
-        
-                    <br>
-                    <span>대여업체 이름</span><br>
-                    <input v-model="rentName" placeholder="업체 이름을 써주세요."><br>
-                    <span>위치</span><br>
-        
-                    <input v-model="rentLoc" placeholder="업체 위치를 써주세요."><br>
-                    <span>홈페이지 링크</span><br>
-                    <input v-model="rentLink" placeholder="홈페이지 링크를 써주세요."><br>
-                    <span>가격</span><br>
-                    <input v-model="rentPrice">원<br>
-                    <span>대여시간</span><br>
-                    <input v-model="rentTime">시간<br>
-        
+                    <span>제목</span><br>{{tipTitle}}
+                            
                     <span>상세 내용</span><br>
-                    <textarea v-model="rentContent" placeholder="상세 내용을 써주세요."></textarea><br>
+                    {{tipContent}}
+                    {{tipImg}}
+                    
+                    <br>
+                    <button style="background-color: rgb(68, 68, 248);">수정</button>
+                    <button style="background-color: rgb(68, 68, 248);">삭제</button>
         
-                    <input v:onclick="submit" style="background-color: rgb(68, 68, 248);" type="submit" value="완료">
-              
-        
+                    
+                </form>
+                
             </div>
-    
-          
+           
     
     
     
@@ -261,52 +238,19 @@
           게시된 정보는 무단으로 배포할 수 없습니다.</a>
           ＠2021</p>
       </div>
-    
 
       <script>
-
         new Vue({
-          el: "#rentboard",
+          el: "#boardTip",
           data : {
-            rentName : "",
-            rentLoc : "",
-            rentLink: "",
-            rentPrice : "",
-            rentTime : "",
-            rentContent : ""
-            
-          },
-          methods : {
-            submit: function(){
+            tipTitle : "ss",
+            tipContent: "ss",
+            tipImg:""
 
-              axios({
-                method: "post",
-                url: "http://127.0.0.1:80/addBoardRent",
-                data: {
-                  rentName : this.rentName,
-                  rentLoc : this.rentLoc,
-                  rentLink: this.rentLink,
-                  rentPrice : this.rentPrice,
-                  rentTime : this.rentTime,
-                  rentContent : this.rentContent
-                  }
-              }).then(resData => {
-  
-                
-              }).catch(errorData => {
-                alert(errorData);
-              });
-              
-            }
-  
           }
         })
-
-
       </script>
-
-
-
+    
     </body>
     
     </html>
