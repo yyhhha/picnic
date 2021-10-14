@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<link  href="css/signup.css" rel="stylesheet">
+<title>회원가입</title>
+<style type="text/css"> 
+		a { text-decoration:none } 
+		a:visited { color: black; text-decoration: none;}
+		</style>
+</head>
+<body>
+<h2>피그닉 회원 가입</h2>
+    <div class="container">
+	    <form action="con/addPUser" method="post">
+		<!-- <input type="hidden" name="command" value="userInsert"> -->
+	      <label for="email"><b>e-mail</b></label>
+	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}">
+	     <!--  <form>
+	      <button type="button" class="overlabbtn" onclick="openForm()">e-mail 중복확인</button>
+	      
+	      <div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="Email" required><br>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+			</div> 
+
+
+	      </form>-->
+	      
+	      <label for="psw"><b>Password</b></label>
+	      <input type="password" placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}" required><br>
+	      <label for="nickname"><b>Nickname</b></label>
+	      <input type="text" placeholder="닉네임을 입력하세요" name="nickname" th:value="${nickname}" required><br>
+	      <button type="submit">sign up</button>
+	     </form>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+    <form action="review" method="post">
+      <button type="button" onclick="location.href='con/moveMainPage'" class="cancelbtn"> Cancel</button>
+ 	 </form>
+    </div>
+</div>
+
+</body>
+
+<script>
+function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
+
+</script>
+</html>

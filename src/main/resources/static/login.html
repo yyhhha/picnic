@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<link rel="stylesheet" href="css/signup.css" >
+<title>로그인</title>
+<style type="text/css"> 
+		a { text-decoration:none } 
+		a:visited { color: black; text-decoration: none;}
+		</style>
+</head>
+<body>
+<h2>피그닉 로그인</h2>
+    <div class="container">
+    	<form action="con/checkLogin" method="post">
+    	<input type="hidden" name="command" value="userLogin">
+      <label for="email"><b>e-mail</b></label>
+	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="비밀번호를 입력하세요" name="psw" required th:value="${psw}"><br>
+      <button type="submit">Login</button>
+      </form>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Cancel</button>
+      <span class="psw"> <button type="button"  class="cancelbtn">비밀번호 찾기</button></span>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

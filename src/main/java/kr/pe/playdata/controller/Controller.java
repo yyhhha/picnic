@@ -49,6 +49,34 @@ public class Controller {
 	@Autowired
 	private RentCategoryRepo pcr;
 	
+	
+	/***
+	 * 
+	 * @return
+	 * add yyh
+	 */
+	
+	@GetMapping("signup")
+	public void signin(HttpServletResponse response) {
+		String redirect_uri="http://localhost/signup.html";
+    	try {
+			response.sendRedirect(redirect_uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@GetMapping("login")
+	public void login(HttpServletResponse response) {
+		String redirect_uri="http://localhost/login.html";
+    	try {
+			response.sendRedirect(redirect_uri);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**/
+	 
 	@GetMapping("addRentCate")
 	@Transactional
 	public String addRentCate() {
