@@ -209,20 +209,17 @@
     
             <div id="boardTip">
         
-                    <span>제목</span><br>
-                    <input v-model="tipTitle"><br>
-        
-                    <span>상세 내용</span><br>
-                    <textarea v-model="tipContent" placeholder="상세 내용을 써주세요."></textarea><br>
-        
-                    <div class="input-container">
-                      <input v-model="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
-                      <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
-                    <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
-        
-                    
-               
-                
+                 <span>제목</span><br>
+                 <input v-model="tipTitle"><br>
+     
+                 <span>상세 내용</span><br>
+                 <textarea v-model="tipContent" placeholder="상세 내용을 써주세요."></textarea><br>
+     
+                 <div class="input-container">
+                   <input v-model="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
+                   <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
+                 <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
+
             </div>
     
         </div>
