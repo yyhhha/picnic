@@ -1,56 +1,146 @@
-//package kr.pe.playdata.controller;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import javax.transaction.Transactional;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import kr.pe.playdata.dao.BoardPlaceRepo;
-//import kr.pe.playdata.dao.BoardRentRepo;
-//import kr.pe.playdata.dao.BoardReviewRepo;
-//import kr.pe.playdata.dao.BoardTipRepo;
-//import kr.pe.playdata.dao.LocCategoryRepo;
-//import kr.pe.playdata.dao.PcommentRepo;
-//import kr.pe.playdata.dao.PuserRepo;
-//import kr.pe.playdata.model.domain.BoardPlace;
-//import kr.pe.playdata.model.domain.BoardRent;
-//import kr.pe.playdata.model.domain.BoardReview;
-//import kr.pe.playdata.model.domain.BoardTip;
-//import kr.pe.playdata.model.domain.LocCategory;
-//import kr.pe.playdata.model.domain.Pcomment;
-//import kr.pe.playdata.model.domain.Puser;
-//
-////@CrossOrigin(origins = "http://localhost:80")
-//@RestController
-////@RequestMapping("/con2")
-//public class BController {
-//
-//	@Autowired
-//	private BoardPlaceRepo bpr;
-//	@Autowired
-//	private BoardRentRepo brr;
-//	@Autowired
-//	private BoardReviewRepo brer;
-//	@Autowired
-//	private BoardTipRepo btr;
-//	@Autowired
-//	private LocCategoryRepo lcr;
-//	@Autowired
-//	private PcommentRepo pcor;
-//	@Autowired
-//	private PuserRepo pur;
-////	@Autowired
-////	private RentCategoryRepo pcr;
-//	
-//	
+package kr.pe.playdata.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.pe.playdata.dao.BoardPlaceRepo;
+import kr.pe.playdata.dao.BoardRentRepo;
+import kr.pe.playdata.dao.BoardReviewRepo;
+import kr.pe.playdata.dao.BoardTipRepo;
+import kr.pe.playdata.dao.LocCategoryRepo;
+import kr.pe.playdata.dao.PcommentRepo;
+import kr.pe.playdata.dao.PuserRepo;
+import kr.pe.playdata.dao.RentCategoryRepo;
+import kr.pe.playdata.model.domain.BoardPlace;
+import kr.pe.playdata.model.domain.BoardRent;
+import kr.pe.playdata.model.domain.BoardReview;
+import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.domain.LocCategory;
+import kr.pe.playdata.model.domain.Pcomment;
+import kr.pe.playdata.model.domain.Puser;
+import kr.pe.playdata.model.domain.RentCategory;
+
+//@CrossOrigin(origins = "http://localhost:80")
+@RestController
+@RequestMapping("/con2")
+public class BController {
+
+	@Autowired
+	private BoardPlaceRepo bpr;
+	@Autowired
+	private BoardRentRepo brr;
+	@Autowired
+	private BoardReviewRepo brer;
+	@Autowired
+	private BoardTipRepo btr;
+	@Autowired
+	private LocCategoryRepo lcr;
+	@Autowired
+	private PcommentRepo pcor;
+	@Autowired
+	private PuserRepo pur;
+	@Autowired
+	private RentCategoryRepo pcr;
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage222222")
+	@Transactional
+	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
+//	    try {
+	      List<BoardRent> brs = new ArrayList<BoardRent>();
+
+//	      if (rentId == 0)
+//	        brr.findAll().forEach(brs::add);
+//	      else
+	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
+
+	      if (brs.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	      }
+
+	      return new ResponseEntity<>(brs, HttpStatus.OK);
+//	    } catch (Exception e) {
+//	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
+//	    }
+	  }
+	
+//	JSONObject jsonObj = null;
+//	jsonObj = (JSONObject) jsonParse.parse(al.toString());
+	
+	/* read (all) */
+	@GetMapping("boardrentpage2222")
+	@Transactional
+	public JSONArray findBoardRentAll4(@RequestParam String command){ // toString 재정의 안됨
+		List<BoardRent> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		if(command == "all") {
+			al.addAll(brr.findAll());
+			try {
+				array = (JSONArray) jsonParse.parse(al.toString());
+				return array;
+			} catch (ParseException e) {
+				System.out.println("변환에 실패");
+				e.printStackTrace();
+			}
+			return array;
+		}else if(command == "한강") {
+//			al.addAll(brr.f)
+			
+		}else if(command == "바다") {
+			
+		}else if(command == "글램핑") {
+			
+		}
+		
+		return null;
+		
+	}
+	
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage222")
+	@Transactional
+	public String findBoardRentAll3(){ // toString 재정의 안됨
+		List<BoardRent> al = new ArrayList<>();
+		
+		al.addAll(brr.findAll());
+		
+		return al.toString();
+	}
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage22")
+	@Transactional
+	public List<BoardRent> findBoardRentAll2() {   //  []
+		List<BoardRent> al = new ArrayList<>();
+		System.out.println(brr.findAll().size()); //2
+		
+		for(int i = 1; i < brr.findAll().size(); i++) {
+			al.addAll(brr.findBoardRentByRentId(i));
+		}
+		return al; //JSON 배열로 자동 반환해줌
+	}
+	
+
 //	/* read (all) */
 //	@GetMapping("boardrentpage222222")
 //	@Transactional
