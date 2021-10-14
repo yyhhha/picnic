@@ -206,24 +206,40 @@
         <li><a href="#about">글램핑</a></li>
       </ul>
     </div>
+    
+    
+    
     <div class="column middle" style="background-color:#ffffff;">
 
-        <div id= "placeapp">
-			<form id = "placeform" method="GET" action="con/addplace2">
+        <div id= "locapp">
+			<form id = "locform" method="GET" action="con/addLoc2">
 	            <span>장소 명칭</span><br>
-	            <input v-model:values="placeName" name="placeName" placeholder="장소 이름을 써주세요."><br>
+	            <input v-model:values="locName" name="locName" placeholder="장소 이름을 써주세요."><br>
 	            <span>위치</span><br>
-	            <input v-model:values="placeLoc" name="placeLoc" placeholder="장소에 해당하는 위치이름를 써주세요."><br>
+	            <input v-model:values="sido" name="sido" placeholder="도/시 단위의 지역명을 입력해주세요"><br>
+	            <input v-model:values="sigungu" name="sigungu" placeholder="구/군 단위의 지역명을 입력해주세요"><br>
+	            <input v-model:values="address" name="address" placeholder="상세 지역을 입력해주세요"><br>
+	            <span>장소 특징</span><br>
+	              <input type="checkbox"  value="강" name="placeCategory" v-model:values="placeCategory">
+	              <label for="river">강</label>
+	              <input type="checkbox" value="바다" name="placeCategory" v-model:values="placeCategory">
+	              <label for="beach">바다</label>
+	              <input type="checkbox"  value="숲" name="placeCategory" v-model:values="placeCategory">
+	              <label for="forest">숲</label>
+	              <input type="checkbox" value="도시" name="placeCategory" v-model:values="placeCategory">
+	              <label for="city">도시</label>
+	            
+	              <br>
 	          
 	            <span>상세 내용</span><br>
-	            <textarea v-model="placeContent" name="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
 	
 				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
 	            
-	            <li v-text="placeName"></li>
-	            <li v-text="placeLoc"></li>
+	            <li v-text="locName"></li>
+	            <li v-text="address"></li>
+	            <li v-text="sido"></li>
+	            <li v-text="sigungu"></li>
 	            <li v-text="placeCategory"></li>
-	            <li v-text="placeContent"></li>
 			</form>
         </div>
 
@@ -247,12 +263,13 @@
 
 
   var place = new Vue({
-    el : "#placeapp",
+    el : "#locapp",
     data : {
-      placeName : "기본",
-      placeLoc : "기본",
+    	locName : "",
+    	address : "",
+    	sido : "",
+    	sigungu: "",
       placeCategory : [],
-      placeContent : "기본"
     },
     methods : {
       send : function() {

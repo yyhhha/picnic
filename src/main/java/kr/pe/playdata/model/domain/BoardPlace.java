@@ -28,7 +28,7 @@ import lombok.Setter;
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="placeId_seq", sequenceName="placeId_seq", initialValue=1, allocationSize=1)
-@Table(name = "board_place")
+@Table(name = "boardplace")
 public class BoardPlace  {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="placeId_seq")
@@ -57,6 +57,9 @@ public class BoardPlace  {
 	
 	@Column(name = "place_content")
 	private String placeContent;
+	
+	@Column(name="")
+	private String placeCategory;
 	
 	//place_score 삭제 리뷰 스코어 합산해서 계산.
 //	@Column(name = "place_score")

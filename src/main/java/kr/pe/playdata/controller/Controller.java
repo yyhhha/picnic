@@ -1,9 +1,14 @@
 package kr.pe.playdata.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
@@ -24,6 +29,7 @@ import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.domain.RentCategory;
 
 @RestController
+@RequestMapping("/con")
 public class Controller {
 
 	@Autowired
@@ -101,6 +107,24 @@ public class Controller {
 		
 		return "loc 저장 성공";
 	}
+	@GetMapping("addLoc2")
+	@Transactional
+	public String addLocCate2( HttpServletResponse response, @RequestParam String locName, @RequestParam String sido, @RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
+		LocCategory A = new LocCategory();
+		A.setLocName(locName);
+		A.setLocSido(sido);
+		A.setLocSigungu(sigungu);
+		A.setLocAddress(address);
+		A.setPlaceCategory(placeCategory);
+		lcr.save(A);
+		try {
+			response.sendRedirect("http://localhost/locCate.html");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "성공";
+	}
 	
 	@GetMapping("addBoardPlace")
 	@Transactional
@@ -117,6 +141,35 @@ public class Controller {
 		
 		return "place 저장 성공";
 	}
+	
+	@GetMapping("addplace2")
+	@Transactional
+	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName, @RequestParam String placeLoc,@RequestParam String placeContent) {
+		BoardPlace A = new BoardPlace();
+		A.setPlaceName(placeName);
+		System.out.println(lcr.findLocCategoryByLocName(placeLoc).get(0));
+		if (lcr.findLocCategoryByLocName(placeLoc).get(0) != null){
+			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));			
+			A.setPlaceContent(placeContent);
+			bpr.save(A);
+		}else {
+			try {
+				response.sendRedirect("http://localhost/locCate.html");
+				return "위치 데이터를 입력해주세요";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			response.sendRedirect("http://localhost/boardPlace.html");
+			return "성공";
+		} catch (IOException e) {
+			e.printStackTrace();
+		};
+		return "???";
+		
+	}
+	
 	
 	@GetMapping("addBoardTip")
 	@Transactional
@@ -138,7 +191,7 @@ public class Controller {
 	@GetMapping("addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
-		A.setCommentId(1);
+		A.setCommentId(2);
 		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
 		A.setCommentContent("comment content");
 		A.setCommentDel(0);
@@ -150,7 +203,6 @@ public class Controller {
 		
 		return "comment 저장 성공";
 	}
-	
 	
 	@GetMapping("addBoardReview")
 	public String addBoardReview() {
