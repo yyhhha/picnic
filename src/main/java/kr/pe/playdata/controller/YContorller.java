@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
 @RestController
-@RequestMapping("/con")
+//@RequestMapping("/con")
 @SessionAttributes({"puser","nickname","email"})
 public class YContorller {
 
