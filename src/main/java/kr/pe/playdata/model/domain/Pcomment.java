@@ -16,11 +16,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"boardRent", "puser", "boardTip"})
 
 @Entity
 @DynamicInsert
@@ -56,4 +58,12 @@ public class Pcomment {
 	
 	@Column(name = "comment_del")
 	private int commentDel; // boolean -> int 
+
+	@Override
+	public String toString() {
+		return "Pcomment [commentId=" + commentId + ", commentContent=" + commentContent + ", commnetDate="
+				+ commnetDate + ", commentDel=" + commentDel + "]";
+	}
+	
+	
 }

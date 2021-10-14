@@ -19,17 +19,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"locCate", "puser", "BoardReviewList"})
 
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="placeId_seq", sequenceName="placeId_seq", initialValue=1, allocationSize=1)
 @Table(name = "board_place")
 public class BoardPlace  {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="placeId_seq")
 	@Column(name = "place_id")
@@ -37,7 +40,6 @@ public class BoardPlace  {
 	
 	@ManyToOne
 	@JoinColumn(name = "loc_id")
-	
 	private LocCategory locCate;
 	
 	//loc_id -> place_cate_id
@@ -67,4 +69,11 @@ public class BoardPlace  {
 	
 	@Column(name = "place_del")
 	private int placeDel; //boolean -> int 0,1로 구분 Y N
+	
+	@Override
+	public String toString() {
+		return "BoardPlace [placeId=" + placeId + ", placeName=" + placeName + ", placeContent=" + placeContent
+				+ ", placeImg=" + placeImg + ", placeDel=" + placeDel + "]";
+	}
+
 }

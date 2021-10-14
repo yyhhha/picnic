@@ -16,11 +16,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"boardPlace", "puser"})
 
 @Entity
 @DynamicInsert
@@ -61,5 +63,13 @@ public class BoardReview {
 	//리뷰 스코어 추가
 	@Column(name="review_score")
 	private int reviewScore;
+
+	@Override
+	public String toString() {
+		return "BoardReview [reviewId=" + reviewId + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
+				+ ", reviewDate=" + reviewDate + ", reviewDel=" + reviewDel + ", reviewScore=" + reviewScore + "]";
+	}
+	
+	
 	
 }

@@ -1,11 +1,18 @@
 package kr.pe.playdata.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
@@ -25,9 +32,10 @@ import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.domain.RentCategory;
 
+//@CrossOrigin(origins = "http://localhost:80")
 @RestController
-@RequestMapping("/con")
-public class Controller {
+@RequestMapping("/con2")
+public class Controller2 {
 
 	@Autowired
 	private BoardPlaceRepo bpr;
@@ -45,6 +53,70 @@ public class Controller {
 	private PuserRepo pur;
 	@Autowired
 	private RentCategoryRepo pcr;
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage222222")
+	@Transactional
+	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
+//	    try {
+	      List<BoardRent> brs = new ArrayList<BoardRent>();
+
+//	      if (rentId == 0)
+//	        brr.findAll().forEach(brs::add);
+//	      else
+	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
+
+	      if (brs.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	      }
+
+	      return new ResponseEntity<>(brs, HttpStatus.OK);
+//	    } catch (Exception e) {
+//	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
+//	    }
+	  }
+	
+
+	
+	/* read (all) */
+	@GetMapping("boardrentpage2222")
+	@Transactional
+	public String findBoardRentAll4(){ // toString 재정의 안됨
+		List<BoardRent> al = new ArrayList<>();
+		
+		al.addAll(brr.findAll());
+		
+		return al.toString();
+	}
+	
+	
+	/* read (all) */
+	@GetMapping("boardrentpage22")
+	@Transactional
+	public List<BoardRent> findBoardRentAll2() {   //  []
+		List<BoardRent> al = new ArrayList<>();
+		System.out.println(brr.findAll().size()); //2
+		
+		for(int i = 1; i < brr.findAll().size(); i++) {
+			al.addAll(brr.findBoardRentByRentId(i));
+		}
+		return al; //JSON 배열로 자동 반환해줌
+	}
+	
+	
+	
+//	/* read (all) */
+//	@GetMapping("boardrentpage2")
+//	@Transactional
+//	public String findBoardRentAll(){
+//		BoardRent all = brr.findBoardRentByRentId(1);
+//		System.out.println(all.getRentName());
+//		return all.toString();
+//	}
+	
+	
+	
 	
 	@GetMapping("addRentCate")
 	@Transactional
@@ -70,7 +142,7 @@ public class Controller {
 		A.setRentLink("link");
 		A.setRentImg("img");
 		A.setRentDel(0);
-		System.out.println(A.toString());
+//		System.out.println(A.toString());
 		brr.save(A);
 		return "Rent 저장 성공";
 	}
@@ -84,7 +156,7 @@ public class Controller {
 		B.setUserNickname("jokea");
 //		B.setRoles("admin");
 //		B.setUserOut(0);
-		System.out.println(B.toString());
+//		System.out.println(B.toString());
 		pur.save(B);
 		
 		return "puser 저장 성공";
@@ -133,11 +205,12 @@ public class Controller {
 		A.setTipLike(0);
 		A.setTipDel(0);
 				
-		System.out.println(A.toString());
+//		System.out.println(A.toString());
 		btr.save(A);
 		
 		return "tip 저장 성공";
 	}
+	
 	@GetMapping("addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
@@ -148,12 +221,11 @@ public class Controller {
 //		A.setBoardRent(brr.findBoardRentByRentId(1));
 		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
 		
-		System.out.println(A.toString());
+//		System.out.println(A.toString());
 		pcor.save(A);
 		
 		return "comment 저장 성공";
 	}
-	
 	
 	@GetMapping("addBoardReview")
 	public String addBoardReview() {
@@ -166,7 +238,7 @@ public class Controller {
 		
 		A.setReviewScore(0);
 		
-		System.out.println(A.toString());
+//		System.out.println(A.toString());
 		brer.save(A);
 		
 		return "리뷰 저장 성공";

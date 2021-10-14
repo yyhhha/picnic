@@ -18,13 +18,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
+//@ToString(exclude = {"boardPlaceList", "boardRentList"})
 
+@Entity
 @SequenceGenerator(name="locId_seq", sequenceName="locId_seq", initialValue=1, allocationSize=1)
 @Table(name = "loc_category")
 public class LocCategory {
@@ -59,4 +61,12 @@ public class LocCategory {
 	
 	@Column(name = "loc_sigungu")
 	private String locSigungu;
+
+	@Override
+	public String toString() {
+		return "LocCategory [locId=" + locId + ", placeCategory=" + placeCategory + ", locName=" + locName
+				+ ", locAddress=" + locAddress + ", locSido=" + locSido + ", locSigungu=" + locSigungu + "]";
+	}
+	
+	
 }
