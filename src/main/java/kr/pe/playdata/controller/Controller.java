@@ -73,7 +73,6 @@ public class Controller {
 		A.setRentLink("link");
 		A.setRentImg("img");
 		A.setRentDel(0);
-		System.out.println(A.toString());
 		brr.save(A);
 		return "Rent 저장 성공";
 	}
@@ -87,11 +86,21 @@ public class Controller {
 		B.setUserNickname("jokea");
 		B.setRoles("admin");
 		B.setUserOut(0);
-		System.out.println(B.toString());
 		pur.save(B);
 		
 		return "puser 저장 성공";
 	}
+	@GetMapping("delPUser")
+	@Transactional
+	public String delPUser(@RequestParam String userEmail) {
+		Puser A = pur.findPuserByUserEmail(userEmail);
+		A.setRoles("out"); // 로그인에서 확인
+		A.setUserPassword("");
+		A.setUserOut(1);		
+		
+		return "계정탈퇴되었습니다";
+	}
+	
 	
 	@GetMapping("addLocCate")
 	@Transactional
@@ -183,11 +192,19 @@ public class Controller {
 		A.setTipLike(0);
 		A.setTipDel(0);
 				
-		System.out.println(A.toString());
 		btr.save(A);
 		
 		return "tip 저장 성공";
 	}
+	
+	@GetMapping("delBoardTip")
+	@Transactional
+	public String delBoardTip(@RequestParam String tipTitle) {
+		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
+		return tipTitle;
+	}
+	
+	
 	@GetMapping("addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
@@ -196,13 +213,13 @@ public class Controller {
 		A.setCommentContent("comment content");
 		A.setCommentDel(0);
 		A.setBoardRent(brr.findBoardRentByRentId(1));
-		A.setBoardTip(btr.findTipTitleByTipId(1).get(0));
+		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
 		
-		System.out.println(A.toString());
 		pcor.save(A);
 		
 		return "comment 저장 성공";
 	}
+	
 	
 	@GetMapping("addBoardReview")
 	public String addBoardReview() {
@@ -215,7 +232,6 @@ public class Controller {
 		
 		A.setReviewScore(0);
 		
-		System.out.println(A.toString());
 		brer.save(A);
 		
 		return "리뷰 저장 성공";

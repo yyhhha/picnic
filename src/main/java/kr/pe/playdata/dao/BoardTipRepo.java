@@ -9,10 +9,11 @@ import kr.pe.playdata.model.domain.BoardTip;
 public interface BoardTipRepo extends CrudRepository<BoardTip, Integer>{
 
 	//select * from book where title=?
-	List<BoardTip> findTipTitleByTipId(int tipId);
+	List<BoardTip> findBoardTipByTipId(int tipId);
+	List<BoardTip> findBoardTipByTipTitle(String tipTitle);
 	
 	//select * from book where title like '%?%'
-	List<BoardTip> findTipTitleByTipIdContaining(int tipId);
+	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
 	
 	
 	
