@@ -21,7 +21,6 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.LocCategoryRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
-import kr.pe.playdata.dao.RentCategoryRepo;
 import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.BoardReview;
@@ -32,7 +31,7 @@ import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
 
-@CrossOrigin("http://127.0.0.1:5500")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/con")
 public class Controller {
@@ -51,8 +50,8 @@ public class Controller {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-	@Autowired
-	private RentCategoryRepo pcr;
+//	@Autowired
+//	private RentCategoryRepo pcr;
 
 	
 	@GetMapping("signup")
@@ -78,7 +77,7 @@ public class Controller {
 	 
 	
 	//피크닉 꿀팁 작성하는 메소드
-	@PostMapping("addBoardTip")
+	@PostMapping("/addBoardTip")
 	@Transactional
 	public String addBoardTip(@RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
 		System.out.println(111);
@@ -96,16 +95,15 @@ public class Controller {
 	
 	
 	//피크닉 rent대여업체 작성하는 메소드 -> 미완성
-	@PostMapping("addBoardRent")
+	@PostMapping("/addBoardRent")
 	@Transactional
 	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
-		System.out.println(111);
+		System.out.println(222);
 		
 		BoardRent A = new BoardRent();
-		A.setRentCategory(pcr.findRentCategoryByRentCateId(1).get(0));
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
 		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		
+		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
 		A.setRentTime(rentDto.getRentTime());
@@ -114,8 +112,9 @@ public class Controller {
 		A.setRentImg(rentDto.getRentImg());
 		A.setRentDel(0);
 		brr.save(A);
-		return "Rent 저장 성공";
+		return null;
 	}
+	
 	
 	@GetMapping("addPUser")
 	@Transactional
@@ -220,22 +219,22 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addBoardTip")
-	@Transactional
-	public String addBoardTip() {
-		BoardTip A = new BoardTip();
-		A.setTipId(1);
-		A.setTipTitle("tip title");
-		A.setTipContent("tip content");
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		A.setTipImg("img");
-		A.setTipLike(0);
-		A.setTipDel(0);
-				
-		btr.save(A);
-		
-		return "tip 저장 성공";
-	}
+//	@GetMapping("addBoardTip")
+//	@Transactional
+//	public String addBoardTip() {
+//		BoardTip A = new BoardTip();
+//		A.setTipId(1);
+//		A.setTipTitle("tip title");
+//		A.setTipContent("tip content");
+//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+//		A.setTipImg("img");
+//		A.setTipLike(0);
+//		A.setTipDel(0);
+//				
+//		btr.save(A);
+//		
+//		return "tip 저장 성공";
+//	}
 	
 	@GetMapping("delBoardTip")
 	@Transactional
