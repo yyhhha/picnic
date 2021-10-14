@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <title>Document</title>
+
+        <!-- <button @click="reqResAjax()">2. 클릭</button> -->
+        <div id="viewData">
+          <table border=1>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+              </tr>
+            </thead>
+            <tr v-if="!datas">
+              <td>게시글이 없습니다.</td>
+          </tr>
+
+              <tr v-for="v in datas">
+                <td>{{v.tipId}}</td>
+                <td>{{v.tipTitle}}</td>
+                <td>{{v.userEmail}}</td>
+                <td>{{v.tipDate}}</td>
+              </tr>
+          </table>
+        </div>
+         
+  안녕안녕
+  
+  
