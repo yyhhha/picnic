@@ -140,8 +140,7 @@ public class BController {
 		return al; //JSON 배열로 자동 반환해줌
 	}
 	
-	
-	
+
 //	/* read (all) */
 //	@GetMapping("boardrentpage222222")
 //	@Transactional
