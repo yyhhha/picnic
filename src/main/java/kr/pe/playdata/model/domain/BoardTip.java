@@ -65,4 +65,5 @@ public class BoardTip {
 	//tip_like 추가
 	@Column(name="tip_like")
 	private int tipLike;
+
 }
