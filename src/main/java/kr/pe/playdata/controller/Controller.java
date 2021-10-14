@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
@@ -388,7 +389,7 @@ public class Controller {
 		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
 		A.setCommentContent("comment content");
 		A.setCommentDel(0);
-		A.setBoardRent(brr.findBoardRentByRentId(1));
+//		A.setBoardRent(brr.findBoardRentByRentId(1));
 		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
 		
 		pcor.save(A);

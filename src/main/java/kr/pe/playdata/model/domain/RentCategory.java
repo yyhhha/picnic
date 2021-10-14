@@ -11,10 +11,12 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+//@ToString(exclude = "boardRent")
 
 @Entity
 @Table(name = "rent_category")
@@ -32,4 +34,14 @@ public class RentCategory {
 	
 	@Column(name = "rent_cate_name")
 	private String rentCateName;
+
+
+
+
+	@Override
+	public String toString() {
+		return "RentCategory [rentCateId=" + rentCateId + ", rentCateName=" + rentCateName + "]";
+	}
+	
+	
 }

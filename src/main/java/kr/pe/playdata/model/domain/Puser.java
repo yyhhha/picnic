@@ -20,6 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"boardReview", "boardPlace", "boardRent", "boardTip", "pcomment"})
 
 @Entity
 @DynamicInsert
@@ -69,6 +70,15 @@ public class Puser {
 	
 	@Column(name = "out_date")
 	private String outDate;//YYYYMMDD    sql date -> java String 
+
+	@Override
+	public String toString() {
+		return "Puser [userEmail=" + userEmail + ", userPassword=" + userPassword + ", userNickname=" + userNickname
+				+ ", roles=" + roles + ", userOut=" + userOut + ", assignDate=" + assignDate + ", outDate=" + outDate
+				+ "]";
+	}
+	
+	
 	
 	@Override
 	public String toString() {

@@ -25,6 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"puser", "pcomment"})
 
 @Entity
 @DynamicInsert
@@ -66,4 +67,11 @@ public class BoardTip {
 	@Column(name="tip_like")
 	private int tipLike;
 
+	@Override
+	public String toString() {
+		return "BoardTip [tipId=" + tipId + ", tipTitle=" + tipTitle + ", tipContent=" + tipContent + ", tipImg="
+				+ tipImg + ", tipDate=" + tipDate + ", tipDel=" + tipDel + ", tipLike=" + tipLike + "]";
+	}
+	
+	
 }

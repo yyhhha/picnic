@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css" />
     
     <title>Document</title>
   
@@ -170,66 +173,160 @@
         
       </style>
 </head>
+
 <body>
     <div class="header">
-        <header>
-          <div style="font-size: small; text-align: right; ">
+      <header>
+        <div style="font-size: small; text-align: right; ">
           <a href="#" >마이페이지</a>
           <a href="#" >로그인</a>
           <a href="#" >회원가입</a>
         </div>
         <a>피그닉 사이트</a>
-          <div> 
+        <div> 
           <form class="example" action="" style="margin:auto;max-width:500px">
             <input type="text" placeholder="Search.." name="search2">
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div> <br><br>
-      
-          <nav>
-            <ul class="nav-container" >
-              <li class="nav-item"> <a href="">피크닉 물품대여</a> </li>
-              <li class="nav-item"> <a href="">피크닉 장소추천</a> </li>
-              <li class="nav-item"> <a href="">피크닉 장소후기</a> </li>
-              <li class="nav-item"> <a href="">피크닉 꿀팁</a> </li>
-            </ul>
-          </nav>
-        </header>
     
-      </div>
+        <nav>
+          <ul class="nav-container" >
+            <li class="nav-item"> <a href="">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="">피크닉 꿀팁</a> </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
 
     <div class="row">
-        <div class="column side" style="background-color:#ffffff; ">
-          <ul>
-            <li><a class="active" href="#home">전체보기</a></li>
-           
-            <li><a href="#news">한강 피크닉</a></li>
-            <li><a href="#contact">바다 피크닉</a></li>
-            <li><a href="#about">글램핑</a></li>
-          </ul>
-        </div>
-        <div class="column middle" style="background-color:#ffffff;">
+
+      <div class="column side" style="background-color:#ffffff; ">
+        <ul>
+          <li><a class="active" href="#home">전체보기</a></li>
+        
+          <li><a href="#news">한강 피크닉</a></li>
+          <li><a href="#contact">바다 피크닉</a></li>
+          <li><a href="#about">글램핑</a></li>
+        </ul>
+      </div>
+
+
+      <div class="column middle" style="background-color:#ffffff;">
     
         ===================여기에 넣으시오!!!!================
+       	<!-- Main -->
+		    <div id="main">
+			  
+            <!-- <div id="app4"> -->
+                <!-- <label for="sort">정렬:</label> -->
+    
+                <select name="sort" id="sort" v-model="sorted">
+                    <option>전체</option>
+                    <option>가격순</option>
+                    <option value="가나다순">가나다순</option>
+                </select> <br>
+    
+                <span v-text="sorted"></span> <br>
+                {{sorted}} <br>
+
+
+            <!-- </div> -->
+          
+            <hr><br><br>
+
+
+            <button @click="reqResAjax()">버튼 클릭하면 물품 대여 리스트</button>
+            <br><br>
+
+            <ul v-if="showBoolean">
+              <li v-for="rent in rentlist">
+                {{rent.rentPrice}}
+              </li>
+            </ul>
+
+
+            <hr><br><br>
+
+
         
-        
-        	
+            <section>
+              <div class="box alt">
+                <div class="row gtr-uniform">
+
+                  <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
+                  <div class="col-4">
+                    <article class="mini-post">
+                      <header>
+                        <h3><a href="single.html">텐트 + 의자 + 돗자리 세뚜</a></h3>
+                        <time class="published" datetime="2015-10-20">October 20, 2015</time>
+                        <!-- <a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a> -->
+                      </header>
+                      <!-- <a href="single.html" class="image"><img src="images/pigpig1.jpg" alt="" /></a> -->
+                    </article>
+                  </div> <!-- class="col-4" -->
+
+                </div> <!-- class="row gtr-uniform" -->
+              </div>  <!-- class="box alt" -->
+            </section>
+
+            
+            
+
+                        
+
+			    </div>  <!-- main div -->
+			    
     
-        </div>
-      
+        </div> <!-- column middle div -->
+
+
+      </div> <!-- row div -->
+
+
+
     
-      </div>
     
     
     
+    <div class="footer">
+      <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
+        게시된 정보는 무단으로 배포할 수 없습니다.</a>
+        ＠2021</p>
+    </div>
+
+
+
+    <script type="text/javascript">
+      new Vue({
+        el: "#main",
+        data: {
+            sorted: "",
+            showBoolean: false,
+            rentlist: []
+        },
+        methods: {
+            reqResAjax: function () {
+                axios({
+                    method: "get",
+                    url: "/con2/boardrentpage2222"
+                }).then(resData => {
+                  this.showBoolean = true;
+                  this.rentlist = resData.data;
+                  //console.log(this.rentlist);
+                }).catch(errorData => {
+                    alert(errorData);
+                });
+            }
+        }
+      })
+    </script>
+
+
+
+
     
-    
-      <div class="footer">
-        <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
-          게시된 정보는 무단으로 배포할 수 없습니다.</a>
-          ＠2021</p>
-      </div>
-    
-    </body>
-    
-    </html>
+</body>
+</html>

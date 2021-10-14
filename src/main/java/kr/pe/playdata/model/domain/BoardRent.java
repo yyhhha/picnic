@@ -25,6 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
+//@ToString(exclude = {"rentCategory", "locCate", "puser", "pcomment"})
 
 @Entity
 @DynamicInsert
@@ -75,4 +76,13 @@ public class BoardRent {
 	
 	@Column(name = "rent_del")
 	private int rentDel;
+
+	@Override
+	public String toString() {
+		return "BoardRent [rentId=" + rentId + ", rentName=" + rentName + ", rentLink=" + rentLink + ", rentPrice="
+				+ rentPrice + ", rentTime=" + rentTime + ", rentContent=" + rentContent + ", rentImg=" + rentImg
+				+ ", rentDel=" + rentDel + "]";
+	}
+	
+	
 }
