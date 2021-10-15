@@ -15,6 +15,9 @@ public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 	
 	//select * from book where title like '%?%'
 	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
+	List<BoardTip> findBoardTipByTipTitleContaining(String tipTitle);
+	
+//	Iterator<BoardTip> findAllById(int tipId);
 	
 //	List<BoardTip> findBoardTipByRentCateName(String rengCateName);
 	

@@ -188,7 +188,7 @@
           <li class="nav-item"> <a href="/boardRent.html">피크닉 물품대여</a> </li>
           <li class="nav-item"> <a href="/boardPlace.html">피크닉 장소추천</a> </li>
           <li class="nav-item"> <a href="/boardReview.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/boardTip.html">피크닉 꿀팁</a> </li>
+          <li class="nav-item"> <a href="/boardTipList.html">피크닉 꿀팁</a> </li>
         </ul>
       </nav>
     </header>
@@ -218,12 +218,14 @@
                     <div class="input-container">
                       <input v-on:change="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
                       <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
-                    <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
+                    <button v-on:click="submit()" style="background-color: rgb(68, 68, 248);">완료</button>
         
                     
                
                 
             </div>
+            
+            
     
         </div>
       

@@ -13,6 +13,8 @@ public interface BoardReviewRepo extends JpaRepository<BoardReview, Integer>{
 	
 	//select * from board_review where title like '%?%'
 	List<BoardReview> findBoardReviewByReviewIdContaining(int reviewId);
+
+	List<BoardReview> findBoardReviewByReviewTitleContaining(String reviewTitle);
 	
 	
 	

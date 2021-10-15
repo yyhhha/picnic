@@ -25,4 +25,5 @@ public class BoardRentDTO {
 	private String rentContent;
 	private String rentImg;
 	private int rentDel;
+
 }
