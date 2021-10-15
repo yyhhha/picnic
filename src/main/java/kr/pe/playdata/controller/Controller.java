@@ -324,13 +324,13 @@ public class Controller {
 
 	
 
-	@GetMapping("delBoardTip")
-	@Transactional
-	public String delBoardTip(@RequestParam String tipTitle) {
-		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
-		return tipTitle;
-	}
-	
+//	@GetMapping("delBoardTip")
+//	@Transactional
+//	public String delBoardTip(@RequestParam String tipTitle) {
+//		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
+//		return tipTitle;
+//	}
+//	
 	
 	@GetMapping("/addPComment")
 	public String addPComment() {

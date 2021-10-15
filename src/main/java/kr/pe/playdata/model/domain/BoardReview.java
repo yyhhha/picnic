@@ -71,6 +71,7 @@ public class BoardReview {
 				+ "\"reviewContent\":\"" + reviewContent + "\", "
 				+ "\"reviewDate\":\"" + reviewDate + "\", "
 				+ "\"reviewDel\":\"" + reviewDel + "\", "
+				+ "\"puser\":\"" + puser + "\", "
 				+ "\"reviewScore\":\"" + reviewScore + "\"}";
 	}
 	

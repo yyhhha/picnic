@@ -75,8 +75,9 @@ public class BoardPlace  {
 		return "{\"placeId\":\"" + placeId + "\", " 
 				+ "\"placeName\":\"" + placeName + "\", "
 				+ "\"placeContent\":\"" + placeContent + "\", "
-				+ "\" placeImg\":\"" + placeImg + "\", "
-				+ "\" placeDel\":\"" + placeDel + "\"}";
+				+ "\"placeImg\":\"" + placeImg + "\", "
+				+ "\"puser\":\"" + puser + "\", "
+				+ "\"placeDel\":\"" + placeDel + "\"}";
 	}
 
 }
