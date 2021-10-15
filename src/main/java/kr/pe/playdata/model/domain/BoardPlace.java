@@ -29,7 +29,7 @@ import lombok.Setter;
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="placeId_seq", sequenceName="placeId_seq", initialValue=1, allocationSize=1)
-@Table(name = "boardplace")
+@Table(name = "board_place")
 public class BoardPlace  {
 	
 	@Id
