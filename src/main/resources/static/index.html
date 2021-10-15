@@ -47,12 +47,12 @@
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" >
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/login">로그인</a>
+                            <a href="ycon/login">로그인</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/signup">회원가입</a>
+                            <a href="ycon/signup">회원가입</a>
                         </button>
                     </form>
                 </div>
@@ -175,7 +175,7 @@
 				created:  function ()  {
         			axios({
         				method: "get",
-        				url: "con/boardrentpage2222"
+        				url: "ycon/boardrentpage2222"
         			}).then(resData => {
         				this.datas = resData.data;
         			}).catch(errorData => {
