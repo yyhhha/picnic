@@ -12,11 +12,13 @@ public interface BoardPlaceRepo extends JpaRepository<BoardPlace, Integer>{
 	
 	
 	
-	BoardPlace findBoardPlaceByPlaceId(int PlaceId);
+	List<BoardPlace> findBoardPlaceByPlaceId(int placeId);
 	
-	BoardPlace findBoardPlaceByPlaceName(String placeName);
+	List<BoardPlace> findBoardPlaceByPlaceName(String placeName);
 	
 	List<BoardPlace> findBoardPlaceByPlaceContent(String PlaceContent);
 	
 	List<BoardPlace> findBoardPlaceByPuser(Puser puser);
+	
+	//List<BoardPlace> findBoardPlaceByPlaceId(int PlaceId);
 }
