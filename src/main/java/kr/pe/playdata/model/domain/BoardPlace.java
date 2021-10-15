@@ -72,11 +72,11 @@ public class BoardPlace  {
 	
 	@Override
 	public String toString() {
-		return  "{\"placeId\":\"" + placeId + "\", "
-			   + "\"placeName\":\"" + placeName + "\", "
-			   + "\"placeContent\":\"" + placeContent + "\", " 
-			   + "\"placeImg\":\"" + placeImg + "\", "
-			   + "\"placeDel\":\"" + placeDel + "\"}";
+		return "{\"placeId\":\"" + placeId + "\", " 
+				+ "\"placeName\":\"" + placeName + "\", "
+				+ "\"placeContent\":\"" + placeContent + "\", "
+				+ "\" placeImg\":\"" + placeImg + "\", "
+				+ "\" placeDel\":\"" + placeDel + "\"}";
 	}
 
 }
