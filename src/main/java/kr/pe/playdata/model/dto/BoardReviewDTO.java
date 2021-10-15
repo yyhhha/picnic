@@ -14,17 +14,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BoardRentDTO {
+public class BoardReviewDTO {
 	
-	private int rentId;
-	private String locName;
+	private int reviewId;
+	private String placeName;
 	private String userEmail;
-//	private List<Pcomment> pcomment;
-	private String rentName;
-	private String rentLint;
-	private int rentPrice;
-	private String rentTime; // 대여시간
-	private String rentContent;
-	private String rentImg;
-	private int rentDel;
+	private String reviewTitle;
+	private String reviewContent;
+	private String reviewDate;
+	private int reviewDel;
+	private int reviewScore;
 }

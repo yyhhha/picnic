@@ -34,7 +34,7 @@ import kr.pe.playdata.model.domain.BoardTip;
 import kr.pe.playdata.model.domain.LocCategory;
 import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
-import kr.pe.playdata.model.dto.BoardRentDTO;
+import kr.pe.playdata.model.dto.BoardReviewDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
 import kr.pe.playdata.model.dto.TestDTO;
 
@@ -102,26 +102,26 @@ public class Controller {
 	}
 	
 	
-	//피크닉 rent대여업체 작성하는 메소드
-	@PostMapping("/addBoardRent")
-	@Transactional
-	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
-		System.out.println(222);
-		
-		BoardRent A = new BoardRent();
-		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		A.setRentCateName(rentDto.getRentCateName());
-		A.setRentName(rentDto.getRentName());
-		A.setRentContent(rentDto.getRentContent());
-		A.setRentTime(rentDto.getRentTime());
-		A.setRentPrice(rentDto.getRentPrice());
-		A.setRentLink(rentDto.getRentLink());
-		A.setRentImg(rentDto.getRentImg());
-		A.setRentDel(0);
-		brr.save(A);
-		return null;
-	}
+//	//피크닉 rent대여업체 작성하는 메소드
+//	@PostMapping("/addBoardRent")
+//	@Transactional
+//	public String addBoardRent(@RequestBody BoardReviewDTO rentDto, HttpServletResponse response) {
+//		System.out.println(222);
+//		
+//		BoardRent A = new BoardRent();
+//		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
+//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+//		A.setRentCateName(rentDto.getRentCateName());
+//		A.setRentName(rentDto.getRentName());
+//		A.setRentContent(rentDto.getRentContent());
+//		A.setRentTime(rentDto.getRentTime());
+//		A.setRentPrice(rentDto.getRentPrice());
+//		A.setRentLink(rentDto.getRentLink());
+//		A.setRentImg(rentDto.getRentImg());
+//		A.setRentDel(0);
+//		brr.save(A);
+//		return null;
+//	}
 	
 	//get으로 json 가져오는 방식
 	@GetMapping("/board/tips")

@@ -231,9 +231,9 @@
         <ul>
           <li><a class="active" href="#home">전체보기</a></li>
         
-          <li><a href="search?command=rent&searchstring=한강">한강 피크닉</a></li>
-          <li><a href="search?command=rent&searchstring=바다">바다 피크닉</a></li>
-          <li><a href="search?command=rent&searchstring=글램핑">글램핑</a></li>
+          <li><a href="bcon?command=rent&searchstring=한강">한강 피크닉</a></li>
+          <li><a href="bcon?command=rent&searchstring=바다">바다 피크닉</a></li>
+          <li><a href="bcon?command=rent&searchstring=글램핑">글램핑</a></li>
         </ul>
       </div>
 
@@ -294,7 +294,7 @@
             </div>
 
 
-            <!-- <hr><br><br> -->
+            
 
 
             
@@ -341,7 +341,7 @@
             created: function () {
               axios({
                   method: "get",
-                  url: "/con2/boardrentpage2222"
+                  url: "/bcon/boardrentpage2"
               }).then(resData => {
                 this.showBoolean = true;
                 this.rentlist = resData.data;
@@ -391,30 +391,30 @@
           // }
 
 
-          function showMyImage(fileInput) {
+          // function showMyImage(fileInput) {
 
-            var files = fileInput.files;
+          //   var files = fileInput.files;
 
-            for (var i = 0; i < files.length; i++) {           
-              var file = files[i];
-              var imageType = /image.*/;
-              if (!file.type.match(imageType)) {
-                continue;
-              }
+          //   for (var i = 0; i < files.length; i++) {           
+          //     var file = files[i];
+          //     var imageType = /image.*/;
+          //     if (!file.type.match(imageType)) {
+          //       continue;
+          //     }
 
-              var img=document.getElementById("thumbnil");            
-              img.file = file;    
-              var reader = new FileReader();
+          //     var img=document.getElementById("thumbnil");            
+          //     img.file = file;    
+          //     var reader = new FileReader();
 
-              reader.onload = (function(aImg) { 
-                return function(e) { 
-                    aImg.src = e.target.result; 
-                };
-              })(img);
+          //     reader.onload = (function(aImg) { 
+          //       return function(e) { 
+          //           aImg.src = e.target.result; 
+          //       };
+          //     })(img);
 
-              reader.readAsDataURL(file);
-            }
-          }
+          //     reader.readAsDataURL(file);
+          //   }
+          // }
 
 
 

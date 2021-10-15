@@ -25,10 +25,12 @@ import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.BoardReview;
 import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.dto.BoardPlaceDTO;
 import kr.pe.playdata.model.dto.BoardRentDTO;
+import kr.pe.playdata.model.dto.BoardReviewDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
 
-@CrossOrigin(origins = "http://localhost:80")
+//@CrossOrigin(origins = "http://localhost:80")
 @RestController
 @RequestMapping("/bcon")
 public class BController {
@@ -48,75 +50,56 @@ public class BController {
 	@Autowired
 	private PuserRepo pur;
 	
+	//get으로 json 가져오는 방식
+	@GetMapping("/boardrents")
+	public List<BoardRentDTO> findBoardRentList() {
+		Iterator<BoardRent> all = brr.findAll().iterator();
 	
-	
-	
-	/* 피크닉 꿀팁 read (all)  @RequestParam String command*/
-	@GetMapping("/boardtippage2222")
-	@Transactional
-	public JSONArray findBoardTipAll4(){
-		List<BoardTip> al = new ArrayList<>();
-		
-		JSONParser jsonParse = new JSONParser();
-		JSONArray array = null;
-		
-		al.addAll(btr.findAll());
-		try {
-			array = (JSONArray) jsonParse.parse(al.toString());
-			return array;
-		} catch (ParseException e) {
-			System.out.println("변환에 실패");
-			e.printStackTrace();
+		BoardRent rent;
+		List<BoardRentDTO> test = new ArrayList<>();
+		while (all.hasNext()) {
+			rent = all.next();
+			test.add(new BoardRentDTO(rent.getRentId(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(), 
+					rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),rent.getRentImg(), rent.getRentDel()));
 		}
-		return array;
+	
+		return test;
 	}
 	
 	
+	//get으로 json 가져오는 방식
+	@GetMapping("/boardplaces")
+	public List<BoardPlaceDTO> findBoardPlaceList() {
+		Iterator<BoardPlace> all = bpr.findAll().iterator();
 	
-	/* 피크닉 장소후기 read (all)  @RequestParam String command*/
-	@GetMapping("/boardreviewpage2222")
-	@Transactional
-	public JSONArray findBoardReviewAll4(){
-		List<BoardReview> al = new ArrayList<>();
-		
-		JSONParser jsonParse = new JSONParser();
-		JSONArray array = null;
-		
-		al.addAll(brer.findAll());
-		try {
-			array = (JSONArray) jsonParse.parse(al.toString());
-			return array;
-		} catch (ParseException e) {
-			System.out.println("변환에 실패");
-			e.printStackTrace();
+		BoardPlace place;
+		List<BoardPlaceDTO> test = new ArrayList<>();
+		while (all.hasNext()) {
+			place = all.next();
+			test.add(new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),place.getPlaceName(), 
+					place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel()));
 		}
-		return array;
+	
+		return test;
 	}
 	
 	
+	//get으로 json 가져오는 방식
+	@GetMapping("/boardreviews")
+	public List<BoardReviewDTO> findBoardReviewList() {
+		Iterator<BoardReview> all = brer.findAll().iterator();
 	
-	/* 피크닉 장소추천 read (all)  @RequestParam String command*/
-	@GetMapping("/boardplacepage2222")
-	@Transactional
-	public JSONArray findBoardPlaceAll4(){
-		List<BoardPlace> al = new ArrayList<>();
-		
-		JSONParser jsonParse = new JSONParser();
-		JSONArray array = null;
-		
-		al.addAll(bpr.findAll());
-		try {
-			array = (JSONArray) jsonParse.parse(al.toString());
-			return array;
-		} catch (ParseException e) {
-			System.out.println("변환에 실패");
-			e.printStackTrace();
+		BoardReview review;
+		List<BoardReviewDTO> test = new ArrayList<>();
+		while (all.hasNext()) {
+			review = all.next();
+			test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
+					review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
 		}
-		return array;
+	
+		return test;
 	}
-	
-	
-	
+		
 	
 	//get으로 json 가져오는 방식
 	@GetMapping("/boardtips")
@@ -137,7 +120,7 @@ public class BController {
 	
 	
 	/* 피크닉 물품대여 read (all)  @RequestParam String command*/
-	@GetMapping("/boardrentpage2222")
+	@GetMapping("/boardrentpage2")
 	@Transactional
 	public JSONArray findBoardRentList2(){
 		List<BoardRent> al = new ArrayList<>();
@@ -174,31 +157,74 @@ public class BController {
 //		return null;
 	}
 	
+	
+	/* 피크닉 장소추천 read (all)  @RequestParam String command*/
+	@GetMapping("/boardplacepage2")
+	@Transactional
+	public JSONArray findBoardPlaceAll4(){
+		List<BoardPlace> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		al.addAll(bpr.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
+	}
+	
+	
+	/* 피크닉 장소후기 read (all)  @RequestParam String command*/
+	@GetMapping("/boardreviewpage2")
+	@Transactional
+	public JSONArray findBoardReviewAll4(){
+		List<BoardReview> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		al.addAll(brer.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
+	}
+	
+	
+	/* 피크닉 꿀팁 read (all)  @RequestParam String command*/
+	@GetMapping("/boardtippage2")
+	@Transactional
+	public JSONArray findBoardTipAll4(){
+		List<BoardTip> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		al.addAll(btr.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
+	}
+	
 }
-//	/* read (all) */
-//	@GetMapping("boardrentpage222222")
-//	@Transactional
-//	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
-////	    try {
-//	      List<BoardRent> brs = new ArrayList<BoardRent>();
-//
-////	      if (rentId == 0)
-////	        brr.findAll().forEach(brs::add);
-////	      else
-//	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
-//
-//	      if (brs.isEmpty()) {
-//	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//	      }
-//
-//	      return new ResponseEntity<>(brs, HttpStatus.OK);
-////	    } catch (Exception e) {
-////	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
-////	    }
-//	  }
-//	
-//
-//	
+
+
+
+
 //	/* read (all) */
 //	@GetMapping("/boardrentpage222")
 //	@Transactional
@@ -212,4 +238,3 @@ public class BController {
 	
 
 
-}
