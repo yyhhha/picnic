@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,29 +103,28 @@ public class Controller {
 		btr.findBoardTipByTipId(tipId).get(0).setTipDel(1);
 		return "업체 게시글 삭제되었습니다.";
 	}
-
-	// 피크닉 rent대여업체 작성하는 메소드
-	@PostMapping("/addBoardRent")
-	@Transactional
-	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
-		System.out.println(222);
-
-		BoardRent A = new BoardRent();
-		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		A.setRentCateName(rentDto.getRentCateName());
-		A.setRentName(rentDto.getRentName());
-		A.setRentContent(rentDto.getRentContent());
-		A.setRentTime(rentDto.getRentTime());
-		A.setRentPrice(rentDto.getRentPrice());
-		A.setRentLink(rentDto.getRentLink());
-		A.setRentImg(rentDto.getRentImg());
-		A.setPuser(pur.findPuserByUserEmail("test1@gmail.com"));
-		A.setRentDel(0);
-		brr.save(A);
-		return null;
-	}
-
+	
+//	//피크닉 rent대여업체 작성하는 메소드
+//	@PostMapping("/addBoardRent")
+//	@Transactional
+//	public String addBoardRent(@RequestBody BoardReviewDTO rentDto, HttpServletResponse response) {
+//		System.out.println(222);
+//		
+//		BoardRent A = new BoardRent();
+//		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
+//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+//		A.setRentCateName(rentDto.getRentCateName());
+//		A.setRentName(rentDto.getRentName());
+//		A.setRentContent(rentDto.getRentContent());
+//		A.setRentTime(rentDto.getRentTime());
+//		A.setRentPrice(rentDto.getRentPrice());
+//		A.setRentLink(rentDto.getRentLink());
+//		A.setRentImg(rentDto.getRentImg());
+//		A.setRentDel(0);
+//		brr.save(A);
+//		return null;
+//	}
+	
 	@GetMapping("/delBoardRent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
@@ -149,7 +149,40 @@ public class Controller {
 
 	}
 
-	@GetMapping("/addPUser")
+	//tip_id로 tip게시글 상세 get 가능
+	@GetMapping("/board/tips/{tipId}")
+		public List<BoardTipDTO> boardTipDetail(@PathVariable("tipId") int tipId) {
+			List<BoardTip> all = btr.findBoardTipByTipId(tipId);
+			
+			List<BoardTipDTO> board = new ArrayList<>();
+			for(BoardTip a : all) {
+				board.add(new BoardTipDTO(a.getTipId(),a.getPuser().getUserEmail() ,a.getTipTitle(), 
+						a.getTipContent(),a.getTipImg(),a.getTipDate(),a.getTipDel(),a.getTipLike()));
+			}
+			
+			return board;
+	}
+	
+	//rent_id로 rent게시글 상세 get 가능
+	@GetMapping("/board/rents/{rentId}")
+		public List<BoardRentDTO> boardRentDetail(@PathVariable("rentId") int rentId) {
+			List<BoardRent> all = brr.findBoardRentByRentId(rentId);
+			
+			List<BoardRentDTO> board = new ArrayList<>();
+			for(BoardRent a : all) {
+				board.add(new BoardRentDTO(a.getRentId(),a.getRentCateName(),a.getLocCate().getLocName(),a.getPuser().getUserEmail(),a.getRentName(),
+						a.getRentLink(),a.getRentPrice(),a.getRentTime(),a.getRentContent(),
+						a.getRentImg(),a.getRentDel()));
+			
+	}
+			return board;
+	}
+	
+	
+
+	
+
+	@GetMapping("addPUser")
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -288,6 +321,17 @@ public class Controller {
 //		return "tip 저장 성공";
 //	}
 
+
+	
+
+	@GetMapping("delBoardTip")
+	@Transactional
+	public String delBoardTip(@RequestParam String tipTitle) {
+		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
+		return tipTitle;
+	}
+	
+	
 	@GetMapping("/addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();

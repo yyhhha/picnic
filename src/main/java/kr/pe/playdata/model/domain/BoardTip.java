@@ -65,7 +65,7 @@ public class BoardTip {
 	//tip_like 추가
 	@Column(name="tip_like")
 	private int tipLike;
-
+	
 	@Override
 	public String toString() {
 		return "{\"tipId\":\"" + tipId + "\", " 
@@ -87,6 +87,7 @@ public class BoardTip {
 //		this.tipDate = tipDate;
 //		
 //	}
+	
 	
 	
 }

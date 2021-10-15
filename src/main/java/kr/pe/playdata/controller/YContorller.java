@@ -33,7 +33,7 @@ import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.Puser;
-import kr.pe.playdata.model.dto.BoardRentDTO;
+import kr.pe.playdata.model.dto.BoardReviewDTO;
 import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
