@@ -2,11 +2,11 @@ package kr.pe.playdata.dao;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import kr.pe.playdata.model.domain.BoardTip;
 
-public interface BoardTipRepo extends CrudRepository<BoardTip, Integer>{
+public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 
 	//select * from book where title=?
 	List<BoardTip> findBoardTipByTipId(int tipId);

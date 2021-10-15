@@ -13,10 +13,12 @@ public interface BoardRentRepo extends JpaRepository<BoardRent, Integer>{
 	
 	BoardRent findBoardRentByRentName(String RentName);
 	
-	List<BoardRent> findBoardRentByRentCateName(String RentCateName);
+//	List<BoardRent> findBoardRentByRentCateName(String RentCateName);
 	
 	List<BoardRent> findBoardRentByPuser(Puser puser);
 	
 	List<BoardRent> findBoardRentByRentId(int rentId);
+	
+	List<BoardRent> findBoardRentByRentCateName(String rentCateName);
 	
 }

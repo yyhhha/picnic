@@ -1,6 +1,7 @@
 package kr.pe.playdata.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,10 +10,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +23,18 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.LocCategoryRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
+import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
+import kr.pe.playdata.model.domain.BoardReview;
+import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.dto.BoardPlaceDTO;
+import kr.pe.playdata.model.dto.BoardRentDTO;
+import kr.pe.playdata.model.dto.BoardReviewDTO;
+import kr.pe.playdata.model.dto.BoardTipDTO;
 
-@CrossOrigin(origins = "http://localhost:80")
+//@CrossOrigin(origins = "http://localhost:80")
 @RestController
-@RequestMapping("/bcon") // /bcon/boardrentpage222222
+@RequestMapping("/bcon")
 public class BController {
 
 	@Autowired
@@ -46,42 +52,159 @@ public class BController {
 	@Autowired
 	private PuserRepo pur;
 	
+	//get으로 json 가져오는 방식
+//	@GetMapping("/boardrents")
+	public List<BoardRentDTO> findBoardRentList() {
+		Iterator<BoardRent> all = brr.findAll().iterator();
 	
-	/* read (all) */
-	@GetMapping("boardrentpage222222")
+		BoardRent rent;
+		List<BoardRentDTO> test = new ArrayList<>();
+		while (all.hasNext()) {
+			rent = all.next();
+			test.add(new BoardRentDTO(rent.getRentId(),rent.getRentCateName(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(),
+					rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),
+					rent.getRentImg(),rent.getRentDel()));
+		}
+		System.out.println(test.get(0).toString());
+		return test;
+	}
+	
+//	public List<BoardRentDTO> findBoardRentListByRentCateName() {
+//		Iterator<BoardRent> han = brr.findBoardRentByRentCateName("한강 피크닉").iterator();
+//	
+//		BoardRent rent;
+//		List<BoardRentDTO> test = new ArrayList<>();
+//		while (han.hasNext()) {
+//			rent = han.next();
+//			test.add(new BoardRentDTO(rent.getRentId(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(), 
+//					rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),rent.getRentImg(), rent.getRentDel()));
+//		}
+//	
+//		return test;
+//	}
+//	
+//	
+//	//get으로 json 가져오는 방식
+//	@GetMapping("/boardplaces")
+//	public List<BoardPlaceDTO> findBoardPlaceList() {
+//		Iterator<BoardPlace> all = bpr.findAll().iterator();
+//	
+//		BoardPlace place;
+//		List<BoardPlaceDTO> test = new ArrayList<>();
+//		while (all.hasNext()) {
+//			place = all.next();
+//			test.add(new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),place.getPlaceName(), 
+//					place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel()));
+//		}
+//	
+//		return test;
+//	}
+//	
+//	
+//	//get으로 json 가져오는 방식
+//	@GetMapping("/boardreviews")
+//	public List<BoardReviewDTO> findBoardReviewList() {
+//		Iterator<BoardReview> all = brer.findAll().iterator();
+//	
+//		BoardReview review;
+//		List<BoardReviewDTO> test = new ArrayList<>();
+//		while (all.hasNext()) {
+//			review = all.next();
+//			test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
+//					review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
+//		}
+//	
+//		return test;
+//	}
+//		
+//	
+//	//get으로 json 가져오는 방식
+//	@GetMapping("/boardtips")
+//	public List<BoardTipDTO> findBoardTipList() {
+//		Iterator<BoardTip> all = btr.findAll().iterator();
+//	
+//		BoardTip tip;
+//		List<BoardTipDTO> test = new ArrayList<>();
+//		while (all.hasNext()) {
+//			tip = all.next();
+//			test.add(new BoardTipDTO(tip.getTipId(),tip.getPuser().getUserEmail() ,tip.getTipTitle(), 
+//					tip.getTipContent(),tip.getTipImg(),tip.getTipDate(),tip.getTipDel(),tip.getTipLike()));
+//		}
+//	
+//		return test;
+//	}
+	
+	
+	
+	//get으로 json 가져오는 방식
+	@GetMapping("/boardrentpage22")
+	public void findBoardRentList22(@RequestParam String command, @RequestParam String rentCateName) {
+		System.out.println("start");
+		/* rent */
+		if(command.equals("rent")) {
+			System.out.println("if문 시작");
+			if(rentCateName.equals("한강")) {
+				
+			}else if(rentCateName.equals("바다")) {
+				
+			}else if(rentCateName.equals("글램핑")) {
+				
+			}else {
+				System.out.println(111);
+				findBoardRentList();
+			}
+		/* place */
+		}else if(command.equals("place")) {
+			System.out.println("else if문 시작");
+			if(rentCateName.equals("한강")) {
+				
+			}else if(rentCateName.equals("바다")) {
+				
+			}else if(rentCateName.equals("글램핑")) {
+				
+			}else {
+				
+			}
+		/* review */
+		}else if(command.equals("review")) {
+			if(rentCateName.equals("한강")) {
+				
+			}else if(rentCateName.equals("바다")) {
+				
+			}else if(rentCateName.equals("글램핑")) {
+				
+			}else {
+				
+			}
+		/* tip */
+		}else if(command.equals("tip")) {
+			if(rentCateName.equals("한강")) {
+				
+			}else if(rentCateName.equals("바다")) {
+				
+			}else if(rentCateName.equals("글램핑")) {
+				
+			}else {
+				
+			}
+		}else {
+			System.out.println("last");
+		}
+		
+	}
+	
+	
+	
+	/* 피크닉 물품대여 read (all)  */
+	@GetMapping("/boardrentpage2")
 	@Transactional
-	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
-//	    try {
-	      List<BoardRent> brs = new ArrayList<BoardRent>();
-
-//	      if (rentId == 0)
-//	        brr.findAll().forEach(brs::add);
-//	      else
-	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
-
-	      if (brs.isEmpty()) {
-	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	      }
-
-	      return new ResponseEntity<>(brs, HttpStatus.OK);
-//	    } catch (Exception e) {
-//	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
-//	    }
-	  }
-	
-//	JSONObject jsonObj = null;
-//	jsonObj = (JSONObject) jsonParse.parse(al.toString());
-	
-	/* read (all) */
-	@GetMapping("boardrentpage2222")
-	@Transactional
-	public JSONArray findBoardRentAll4(@RequestParam String command){ // toString 재정의 안됨
+	public JSONArray findBoardRentList2(){
 		List<BoardRent> al = new ArrayList<>();
 		
 		JSONParser jsonParse = new JSONParser();
 		JSONArray array = null;
 		
-		if(command == "all") {
+//		if(command.equals("all") {
 			al.addAll(brr.findAll());
 			try {
 				array = (JSONArray) jsonParse.parse(al.toString());
@@ -91,233 +214,103 @@ public class BController {
 				e.printStackTrace();
 			}
 			return array;
-		}else if(command == "한강") {
-//			al.addAll(brr.f)
-			
-		}else if(command == "바다") {
-			
-		}else if(command == "글램핑") {
-			
-		}
+//		}else if(command.equals("한강 피크닉") {
+//			al.addAll(brr.findBoardRentByRentCateName(command));
+//			try {
+//				array = (JSONArray) jsonParse.parse(al.toString());
+//				return array;
+//			} catch (ParseException e) {
+//				System.out.println("변환에 실패");
+//				e.printStackTrace();
+//			}
+//			return array;
+//		}else if(command.equals("바다 피크닉") {
+//			
+//		}else if(command.equals("글램핑") {
+//			
+//		}
 		
-		return null;
-		
+//		return null;
 	}
 	
 	
-	
-	/* read (all) */
-	@GetMapping("boardrentpage222")
+	/* 피크닉 장소추천 read (all)  @RequestParam String command*/
+	@GetMapping("/boardplacepage2")
 	@Transactional
-	public String findBoardRentAll3(){ // toString 재정의 안됨
-		List<BoardRent> al = new ArrayList<>();
+	public JSONArray findBoardPlaceAll4(){
+		List<BoardPlace> al = new ArrayList<>();
 		
-		al.addAll(brr.findAll());
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
 		
-		return al.toString();
+		al.addAll(bpr.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
 	}
 	
 	
-	/* read (all) */
-	@GetMapping("boardrentpage22")
+	/* 피크닉 장소후기 read (all)  @RequestParam String command*/
+	@GetMapping("/boardreviewpage2")
 	@Transactional
-	public List<BoardRent> findBoardRentAll2() {   //  []
-		List<BoardRent> al = new ArrayList<>();
-		System.out.println(brr.findAll().size()); //2
+	public JSONArray findBoardReviewAll4(){
+		List<BoardReview> al = new ArrayList<>();
 		
-		for(int i = 1; i < brr.findAll().size(); i++) {
-			al.addAll(brr.findBoardRentByRentId(i));
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		al.addAll(brer.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
 		}
-		return al; //JSON 배열로 자동 반환해줌
+		return array;
+	}
+	
+	
+	/* 피크닉 꿀팁 read (all)  @RequestParam String command*/
+	@GetMapping("/boardtippage2")
+	@Transactional
+	public JSONArray findBoardTipAll4(){
+		List<BoardTip> al = new ArrayList<>();
+		
+		JSONParser jsonParse = new JSONParser();
+		JSONArray array = null;
+		
+		al.addAll(btr.findAll());
+		try {
+			array = (JSONArray) jsonParse.parse(al.toString());
+			return array;
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		return array;
 	}
 	
 }
+
+
+
+
 //	/* read (all) */
-//	@GetMapping("boardrentpage222222")
+//	@GetMapping("/boardrentpage222")
 //	@Transactional
-//	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
-////	    try {
-//	      List<BoardRent> brs = new ArrayList<BoardRent>();
-//
-////	      if (rentId == 0)
-////	        brr.findAll().forEach(brs::add);
-////	      else
-//	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
-//
-//	      if (brs.isEmpty()) {
-//	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//	      }
-//
-//	      return new ResponseEntity<>(brs, HttpStatus.OK);
-////	    } catch (Exception e) {
-////	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
-////	    }
-//	  }
-//	
-//
-//	
-//	/* read (all) */
-//	@GetMapping("boardrentpage2222")
-//	@Transactional
-//	public String findBoardRentAll4(){ // toString 재정의 안됨
+//	public String findBoardRentAll3(){ // toString 재정의 안됨
 //		List<BoardRent> al = new ArrayList<>();
 //		
 //		al.addAll(brr.findAll());
 //		
 //		return al.toString();
 //	}
-//	
-//	
-//	/* read (all) */
-//	@GetMapping("boardrentpage22")
-//	@Transactional
-//	public List<BoardRent> findBoardRentAll2() {   //  []
-//		List<BoardRent> al = new ArrayList<>();
-//		System.out.println(brr.findAll().size()); //2
-//		
-//		for(int i = 1; i < brr.findAll().size(); i++) {
-//			al.addAll(brr.findBoardRentByRentId(i));
-//		}
-//		return al; //JSON 배열로 자동 반환해줌
-//	}
-//	
-//	
-//	
-////	/* read (all) */
-////	@GetMapping("boardrentpage2")
-////	@Transactional
-////	public String findBoardRentAll(){
-////		BoardRent all = brr.findBoardRentByRentId(1);
-////		System.out.println(all.getRentName());
-////		return all.toString();
-////	}
-//	
-//	
-//	
-//	
-////	@GetMapping("addRentCate")
-////	@Transactional
-////	public String addRentCate() {
-////		RentCategory A = new RentCategory(1,null,"test rent category");
-////		pcr.save(A);
-////		
-////		return "Rent cate 저장 성공";
-////	}
-//	
-//	@GetMapping("addBoardRent")
-//	@Transactional
-//	public String addBoardRent() {
-//		BoardRent A = new BoardRent();
-//		A.setRentCateName("한강피크닉");
-//		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		
-//		A.setRentName("test rent");
-//		A.setRentContent("test rent content");
-//		A.setRentTime("2시간");
-//		A.setRentPrice(10);
-//		A.setRentLink("link");
-//		A.setRentImg("img");
-//		A.setRentDel(0);
-////		System.out.println(A.toString());
-//		brr.save(A);
-//		return "Rent 저장 성공";
-//	}
-//	
-//	@GetMapping("addPUser")
-//	@Transactional
-//	public String addPUser() {
-//		Puser B = new Puser();
-//		B.setUserEmail("aa.gmail.com");
-//		B.setUserPassword("aaab");
-//		B.setUserNickname("jokea");
-////		B.setRoles("admin");
-////		B.setUserOut(0);
-////		System.out.println(B.toString());
-//		pur.save(B);
-//		
-//		return "puser 저장 성공";
-//	}
-//	
-//	@GetMapping("addLocCate")
-//	@Transactional
-//	public String addLocCate() {
-//		LocCategory A = new LocCategory();
-//		A.setLocId(1);
-//		A.setLocName("test loc");
-//		A.setLocSido("서울");
-//		A.setLocSigungu("용산구");
-//		A.setLocAddress("서울시 용산구");
-//		A.setPlaceCategory("강/공원/피크닉");
-//		lcr.save(A);
-//		
-//		return "loc 저장 성공";
-//	}
-//	
-//	@GetMapping("addBoardPlace")
-//	@Transactional
-//	public String addBoardPlace() {
-//		BoardPlace A = new BoardPlace();
-//		A.setPlaceId(1);
-//		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		A.setPlaceName("test place name");
-//		A.setPlaceContent("test place content");
-//		A.setPlaceImg("img");
-//		
-//		bpr.save(A);
-//		
-//		return "place 저장 성공";
-//	}
-//	
-//	@GetMapping("addBoardTip")
-//	@Transactional
-//	public String addBoardTip() {
-//		BoardTip A = new BoardTip();
-//		A.setTipId(1);
-//		A.setTipTitle("tip title");
-//		A.setTipContent("tip content");
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		A.setTipImg("img");
-//		A.setTipLike(0);
-//		A.setTipDel(0);
-//				
-////		System.out.println(A.toString());
-//		btr.save(A);
-//		
-//		return "tip 저장 성공";
-//	}
-//	
-//	@GetMapping("addPComment")
-//	public String addPComment() {
-//		Pcomment A = new Pcomment();
-//		A.setCommentId(1);
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		A.setCommentContent("comment content");
-//		A.setCommentDel(0);
-////		A.setBoardRent(brr.findBoardRentByRentId(1));
-//		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
-//		
-////		System.out.println(A.toString());
-//		pcor.save(A);
-//		
-//		return "comment 저장 성공";
-//	}
-//	
-//	@GetMapping("addBoardReview")
-//	public String addBoardReview() {
-//		BoardReview A = new BoardReview();
-//		
-//		A.setReviewId(1);
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		A.setReviewTitle("review title");
-//		A.setReviewContent("review content");
-//		
-//		A.setReviewScore(0);
-//		
-////		System.out.println(A.toString());
-//		brer.save(A);
-//		
-//		return "리뷰 저장 성공";
-//	}
-//}
+	
+
+
