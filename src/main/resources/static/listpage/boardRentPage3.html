@@ -170,6 +170,9 @@
           display: table;
         }
 
+
+
+
         div.gallery {
           margin: 5px;
           border: 1px solid #ccc;
@@ -213,10 +216,10 @@
     
         <nav>
           <ul class="nav-container" >
-            <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+            <li class="nav-item"> <a href="/boardRentPage2.html">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="/boardPlacePage2.html">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="/boardReviewPage2.html">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="/boardTipPage2.html">피크닉 꿀팁</a> </li>
           </ul>
         </nav>
       </header>
@@ -224,60 +227,79 @@
 
     <div class="row">
 
-      <div class="column side" style="background-color:#ffffff; ">
+      <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardplacepage22?command=rent">전체보기</a></li>
-        
-          <li><a href="/bcon/boardplacepage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardplacepage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardplacepage22?command=rent&">글램핑</a></li>
+          <li><a class="active" onclick="selectAll()">전체보기</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=한강">한강 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=바다">바다 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=글램핑">글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
-  
+    
 		    <div id="main">
 			  
-          <span v-text="sorted"></span> <br>
-          {{sorted}} <br>
+            <!-- <div id="app4"> -->
+                <!-- <label for="sort">정렬:</label> -->
+    
+                
+    
+                <span v-text="sorted"></span> <br>
+                {{sorted}} <br>
 
-          <template>
-              <select name="sort" id="sort" v-model="sorted">
-                <option v-on:event="ordered()">dkdk</option>
-                <option value="1">전체</option>
-                <option value="2">가격순</option>
-                <option value="3">가나다순</option>
-              </select>
-          </template>
 
-          <div class="gallery" v-if="showBoolean" v-for="place in placelist">
-            <a target="_blank" href="single.html">
-              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
-            </a>
-            <div class="desc">
-              <h3>{{place.placeName}}</h3>
-              <h5>{{place.placeContent}}</h5>
-              <h5>{{place.userEmail}}</h5>
+            <template>
+                <select name="sort" id="sort" v-model="sorted">
+                  <option v-on:event="ordered()">dkdk</option>
+                  <option value="1">전체</option>
+                  <option value="2">가격순</option>
+                  <option value="3">가나다순</option>
+                </select>
+            </template>
+
+
+            <!-- <button v-bind:class = "{set1:sortBoolean}"  >Vue 활용 class 속성 적용 버튼</button>
+            <p>
+                <input id="set1" type="checkbox" v-model="sortBoolean" />set1 : 버튼색 변경<br />
+            </P> -->
+
+
+            <!-- </div> -->
+          
+            <!-- <hr><br><br> -->
+
+
+            <!-- <button @click="reqResAjax()">버튼 클릭하면 물품 대여 리스트</button>
+            <br><br> -->
+
+            <!-- <ul v-if="showBoolean">
+              <li v-for="rent in rentlist">
+                {{rent.rentPrice}}
+              </li>
+            </ul> -->
+
+
+            <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
+              <a target="_blank" href="single.html">
+                <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+              </a>
+              <div class="desc">
+                <h3>{{rent.rentName}}</h3>
+                <h5>{{rent.rentTime}}시간</h5>
+                <h5>{{rent.rentPrice}}원</h5>
+              </div>
             </div>
-          </div>
-
-            
-            
 
                         
 
 			    </div>  <!-- main div -->
 			    
-    
         </div> <!-- column middle div -->
-
 
       </div> <!-- row div -->
 
-
-
-    
     
     
     
@@ -290,28 +312,97 @@
 
 
     <script type="text/javascript">
-        // window.onload = function(){
+        window.onload = function(){
           var main = new Vue({
             el: "#main",
             data: {
                 sorted: "",
                 showBoolean: false,
-                placelist: []
+                rentlist: [],
+                sortBoolean: false
             },
-            created: function () {
+            method: {
+              selectAll: function () {
               axios({
                   method: "get",
-                  url: "/bcon/boardplaces"
+                  url: "/bcon/boardrentpage22?command=rent"
               }).then(resData => {
                 main.showBoolean = true;
-                main.placelist = resData.data;
-                //console.log(this.rentlist);
+                main.rentlist = resData.data;
               }).catch(errorData => {
                   alert(errorData);
               });
             }
-            
+            }
           });
+
+          var nav = new Vue({
+            el: "#nav",
+            method: {
+              selectHan: function(){
+               axios({
+                   method: "get",
+                   url: "/bcon/boardrentpage22?command=rent&rentCateName=한강 피크닉"
+               }).then(resData => {
+                 main.showBoolean = true;
+                 main.rentlist = resData.data;
+               }).catch(errorData => {
+                   alert(errorData);
+               });
+              },
+              selectBa: function(){
+                axios({
+                    method: "get",
+                    url: "/bcon/boardrentpage22?command=rent&rentCateName=바다 피크닉"
+                }).then(resData => {
+                  main.showBoolean = true;
+                  main.rentlist = resData.data;
+                }).catch(errorData => {
+                    alert(errorData);
+                });
+              },
+              selectG: function(){
+                axios({
+                    method: "get",
+                    url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑"
+                }).then(resData => {
+                  main.showBoolean = true;
+                  main.rentlist = resData.data;
+                }).catch(errorData => {
+                    alert(errorData);
+                });
+              }
+
+            }
+
+
+
+          });
+
+
+          // function comp(val1, val2){
+          //   return val1.id < val2.id;
+          // }
+          // vm.datas.sort(comp);
+
+
+          // function priceLow(){
+          //   this.oneroom.sort(function(a,b){
+          //     return a.price - b.price
+          //   });
+          // }
+
+          // function priceHigh(){
+          //   this.oneroom.sort(function(a,b){
+          //     return b.price - a.price
+          //   });
+          // }
+
+          // function sortABC(){
+          //   this.oneroom.sort(function(a,b){
+          //     return a.title.localeCompare(b.title)
+          //   });
+          // }
 
 
           // function showMyImage(fileInput) {
@@ -343,7 +434,7 @@
 
           
               
-        // }
+        }
     </script>
 
 

@@ -23,7 +23,7 @@
 		</style>
     </head>
     <body>
-
+	
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -43,7 +43,8 @@
                             </ul>
                         </li>
                     </ul>
-                    
+                    <div id="loglog">
+                    <div v-if="!logCheck">
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" >
                             <i class="bi-cart-fill me-1"></i>
@@ -55,6 +56,25 @@
                             <a href="ycon/signup">회원가입</a>
                         </button>
                     </form>
+                    </div>
+                    <div v-else>
+                    <form class="d-flex">
+                     
+                      {{datas.userNickname}}님 환영합니다
+                      
+                     <!-- <input type="text" id="dataView"> -->
+                     
+                    	<button class="btn btn-outline-dark" onclick="logout()">
+                            <i class="bi-cart-fill me-1"></i>
+                            <a href="ycon/moveMainPage">로그아웃</a>
+                        </button>
+                       <a style="color: aliceblue;"></a>
+                        <button class="btn btn-outline-dark">
+                            <i class="bi-cart-fill me-1"></i>
+                            <a href="ycon/mypage">마이 페이지</a>
+                        </button>
+                    </form>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -91,52 +111,13 @@
 
         <section class="py-5">
             <div class="w3-section w3-bottombar w3-padding-16">
-                <span class="w3-margin-right">Filter:</span> 
-                <button class="w3-button w3-black">ALL</button>
+                <span class="w3-margin-right">테마:</span> 
                 <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
                 <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
                 <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
               </div><br>
            
-		<!-- <div class="swiper-container">
-          
-          <div id="rentdetail">
-          	<div class="swiper-slide" v-for="data in datas">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-	                            Product image
-	                            <img class="swiper-slide"  src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTFfNjEg/MDAxNTcwNzg1ODM3Nzc0.zxDXm20VlPdQv8GQi9LWOdPwkqoBdiEmf8aBTWTsPF8g.FqMQTiF6ufydkQxrLBgET3kNYAyyKGJTWTyi1qd1-_Ag.PNG.kkson50/sample_images_01.png?type=w800" width="20" height="20" alt="..."/>
-	                            Product details
-	                            <div class="card-body p-4">
-	                                <div class="text-center">
-	                                    Product name
-	                                    <h5 class="fw-bolder">{{data.rentName}}</h5>
-	                                    <div class="d-flex justify-content-center small text-warning mb-2">
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-                                    	</div>
-	                                    Product price
-	                                    {{data.rentPrice}}만원<br>
-	                                    {{data.rentTime}}
-	                                </div>
-	                            </div>
-	                            Product actions
-	                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-	                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-	                           </div>
-                           </div>
-                       </div>
-                 </div>
-               
-          </div>
-          
-          
-                    
-	</div> -->
-	<div id="rentdetail">
+	 <div id="rentdetail"> 
 	<div class="swiper-container">
 	<div class="swiper-wrapper">
 				  <div class="swiper-slide" v-for="data in datas">
@@ -168,9 +149,42 @@
         
         <script>
         new Vue({
+			el: '#loglog',
+			data : {
+				logCheck :false,
+				datas: []
+			},
+			created: function ()  {
+        			axios({
+        				method: "get",
+        				url: "ycon/checkLogininfo"
+        			}).then(resData => {
+        				this.datas = resData.data;
+        				/* localStorage.setItem('datas', JSON.stringify(this.datas));*/
+        				/* sessionStorage.setItem('datas', JSON.stringify(this.datas)); */ 
+        				/* localStorage.setItem('email', this.datas.userEmail)
+        				localStorage.setItem('nickname', this.datas.userNickname) */
+        				/* this.logCheck =true; */
+        				 if(sessionStorage.getItem('loginCheck')=="true"){
+        					this.logCheck = true;
+             				sessionStorage.setItem('email', this.datas.userEmail)
+             				sessionStorage.setItem('nickname', this.datas.userNickname)
+        				}
+        				/* logCheck = true;
+        				sessionStorage.setItem('email', this.datas.userEmail)
+        				sessionStorage.setItem('nickname', this.datas.userNickname) */
+        			}).catch(errorData => {
+        				alert(errorData);
+        			});
+        	},
+			
+		});
+        
+        new Vue({
 			el: '#rentdetail',
 			data : {
-				datas: []
+				
+				datas: [],
 			},
 				created:  function ()  {
         			axios({
@@ -181,9 +195,11 @@
         			}).catch(errorData => {
         				alert(errorData);
         			});
-        	}, 
+        	},
         	
-		});
+    	},
+        	
+		);
         
          setTimeout (function(){new Swiper('.swiper-container', {
 
@@ -207,6 +223,12 @@
         	},
         });
         },80) 
+        var logout = function(){
+            localStorage.clear();
+            sessionStorage.clear();
+            sessionStorage.removeItem('nickname');
+            window.location.href="ycon/moveMainPage";
+        }
         
         </script>
     </body>

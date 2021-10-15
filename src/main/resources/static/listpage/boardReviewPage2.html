@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <title>Document</title>
-
+  
     <style>
         * {
           box-sizing: border-box;
@@ -164,109 +167,138 @@
           display: table;
         }
 
+
         
       </style>
 </head>
 <body>
     <div class="header">
         <header>
-      <div style="font-size: small; text-align: right; ">
-      <a href="/mypage.html" >마이페이지</a>
-      <a href="/login.html" >로그인</a>
-      <a href="/signup.html" >회원가입</a>
-    </div>
-    <a>피그닉 사이트</a>
-      <div> 
-      <form class="example" action="searchall" style="margin:auto;max-width:500px">
-        <input type="text" placeholder="Search.." name="search2">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-    </div> <br><br>
-  
-      <nav>
-        <ul class="nav-container" >
-          <li class="nav-item"> <a href="/boardRent.html">피크닉 물품대여</a> </li>
-          <li class="nav-item"> <a href="/boardPlace.html">피크닉 장소추천</a> </li>
-          <li class="nav-item"> <a href="/boardReview.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/boardTip.html">피크닉 꿀팁</a> </li>
-        </ul>
-      </nav>
-    </header>
+          <div style="font-size: small; text-align: right; ">
+          <a href="#" >마이페이지</a>
+          <a href="#" >로그인</a>
+          <a href="#" >회원가입</a>
+        </div>
+        <a>피그닉 사이트</a>
+          <div> 
+          <form class="example" action="" style="margin:auto;max-width:500px">
+            <input type="text" placeholder="Search.." name="search2">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div> <br><br>
+      
+        <nav>
+          <ul class="nav-container" >
+            <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+          </ul>
+        </nav>
+        </header>
     
       </div>
 
     <div class="row">
-        <div class="column side" style="background-color:#ffffff; ">
-          <ul>
-            <li><a class="active" href="#home">전체보기</a></li>
-           
-           
-          </ul>
+
+      <div class="column side" style="background-color:#ffffff; ">
+        <ul>
+          <li><a class="active" href="/bcon/boardreviewpage22?command=rent">전체보기</a></li>
+          
+          <li><a href="/bcon/boardreviewpage22?command=rent&">한강 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">바다 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">글램핑</a></li>
+        </ul>
+      </div>
+
+
+      <div class="column middle" style="background-color:#ffffff;">
+        <div id="main">
+          <article class="post" v-if="showBoolean" v-for="review in reviewlist">
+            <section>
+              <p>{{review.userEmail}}</p>
+              <p>{{review.reviewTitle}}</p>
+              <p>{{review.reviewContent}}</p>
+              <p>{{review.reviewScore}}</p>
+              <hr />
+            </section>
+          </article>
         </div>
-
-
-        <div class="column middle" style="background-color:#ffffff;">
-    ssss
-            <div id="boardTip">
-                <form>
-        
-                    <span>제목</span><br>{{tipTitle}}
-                            
-                    <span>상세 내용</span><br>
-                   <a v-for="v in datas">{{tipContent}}</a> 
-                    {{tipImg}}
-                    
-                    <tr v-for="v in datas">
-                      <td v-model="data">{{v.tipId}}</td>
-                      <td>{{v.tipTitle}}</td>
-                      <td>{{v.tipContent}}</td>
-                      <td>{{v.tipImg}}</td>
-                    </tr>
-
-
-                    <br>
-                    <button style="background-color: rgb(68, 68, 248);">수정</button>
-                    <button style="background-color: rgb(68, 68, 248);">삭제</button>
-        
-                    
-                </form>
-                
-            </div>
-           
-    
-    
-    
-        </div>
+      </div>
       
+    </div>
     
-      </div>
     
-      <div class="footer">
-        <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
-          게시된 정보는 무단으로 배포할 수 없습니다.</a>
-          ＠2021</p>
-      </div>
+    
+    
+    
+    <div class="footer">
+      <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
+        게시된 정보는 무단으로 배포할 수 없습니다.</a>
+        ＠2021</p>
+    </div>
 
-      <script>
+
+
+
+
+    <script type="text/javascript">
+      // window.onload = function(){
         new Vue({
-          el: "#boardTip",
-          data : {
-            datas :[]
-
+          el: "#main",
+          data: {
+              showBoolean: false,
+              reviewlist: []
           },
-          mounted : function(){
-            axios.get('/con/board/tips/{tipId}')
-            .then(response => {
-              this.datas = response.data;
-              console.log(response)
-            })
-            .catch(error => {
-              console.log(error)
+          created: function () {
+            axios({
+                method: "get",
+                url: "/bcon/boardreviews"
+            }).then(resData => {
+              this.showBoolean = true;
+              this.reviewlist = resData.data;
+              // this.imgName = resData.data.rentImg;
+              // console.log(this.imgName);
+              //console.log(this.rentlist);
+            }).catch(errorData => {
+                alert(errorData);
             });
           }
-    
+          
         });
-      </script>
+
+
+        // function showMyImage(fileInput) {
+
+        //   var files = fileInput.files;
+
+        //   for (var i = 0; i < files.length; i++) {           
+        //     var file = files[i];
+        //     var imageType = /image.*/;
+        //     if (!file.type.match(imageType)) {
+        //       continue;
+        //     }
+
+        //     var img=document.getElementById("thumbnil");            
+        //     img.file = file;    
+        //     var reader = new FileReader();
+
+        //     reader.onload = (function(aImg) { 
+        //       return function(e) { 
+        //           aImg.src = e.target.result; 
+        //       };
+        //     })(img);
+
+        //     reader.readAsDataURL(file);
+        //   }
+        // }
+
+
+
+        
+            
+      // }
+    </script>
     
     </body>
     
