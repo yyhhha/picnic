@@ -9,16 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
@@ -36,7 +33,6 @@ import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
-import kr.pe.playdata.model.dto.TestDTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -101,6 +97,12 @@ public class Controller {
 		return "";
 	}
 	
+	@GetMapping("/delBoardTip")
+	@Transactional
+	public String delBoardTip(@RequestParam int tipId) {
+		btr.findBoardTipByTipId(tipId).get(0).setTipDel(1);
+		return "업체 게시글 삭제되었습니다.";
+	}
 	
 	//피크닉 rent대여업체 작성하는 메소드
 	@PostMapping("/addBoardRent")
@@ -123,6 +125,13 @@ public class Controller {
 		return null;
 	}
 	
+	@GetMapping("/delBoardRent")
+	@Transactional
+	public String delBoardRent(@RequestParam int rentId) {
+		brr.findBoardRentByRentId(rentId).get(0).setRentDel(1);
+		return "업체 게시글 삭제되었습니다.";
+	}
+	
 	//get으로 json 가져오는 방식
 	@GetMapping("/board/tips")
 	public List<BoardTipDTO> boardTipList() {
@@ -139,10 +148,7 @@ public class Controller {
 	return test;
 
 }
-	
-	
 
-	
 	@GetMapping("/addPUser")
 	@Transactional
 	public String addPUser() {
@@ -156,6 +162,7 @@ public class Controller {
 		
 		return "puser 저장 성공";
 	}
+	
 	@GetMapping("/delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
@@ -182,6 +189,8 @@ public class Controller {
 		
 		return "loc 저장 성공";
 	}
+	
+	
 	@GetMapping("/addLoc2")
 	@Transactional
 	public String addLocCate2( HttpServletResponse response, @RequestParam String locName, @RequestParam String sido, @RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
@@ -200,6 +209,14 @@ public class Controller {
 
 		return "성공";
 	}
+	
+	@GetMapping("/delLocCate")
+	@Transactional
+	public String delLocCate(@RequestParam int locId) {
+		lcr.deleteById(locId); // 필요없는 카테고리 삭제용
+		return "장소 카테고리 삭제되었습니다.";
+	}
+	
 	
 	@GetMapping("/addBoardPlace")
 	@Transactional
@@ -245,6 +262,13 @@ public class Controller {
 		
 	}
 	
+	@GetMapping("/delBoardPlace")
+	@Transactional
+	public String delBoardPlace(@RequestParam int placeId) {
+		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
+		return "장소 게시글 삭제되었습니다.";
+	}
+	
 	
 //	@GetMapping("addBoardTip")
 //	@Transactional
@@ -263,14 +287,6 @@ public class Controller {
 //		return "tip 저장 성공";
 //	}
 	
-	@GetMapping("/delBoardTip")
-	@Transactional
-	public String delBoardTip(@RequestParam String tipTitle) {
-		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
-		return tipTitle;
-	}
-	
-	
 	@GetMapping("/addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
@@ -284,6 +300,13 @@ public class Controller {
 		pcor.save(A);
 		
 		return "comment 저장 성공";
+	}
+	@GetMapping("/delPcomment")
+	@Transactional
+	public String delPcomment(@RequestParam int commentid) {
+		Pcomment A = pcor.findPcommentByCommentId(commentid).get(0);
+		A.setCommentDel(1);
+		return "댓글 삭제되었습니다.";
 	}
 	
 	
@@ -303,4 +326,11 @@ public class Controller {
 		return "리뷰 저장 성공";
 	}
 
+	@GetMapping("/delBoardReview")
+	@Transactional
+	public String delBoardReview(@RequestParam int reviewId) {
+		BoardReview A = brer.findBoardReviewByReviewId(reviewId).get(0);
+		A.setReviewDel(1);
+		return "리뷰 삭제되었습니다.";
+	}
 }
