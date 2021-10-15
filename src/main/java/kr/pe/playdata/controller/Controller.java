@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ import kr.pe.playdata.model.domain.BoardTip;
 import kr.pe.playdata.model.domain.LocCategory;
 import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
-import kr.pe.playdata.model.dto.BoardReviewDTO;
+import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -57,7 +58,7 @@ public class Controller {
 //	private RentCategoryRepo pcr;
 
 	
-	@GetMapping("/signup")
+	@GetMapping("signup")
 	public void signin(HttpServletResponse response) {
 		String redirect_uri="http://localhost/signup.html";
     	try {
@@ -66,8 +67,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	
-	@GetMapping("/login")
+	@GetMapping("login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/login.html";
     	try {
@@ -136,7 +136,7 @@ public class Controller {
 	@GetMapping("/board/tips")
 	public List<BoardTipDTO> boardTipList() {
 	Iterator<BoardTip> all = btr.findAll().iterator();
-	System.out.println(btr.findAll().iterator());
+
 	BoardTip tip;
 	List<BoardTipDTO> test = new ArrayList<>();
 	while (all.hasNext()) {
@@ -149,7 +149,40 @@ public class Controller {
 
 }
 
-	@GetMapping("/addPUser")
+	//tip_id로 tip게시글 상세 get 가능
+	@GetMapping("/board/tips/{tipId}")
+		public List<BoardTipDTO> boardTipDetail(@PathVariable("tipId") int tipId) {
+			List<BoardTip> all = btr.findBoardTipByTipId(tipId);
+			
+			List<BoardTipDTO> board = new ArrayList<>();
+			for(BoardTip a : all) {
+				board.add(new BoardTipDTO(a.getTipId(),a.getPuser().getUserEmail() ,a.getTipTitle(), 
+						a.getTipContent(),a.getTipImg(),a.getTipDate(),a.getTipDel(),a.getTipLike()));
+			}
+			
+			return board;
+	}
+	
+	//rent_id로 rent게시글 상세 get 가능
+	@GetMapping("/board/rents/{rentId}")
+		public List<BoardRentDTO> boardRentDetail(@PathVariable("rentId") int rentId) {
+			List<BoardRent> all = brr.findBoardRentByRentId(rentId);
+			
+			List<BoardRentDTO> board = new ArrayList<>();
+			for(BoardRent a : all) {
+				board.add(new BoardRentDTO(a.getRentId(),a.getRentCateName(),a.getLocCate().getLocName(),a.getPuser().getUserEmail(),a.getRentName(),
+						a.getRentLink(),a.getRentPrice(),a.getRentTime(),a.getRentContent(),
+						a.getRentImg(),a.getRentDel()));
+			
+	}
+			return board;
+	}
+	
+	
+
+	
+
+	@GetMapping("addPUser")
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -162,8 +195,8 @@ public class Controller {
 		
 		return "puser 저장 성공";
 	}
-	
-	@GetMapping("/delPUser")
+
+	@GetMapping("delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		Puser A = pur.findPuserByUserEmail(userEmail);
@@ -175,7 +208,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("/addLocCate")
+	@GetMapping("addLocCate")
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -189,9 +222,8 @@ public class Controller {
 		
 		return "loc 저장 성공";
 	}
-	
-	
-	@GetMapping("/addLoc2")
+
+	@GetMapping("addLoc2")
 	@Transactional
 	public String addLocCate2( HttpServletResponse response, @RequestParam String locName, @RequestParam String sido, @RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
 		LocCategory A = new LocCategory();
@@ -218,7 +250,8 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("/addBoardPlace")
+
+	@GetMapping("addBoardPlace")
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -234,7 +267,7 @@ public class Controller {
 		return "place 저장 성공";
 	}
 	
-	@GetMapping("/addplace2")
+	@GetMapping("addplace2")
 	@Transactional
 	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName, @RequestParam String placeLoc,@RequestParam String placeContent) {
 		BoardPlace A = new BoardPlace();
@@ -287,7 +320,16 @@ public class Controller {
 //		return "tip 저장 성공";
 //	}
 	
-	@GetMapping("/addPComment")
+
+	@GetMapping("delBoardTip")
+	@Transactional
+	public String delBoardTip(@RequestParam String tipTitle) {
+		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
+		return tipTitle;
+	}
+	
+	
+	@GetMapping("addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
 		A.setCommentId(2);
@@ -310,7 +352,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("/addBoardReview")
+	@GetMapping("addBoardReview")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 		

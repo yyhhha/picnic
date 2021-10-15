@@ -1,5 +1,6 @@
 package kr.pe.playdata.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,8 @@ public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 	
 	//select * from book where title like '%?%'
 	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
+	
+//	Iterator<BoardTip> findAllById(int tipId);
 	
 	
 	
