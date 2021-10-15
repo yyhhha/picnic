@@ -1,18 +1,24 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
@@ -30,6 +36,7 @@ import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
+import kr.pe.playdata.model.dto.TestDTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -54,7 +61,7 @@ public class Controller {
 //	private RentCategoryRepo pcr;
 
 	
-	@GetMapping("signup")
+	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
 		String redirect_uri="http://localhost/signup.html";
     	try {
@@ -63,7 +70,8 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	@GetMapping("login")
+	
+	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/login.html";
     	try {
@@ -90,11 +98,11 @@ public class Controller {
 		
 		btr.save(A);
 
-		return null;
+		return "";
 	}
 	
 	
-	//피크닉 rent대여업체 작성하는 메소드 -> 미완성
+	//피크닉 rent대여업체 작성하는 메소드
 	@PostMapping("/addBoardRent")
 	@Transactional
 	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
@@ -115,8 +123,27 @@ public class Controller {
 		return null;
 	}
 	
+	//get으로 json 가져오는 방식
+	@GetMapping("/board/tips")
+	public List<BoardTipDTO> boardTipList() {
+	Iterator<BoardTip> all = btr.findAll().iterator();
+	System.out.println(btr.findAll().iterator());
+	BoardTip tip;
+	List<BoardTipDTO> test = new ArrayList<>();
+	while (all.hasNext()) {
+		tip = all.next();
+		test.add(new BoardTipDTO(tip.getTipId(),tip.getPuser().getUserEmail() ,tip.getTipTitle(), 
+				tip.getTipContent(),tip.getTipImg(),tip.getTipDate(),tip.getTipDel(),tip.getTipLike()));
+	}
+
+	return test;
+
+}
 	
-	@GetMapping("addPUser")
+	
+
+	
+	@GetMapping("/addPUser")
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -129,7 +156,7 @@ public class Controller {
 		
 		return "puser 저장 성공";
 	}
-	@GetMapping("delPUser")
+	@GetMapping("/delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		Puser A = pur.findPuserByUserEmail(userEmail);
@@ -141,7 +168,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addLocCate")
+	@GetMapping("/addLocCate")
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -155,7 +182,7 @@ public class Controller {
 		
 		return "loc 저장 성공";
 	}
-	@GetMapping("addLoc2")
+	@GetMapping("/addLoc2")
 	@Transactional
 	public String addLocCate2( HttpServletResponse response, @RequestParam String locName, @RequestParam String sido, @RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
 		LocCategory A = new LocCategory();
@@ -174,7 +201,7 @@ public class Controller {
 		return "성공";
 	}
 	
-	@GetMapping("addBoardPlace")
+	@GetMapping("/addBoardPlace")
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -190,7 +217,7 @@ public class Controller {
 		return "place 저장 성공";
 	}
 	
-	@GetMapping("addplace2")
+	@GetMapping("/addplace2")
 	@Transactional
 	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName, @RequestParam String placeLoc,@RequestParam String placeContent) {
 		BoardPlace A = new BoardPlace();
@@ -236,7 +263,7 @@ public class Controller {
 //		return "tip 저장 성공";
 //	}
 	
-	@GetMapping("delBoardTip")
+	@GetMapping("/delBoardTip")
 	@Transactional
 	public String delBoardTip(@RequestParam String tipTitle) {
 		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
@@ -244,7 +271,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addPComment")
+	@GetMapping("/addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
 		A.setCommentId(2);
@@ -260,7 +287,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addBoardReview")
+	@GetMapping("/addBoardReview")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 		

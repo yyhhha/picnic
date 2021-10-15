@@ -96,6 +96,7 @@ public class BoardRent {
 			   + "\"rentImg\":\"" + rentImg + "\", "
 			   + "\"rentDel\":\"" + rentDel + "\"}";
 	}
+
 	
 	
 }

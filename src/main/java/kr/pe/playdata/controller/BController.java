@@ -28,7 +28,7 @@ import kr.pe.playdata.model.domain.BoardTip;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
 
-//@CrossOrigin(origins = "http://localhost:80")
+@CrossOrigin(origins = "http://localhost:80")
 @RestController
 @RequestMapping("/bcon")
 public class BController {
@@ -47,8 +47,7 @@ public class BController {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-//	@Autowired
-//	private RentCategoryRepo pcr;
+	
 	
 	
 	
@@ -175,7 +174,31 @@ public class BController {
 //		return null;
 	}
 	
-	
+}
+//	/* read (all) */
+//	@GetMapping("boardrentpage222222")
+//	@Transactional
+//	public ResponseEntity<List<BoardRent>> getAllTutorials(@RequestParam int rentId) {
+////	    try {
+//	      List<BoardRent> brs = new ArrayList<BoardRent>();
+//
+////	      if (rentId == 0)
+////	        brr.findAll().forEach(brs::add);
+////	      else
+//	        brr.findBoardRentByRentId(rentId).forEach(brs::add);
+//
+//	      if (brs.isEmpty()) {
+//	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//	      }
+//
+//	      return new ResponseEntity<>(brs, HttpStatus.OK);
+////	    } catch (Exception e) {
+////	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); (required = false)
+////	    }
+//	  }
+//	
+//
+//	
 //	/* read (all) */
 //	@GetMapping("/boardrentpage222")
 //	@Transactional

@@ -20,4 +20,10 @@ public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 //	//select * from book where seq=? and writer=?
 ////	Book findBookBySeqAndWriter(Long s, String w);
 	
+	
+	
+//	//select bt from BOARD_TIP bt  order by bt.TIP_ID DESC;
+//	@Query("select b from BOARD_TIP b  order by b.TIP_ID DESC")
+//	List<BoardTip> findAllDesc();
+	
 }
