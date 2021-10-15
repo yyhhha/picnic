@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>게시글 삭제</title>
+</head>
+
+<style>
+   * {
+     box-sizing: border-box;
+     overflow: auto;
+   }
+
+   body {
+     font-family: Arial, Helvetica, sans-serif;
+     margin: 0 10%;
+
+   }
+
+   /* Container for flexboxes */
+   .row {
+     display: flex;
+     height: 100%;
+   }
+
+   /* Create three unequal columns that sits next to each other */
+   .column {
+     padding: 10px;
+
+   }
+
+   /* Left and right column */
+   .column.side {
+     -webkit-flex: 1;
+     -ms-flex: 1;
+     flex: 1;
+     border-right: 2px solid hsl(0, 0%, 51%);
+     font-size: 21px;
+     font-weight: bold;
+   }
+
+   /* Middle column */
+   .column.middle {
+     -webkit-flex: 4;
+     -ms-flex: 4;
+     flex: 4;
+   }
+
+   /*메뉴바 관련 설정*/
+   ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: auto;
+   }
+
+   li a {
+     display: block;
+     color: #000;
+     padding: 8px 16px;
+     text-decoration: none;
+   }
+
+   li a.active {
+     color: rgb(248, 70, 0);
+   }
+
+
+   /* Style the footer */
+   .footer {
+     background-color: #ffffff;
+     padding: 10px;
+     text-align: center;
+     position: absolute fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+
+   }
+
+   /*헤더헤더헤더헤더*/
+   .nav-container {
+     display: flex;
+     flex-direction: row;
+     width: 100%;
+     font-size: 23px;
+     font-weight: bold;
+     background-color: rgb(255, 90, 14);
+     list-style-type: none;
+     /*목록 기호 제거*/
+   }
+
+   .nav-item {
+     padding: 0 15px;
+     cursor: pointer;
+     /*마우스 커서를 pointer 모양으로 함*/
+   }
+
+   .nav-item a {
+     /*nav-item 클래스 아래의 a 요소를 선택함*/
+     text-align: center;
+     text-decoration: none;
+     /*밑줄 없앰*/
+     color: white;
+   }
+
+   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+   @media (max-width: 600px) {
+     .row {
+       -webkit-flex-direction: column;
+       flex-direction: column;
+     }
+   }
+
+   .header {
+     background-color: #f1f1f1;
+     position: relative;
+     top: 0;
+     text-align: center;
+     font-size: 30px;
+     border-bottom: 2px solid hsl(0, 1%, 31%);
+     /*background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fzhm4C%2FbtrhtVXaZJQ%2FRIZsJKvlR00qFvXPbyrJe0%2Fimg.png);
+   */}
+
+   #header{
+     position: sticky;
+     top: 0;
+   }
+
+   /* Style the header */
+
+ 	form.example input[type=text] {
+     padding: 10px;
+     font-size: 17px;
+     border: 2px solid #ff6f1c;
+     float: left;
+     width: 80%;
+     background: #f1f1f1;
+   }
+
+   form.example button {
+     float: left;
+     width: 20%;
+     padding: 10px;
+     background: #ff6f1c;
+     color: white;
+     font-size: 17px;
+     border: 1.25px solid #ff6f1c;
+     border-left: none;
+     cursor: pointer;
+   }
+
+   form.example button:hover {
+     background: #ff580b;
+   }
+
+   form.example::after {
+     content: "";
+     clear: both;
+     display: table;
+   }
+
+   
+</style>
+<header>
+	   <div style="font-size: small; text-align: right; ">
+	   <button class="btn btn-outline-dark" onclick="logout()">
+	                         <a href="con/moveMainPage">로그아웃</a>
+	   </button>
+	 </div>
+	 <a>피그닉 사이트</a>
+	   <div> 
+	   <form class="example" action="/searchall" style="margin:auto;max-width:500px">
+	     <input type="text" placeholder="Search.." name="search2">
+	     <button type="submit"><i class="fa fa-search"></i></button>
+	   </form>
+	 </div> <br><br>
+	
+	   <nav>
+	     <ul class="nav-container" >
+	       <li class="nav-item"> <a href="#">마이 페이지</a> </li>
+	     </ul>
+	   </nav>
+</header>
+
+<nav>
+  <ul class="nav-container" >
+    <li class="nav-item"> <a href="/boardRent.html">업체 게시글 삭제</a> </li>
+    <li class="nav-item"> <a href="/boardPlace.html">장소 게시글 삭제</a> </li>
+    <li class="nav-item"> <a href="/boardReview.html">후기 게시글 삭제</a> </li>
+    <li class="nav-item"> <a href="/boardTip.html">팁 게시글 삭제</a> </li>
+  </ul>
+</nav>
+<body>
+
+</body>
+</html>

@@ -70,6 +70,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
+	
 	@GetMapping("login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/login.html";

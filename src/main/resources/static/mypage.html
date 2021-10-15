@@ -12,11 +12,6 @@
        
 </head>
 
-<style>
-	<style type="text/css"> 
-		a { text-decoration:none } 
-		a:visited { color: black; text-decoration: none;}
-  </style>
 </head>
 <body>
 <div class="header">
@@ -28,7 +23,7 @@
     </div>
     <a>피그닉 사이트</a>
       <div> 
-      <form class="example" action="" style="margin:auto;max-width:500px">
+      <form class="example" action="/searchall" style="margin:auto;max-width:500px">
         <input type="text" placeholder="Search.." name="search2">
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
@@ -36,7 +31,7 @@
   
       <nav>
         <ul class="nav-container" >
-          <li class="nav-item"> <a href="">마이 페이지</a> </li>
+          <li class="nav-item"> <a href="#">마이 페이지</a> </li>
         </ul>
       </nav>
     </header>
@@ -46,7 +41,8 @@
 <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a href="#home">회원정보 수정</a></li> <!-- /* class="active" -->
+      	<!-- <button id="myBtn">회원정보 수정</button> -->
+        <li id="myBtn"><a href="#home">회원정보 수정</a></li> <!-- /* class="active" -->
         <li><a href="#news">내가 쓴 글</a></li>
         <li><a href="#contact">내가 쓴 댓글</a></li>
       </ul>
@@ -55,7 +51,25 @@
 
         <div>
             <form>
-                
+            
+                    <!-- The Modal -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span>회원정보 수정 전,
+			본인확인을 위한 비밀번호를 입력하세요</span><br>
+                <h5>비밀번호</h5>
+                <input v-model="placeName" placeholder="비밀번호를 입력하세요"><br>
+                  <br>
+              
+                <input style="background-color: rgb(68, 68, 248);"  type="submit" value="완료">
+                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소">
+      </div>
+ 		
+    </div>
+     </form>
+    <!-- 
                 <span>장소 명칭</span><br>
                 <input v-model="placeName" placeholder="업체 이름을 써주세요."><br>
                 <span>위치</span><br>
@@ -76,10 +90,8 @@
                 <textarea v-model="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
     
                 <input style="background-color: rgb(68, 68, 248);"  type="submit" value="완료">
-                
-    
-                
-            </form>
+
+            </form> -->
     
         </div>
 
@@ -98,5 +110,38 @@
   </div>
 
 </body>
+<script>
+var logout = function(){
+    localStorage.clear();
+    sessionStorage.clear();
+     window.location.href="con/moveMainPage";
+}
 
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];                                          
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
 </html>

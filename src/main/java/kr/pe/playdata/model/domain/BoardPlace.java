@@ -19,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +29,7 @@ import lombok.ToString;
 @Entity
 @DynamicInsert
 @SequenceGenerator(name="placeId_seq", sequenceName="placeId_seq", initialValue=1, allocationSize=1)
-@Table(name = "boardplace")
+@Table(name = "board_place")
 public class BoardPlace  {
 	
 	@Id
@@ -60,8 +59,6 @@ public class BoardPlace  {
 	@Column(name = "place_content")
 	private String placeContent;
 	
-	@Column(name="")
-	private String placeCategory;
 	
 	//place_score 삭제 리뷰 스코어 합산해서 계산.
 //	@Column(name = "place_score")
@@ -72,6 +69,7 @@ public class BoardPlace  {
 	
 	@Column(name = "place_del")
 	private int placeDel; //boolean -> int 0,1로 구분 Y N
+	
 	@Override
 	public String toString() {
 		return "BoardPlace [placeId=" + placeId + ", placeName=" + placeName + ", placeContent=" + placeContent
