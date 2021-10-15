@@ -78,7 +78,7 @@ public class BoardRent {
 	private int rentDel;
 	
 	//새로 추가
-	@Column(name = "rent_cate_name")
+	@Column(name = "ent_cate_name")
 	private String rentCateName;
 	
 	
