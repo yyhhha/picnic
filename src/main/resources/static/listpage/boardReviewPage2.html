@@ -203,23 +203,23 @@
 
       <div class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardtippage22?command=rent">전체보기</a></li>
+          <li><a class="active" href="/bcon/boardreviewpage22?command=rent">전체보기</a></li>
           
-          <li><a href="/bcon/boardtippage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">글램핑</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent&">한강 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">바다 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
         <div id="main">
-          <article class="post" v-if="showBoolean" v-for="tip in tiplist">
+          <article class="post" v-if="showBoolean" v-for="review in reviewlist">
             <section>
-              <p>{{tip.tipTitle}}</p>
-              <p>{{tip.tipContent}}</p>
-              <p>{{tip.tipDate}}</p>
-              <p>{{tip.tipLike}}</p>
+              <p>{{review.userEmail}}</p>
+              <p>{{review.reviewTitle}}</p>
+              <p>{{review.reviewContent}}</p>
+              <p>{{review.reviewScore}}</p>
               <hr />
             </section>
           </article>
@@ -243,23 +243,21 @@
 
 
     <script type="text/javascript">
-      window.onload = function(){
+      // window.onload = function(){
         new Vue({
           el: "#main",
           data: {
-              sorted: "",
               showBoolean: false,
-              tiplist: [],
-              imgName: ""
+              reviewlist: []
           },
           created: function () {
             axios({
                 method: "get",
-                url: "/bcon/boardtips"
+                url: "/bcon/boardreviews"
             }).then(resData => {
               this.showBoolean = true;
-              this.tiplist = resData.data;
-              this.imgName = resData.data.rentImg;
+              this.reviewlist = resData.data;
+              // this.imgName = resData.data.rentImg;
               // console.log(this.imgName);
               //console.log(this.rentlist);
             }).catch(errorData => {
@@ -299,7 +297,7 @@
 
         
             
-      }
+      // }
     </script>
     
     </body>

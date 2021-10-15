@@ -216,10 +216,10 @@
     
         <nav>
           <ul class="nav-container" >
-            <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+            <li class="nav-item"> <a href="/boardRentPage2.html">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="/boardPlacePage2.html">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="/boardReviewPage2.html">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="/boardTipPage2.html">피크닉 꿀팁</a> </li>
           </ul>
         </nav>
       </header>
@@ -227,12 +227,12 @@
 
     <div class="row">
 
-      <div id="nav" class="column side" style="background-color:#ffffff;">
+      <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li v-on:click="selectAll" style="cursor: pointer;">전체보기</li>
-          <li v-on:click="selectHan" style="cursor: pointer;">한강 피크닉</li>
-          <li v-on:click="selectBa" style="cursor: pointer;">바다 피크닉</li>
-          <li v-on:click="selectG" style="cursor: pointer;">글램핑</li>
+          <li><a class="active" onclick="selectAll()">전체보기</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=한강">한강 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=바다">바다 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=글램핑">글램핑</a></li>
         </ul>
       </div>
 
@@ -241,37 +241,64 @@
     
 		    <div id="main">
 			  
-          <span v-text="sorted"></span> <br>
-          {{sorted}} <br>
+            <!-- <div id="app4"> -->
+                <!-- <label for="sort">정렬:</label> -->
+    
+                
+    
+                <span v-text="sorted"></span> <br>
+                {{sorted}} <br>
 
-          <template>
-              <select name="sort" id="sort" v-model="sorted">
-                <option v-on:event="ordered()">dkdk</option>
-                <option value="1">전체</option>
-                <option value="2">가격순</option>
-                <option value="3">가나다순</option>
-              </select>
-          </template>
 
-          <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
-            <a target="_blank" href="single.html">
-              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
-            </a>
-            <div class="desc">
-              <h3>{{rent.rentName}}</h3>
-              <h5>{{rent.rentCateName}}원</h5>
-              <h5>{{rent.rentTime}}시간</h5>
-              <h5>{{rent.rentPrice}}원</h5>
+            <template>
+                <select name="sort" id="sort" v-model="sorted">
+                  <option v-on:event="ordered()">dkdk</option>
+                  <option value="1">전체</option>
+                  <option value="2">가격순</option>
+                  <option value="3">가나다순</option>
+                </select>
+            </template>
+
+
+            <!-- <button v-bind:class = "{set1:sortBoolean}"  >Vue 활용 class 속성 적용 버튼</button>
+            <p>
+                <input id="set1" type="checkbox" v-model="sortBoolean" />set1 : 버튼색 변경<br />
+            </P> -->
+
+
+            <!-- </div> -->
+          
+            <!-- <hr><br><br> -->
+
+
+            <!-- <button @click="reqResAjax()">버튼 클릭하면 물품 대여 리스트</button>
+            <br><br> -->
+
+            <!-- <ul v-if="showBoolean">
+              <li v-for="rent in rentlist">
+                {{rent.rentPrice}}
+              </li>
+            </ul> -->
+
+
+            <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
+              <a target="_blank" href="single.html">
+                <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+              </a>
+              <div class="desc">
+                <h3>{{rent.rentName}}</h3>
+                <h5>{{rent.rentTime}}시간</h5>
+                <h5>{{rent.rentPrice}}원</h5>
+              </div>
             </div>
-          </div>
 
                         
 
-			  </div>  <!-- main div -->
+			    </div>  <!-- main div -->
 			    
-      </div> <!-- column middle div -->
+        </div> <!-- column middle div -->
 
-    </div> <!-- row div -->
+      </div> <!-- row div -->
 
     
     
@@ -285,44 +312,33 @@
 
 
     <script type="text/javascript">
-        // window.onload = function(){
+        window.onload = function(){
           var main = new Vue({
             el: "#main",
             data: {
                 sorted: "",
                 showBoolean: false,
-                rentlist: []
+                rentlist: [],
+                sortBoolean: false
             },
-            created: function () {
+            method: {
+              selectAll: function () {
               axios({
                   method: "get",
-                  url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
+                  url: "/bcon/boardrentpage22?command=rent"
               }).then(resData => {
                 main.showBoolean = true;
                 main.rentlist = resData.data;
-                //console.log(this.rentlist);
               }).catch(errorData => {
                   alert(errorData);
               });
             }
-            
+            }
           });
-        // }
 
           var nav = new Vue({
             el: "#nav",
-            methods: {
-              selectAll: function(){
-                axios({
-                    method: "get",
-                    url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
-                }).then(resData => {
-                  main.showBoolean = true;
-                  main.rentlist = resData.data;
-                }).catch(errorData => {
-                    alert(errorData);
-                });
-              },
+            method: {
               selectHan: function(){
                axios({
                    method: "get",
@@ -358,6 +374,8 @@
               }
 
             }
+
+
 
           });
 
@@ -416,7 +434,7 @@
 
           
               
-        
+        }
     </script>
 
 

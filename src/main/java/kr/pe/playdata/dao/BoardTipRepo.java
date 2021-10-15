@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardTip;
 
 public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
@@ -15,7 +16,7 @@ public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 	//select * from book where title like '%?%'
 	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
 	
-	
+//	List<BoardTip> findBoardTipByRentCateName(String rengCateName);
 	
 //	//select * from book where seq=? and writer=?
 ////	Book findBookBySeqAndWriter(Long s, String w);

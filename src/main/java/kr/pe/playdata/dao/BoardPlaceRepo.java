@@ -19,4 +19,6 @@ public interface BoardPlaceRepo extends JpaRepository<BoardPlace, Integer>{
 	List<BoardPlace> findBoardPlaceByPlaceContent(String PlaceContent);
 	
 	List<BoardPlace> findBoardPlaceByPuser(Puser puser);
+	
+//	List<BoardPlace> findBoardPlaceByRentCateName(String rengCateName);
 }
