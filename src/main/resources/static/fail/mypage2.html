@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>마이페이지</title>
     <link href="css/mypage.css" rel="stylesheet" />
+       <script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" async defer></script>
 </head>
 
 </head>
@@ -17,7 +18,7 @@
     <header>
       <div style="font-size: small; text-align: right; ">
       <button class="btn btn-outline-dark" onclick="logout()">
-         <a href="ycon/moveMainPage">로그아웃</a>
+                            <a href="ycon/moveMainPage">로그아웃</a>
       </button>
     </div>
     <a>피그닉 사이트</a>
@@ -36,7 +37,7 @@
     </header>
 
   </div>
-<div id="mypage">
+
 <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
@@ -55,26 +56,33 @@
     <div id="myModal" class="modal">
  
       <!-- Modal content -->
-      <form  action="ycon/captcheck" method="get">
       <div class="modal-content">
+      <form  action="ycon/captcheck" method="get">
         <span>회원정보 수정 전,
 			본인확인을 위한 비밀번호를 입력하세요</span><br>
                 <h5>비밀번호</h5>
                  <input placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}"><br>
                   <br>
               
+            	<!-- <div id="recaptcha1" ></div> -->
                 <input style="background-color: rgb(68, 68, 248);"  type="submit">
                 <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소"> 
-      </div>
         </form>
+      </div>
  		
     </div>
      </form>
     
         </div>
+
+     
+
+
     </div>
+  
+
   </div>
-</div>
+
   <div class="footer">
     <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
       게시된 정보는 무단으로 배포할 수 없습니다.</a>
@@ -103,6 +111,10 @@ btn.onclick = function() {
     modal.style.display = "block";
 }
 
+// When the user clicks on <span> (x), close the modal
+/* span.onclick = function() {
+    modal.style.display = "none";
+} */
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -110,27 +122,14 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+var recaptcha1;
+var myCallBack = function() {
+  //Render the recaptcha1 on the element with ID "recaptcha1"
+	recaptcha1 = grecaptcha.render('recaptcha1', {
+        'sitekey' : '6LdtStAcAAAAALeCXP5lx1OH8hYCj_OcRWXkiI5_', //Replace this with your Site key
+        'theme' : 'dark'
+      });
+}
 
-
-new Vue({
-	el: '#mypage',
-	data : {
-		
-		datas: [],
-	},
-		created:  function ()  {
-			axios({
-				method: "get",
-				url: "ycon/boardrentpage2222"
-			}).then(resData => {
-				this.datas = resData.data;
-			}).catch(errorData => {
-				alert(errorData);
-			});
-	},
-	
-},
-	
-);
 </script>
 </html>
