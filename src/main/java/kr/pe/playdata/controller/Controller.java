@@ -35,6 +35,7 @@ import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardPlaceDTO;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardReviewDTO;
+
 import kr.pe.playdata.model.dto.BoardTipDTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
