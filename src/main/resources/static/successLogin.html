@@ -52,12 +52,12 @@
                      
                     	<button class="btn btn-outline-dark" onclick="logout()">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/moveMainPage">로그아웃</a>
+                            <a href="ycon/moveMainPage">로그아웃</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/mypage">마이 페이지</a>
+                            <a href="ycon/mypage">마이 페이지</a>
                         </button>
                     </form>
                 </div>
@@ -241,7 +241,7 @@
 			created: function ()  {
         			axios({
         				method: "get",
-        				url: "con/checkLogininfo"
+        				url: "ycon/checkLogininfo"
         			}).then(resData => {
         				this.datas = resData.data;
         				/* localStorage.setItem('datas', JSON.stringify(this.datas));*/
@@ -270,7 +270,7 @@
 		 var logout = function(){
             localStorage.clear();
             sessionStorage.clear();
-             window.location.href="con/moveMainPage";
+             window.location.href="ycon/moveMainPage";
         }
         </script>
     </body>

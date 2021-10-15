@@ -59,7 +59,7 @@ public class YContorller {
 	@Autowired
 	private PuserRepo pur;
 	
-	@GetMapping("signup")
+	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
 		String redirect_uri="http://localhost/signup.html";
     	try {
@@ -68,7 +68,7 @@ public class YContorller {
 			e.printStackTrace();
 		}
 	}
-	@GetMapping("login")
+	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/login.html";
     	try {
@@ -81,7 +81,7 @@ public class YContorller {
 	
 	
 	//로그인 확인 메소드
-	@PostMapping("checkLogin")
+	@PostMapping("/checkLogin")
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) {
 		Puser puser = new Puser();
 		String redirect_uri="";
@@ -111,13 +111,13 @@ public class YContorller {
 	}
 	
 	//axios로 받기 위해 사용 
-	@GetMapping("checkLogininfo")
+	@GetMapping("/checkLogininfo")
 	public Puser checkLogininfo() {
 		return pur.findPuserByUserEmail(amail);
 	}
 	
 	//가입 메소드
-	@PostMapping("addPUser")
+	@PostMapping("/addPUser")
 	@Transactional
 	public void addPuser(@RequestParam("email")String email,@RequestParam("psw")String psw,@RequestParam("nickname")String nickname,HttpServletResponse response) {
 		Puser B = new Puser();
@@ -140,7 +140,7 @@ public class YContorller {
 	}
 	
 	
-	@GetMapping("moveMainPage")
+	@GetMapping("/moveMainPage")
 	public void moveMainPage(HttpServletResponse response) {
 		String redirect_uri="http://localhost/index.html";
     	try {
@@ -150,7 +150,7 @@ public class YContorller {
 		}
 	}
 	
-	@GetMapping("mypage")
+	@GetMapping("/mypage")
 	public void mypage(HttpServletResponse response) {
 		String redirect_uri="http://localhost/mypage.html";
     	try {
@@ -159,13 +159,13 @@ public class YContorller {
 			e.printStackTrace();
 		}
 	}
-	@GetMapping("checkEmail")
+	@GetMapping("/checkEmail")
 	public String checkEmail() {
 		
 		return"";
 	}
 	/* read (all) */
-	@GetMapping("boardrentpage2222")
+	@GetMapping("/boardrentpage2222")
 	@Transactional
 	public JSONArray findBoardRentAll4(){ // toString 재정의 안됨
 		List<BoardRent> al = new ArrayList<>();
