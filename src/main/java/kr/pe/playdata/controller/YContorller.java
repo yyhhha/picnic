@@ -31,7 +31,6 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.LocCategoryRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
-import kr.pe.playdata.dao.RentCategoryRepo;
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.Puser;
 import kr.pe.playdata.model.dto.BoardRentDTO;
@@ -39,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
 @RestController
-//@RequestMapping("/con")
+@RequestMapping("/ycon") // ycon/boardrentpage222222
 @SessionAttributes({"puser","nickname","email"})
 public class YContorller {
 
@@ -59,8 +58,6 @@ public class YContorller {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-	@Autowired
-	private RentCategoryRepo pcr;
 	
 	@GetMapping("signup")
 	public void signin(HttpServletResponse response) {

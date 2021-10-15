@@ -24,19 +24,11 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.LocCategoryRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
-import kr.pe.playdata.dao.RentCategoryRepo;
-import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
-import kr.pe.playdata.model.domain.BoardReview;
-import kr.pe.playdata.model.domain.BoardTip;
-import kr.pe.playdata.model.domain.LocCategory;
-import kr.pe.playdata.model.domain.Pcomment;
-import kr.pe.playdata.model.domain.Puser;
-import kr.pe.playdata.model.domain.RentCategory;
 
 @CrossOrigin(origins = "http://localhost:80")
 @RestController
-@RequestMapping("/con2")
+@RequestMapping("/bcon") // /bcon/boardrentpage222222
 public class BController {
 
 	@Autowired
@@ -53,8 +45,6 @@ public class BController {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-	@Autowired
-	private RentCategoryRepo pcr;
 	
 	
 	/* read (all) */
@@ -141,7 +131,7 @@ public class BController {
 		return al; //JSON 배열로 자동 반환해줌
 	}
 	
-
+}
 //	/* read (all) */
 //	@GetMapping("boardrentpage222222")
 //	@Transactional

@@ -61,7 +61,7 @@ public class Controller {
 //	private RentCategoryRepo pcr;
 
 	
-	@GetMapping("signup")
+	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
 		String redirect_uri="http://localhost/signup.html";
     	try {
@@ -71,7 +71,7 @@ public class Controller {
 		}
 	}
 	
-	@GetMapping("login")
+	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/login.html";
     	try {
@@ -143,7 +143,7 @@ public class Controller {
 	
 
 	
-	@GetMapping("addPUser")
+	@GetMapping("/addPUser")
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -156,7 +156,7 @@ public class Controller {
 		
 		return "puser 저장 성공";
 	}
-	@GetMapping("delPUser")
+	@GetMapping("/delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		Puser A = pur.findPuserByUserEmail(userEmail);
@@ -168,7 +168,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addLocCate")
+	@GetMapping("/addLocCate")
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -182,7 +182,7 @@ public class Controller {
 		
 		return "loc 저장 성공";
 	}
-	@GetMapping("addLoc2")
+	@GetMapping("/addLoc2")
 	@Transactional
 	public String addLocCate2( HttpServletResponse response, @RequestParam String locName, @RequestParam String sido, @RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
 		LocCategory A = new LocCategory();
@@ -201,7 +201,7 @@ public class Controller {
 		return "성공";
 	}
 	
-	@GetMapping("addBoardPlace")
+	@GetMapping("/addBoardPlace")
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -217,7 +217,7 @@ public class Controller {
 		return "place 저장 성공";
 	}
 	
-	@GetMapping("addplace2")
+	@GetMapping("/addplace2")
 	@Transactional
 	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName, @RequestParam String placeLoc,@RequestParam String placeContent) {
 		BoardPlace A = new BoardPlace();
@@ -263,7 +263,7 @@ public class Controller {
 //		return "tip 저장 성공";
 //	}
 	
-	@GetMapping("delBoardTip")
+	@GetMapping("/delBoardTip")
 	@Transactional
 	public String delBoardTip(@RequestParam String tipTitle) {
 		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
@@ -271,7 +271,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addPComment")
+	@GetMapping("/addPComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
 		A.setCommentId(2);
@@ -287,7 +287,7 @@ public class Controller {
 	}
 	
 	
-	@GetMapping("addBoardReview")
+	@GetMapping("/addBoardReview")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 		
