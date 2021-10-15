@@ -229,11 +229,10 @@
 
       <div class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="#home">전체보기</a></li>
-        
-          <li><a href="bcon?command=rent&searchstring=한강">한강 피크닉</a></li>
-          <li><a href="bcon?command=rent&searchstring=바다">바다 피크닉</a></li>
-          <li><a href="bcon?command=rent&searchstring=글램핑">글램핑</a></li>
+          <li><a class="active" href="/bcon/boardrentpage22?command=rent">전체보기</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=한강">한강 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=바다">바다 피크닉</a></li>
+          <li><a href="/bcon/boardrentpage22?command=rent&rentCateName=글램핑">글램핑</a></li>
         </ul>
       </div>
 
@@ -284,7 +283,7 @@
 
             <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
               <a target="_blank" href="single.html">
-                <img src="img_5terre.jpg" width="600" height="400">
+                <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
               </a>
               <div class="desc">
                 <h3>{{rent.rentName}}</h3>
@@ -341,7 +340,7 @@
             created: function () {
               axios({
                   method: "get",
-                  url: "/bcon/boardrentpage2"
+                  url: "/bcon/boardrentpage22"
               }).then(resData => {
                 this.showBoolean = true;
                 this.rentlist = resData.data;
