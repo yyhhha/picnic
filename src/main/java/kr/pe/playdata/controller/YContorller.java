@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -89,7 +91,8 @@ public class YContorller {
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
 			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
 				//성공 로직 
-				redirect_uri ="http://localhost/successLogin.html";
+//				redirect_uri ="http://localhost/successLogin.html";
+				redirect_uri ="http://localhost/index3.html";
 				amail =email;
 				response.sendRedirect(redirect_uri);
 			}else {
@@ -186,4 +189,25 @@ public class YContorller {
 		}
 		return array;
 	}
+	
+	@RequestMapping("/captcheck")
+	public void captcheck( HttpServletResponse response,@RequestParam("psw")String psw) throws IOException {
+		
+		System.out.println("pse ;" +psw);
+		String redirect_uri="";
+		try {
+			Puser puser = new Puser();
+			puser = pur.findPuserByUserEmail(amail); // find 실패하면 에러. catch로 넘어감.
+			redirect_uri="http://localhost/userinfo.html";
+			if(puser.getUserPassword().equals(psw)) {
+				response.sendRedirect(redirect_uri);
+			}
+		} catch (IOException e) {
+			redirect_uri="http://localhost/mypage.html";
+			response.sendRedirect(redirect_uri);
+			e.printStackTrace();
+		}
+	}
+
+
 }
