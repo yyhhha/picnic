@@ -10,8 +10,8 @@ import kr.pe.playdata.model.domain.Pcomment;
 
 public interface PcommentRepo  extends CrudRepository<Pcomment, Integer>{
 
-	List<LocCategory> findLocCategoryByCommentId(int id);
-	List<LocCategory> findLocCategoryByCommentContentContaining(String comment);
+	List<Pcomment> findPcommentByCommentId(int id);
+	List<Pcomment> findPcommentByCommentContentContaining(String comment);
 	
 
 
