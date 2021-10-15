@@ -13,6 +13,8 @@ public interface BoardReviewRepo extends CrudRepository<BoardReview, Integer>{
 	
 	//select * from board_review where title like '%?%'
 	List<BoardReview> findBoardReviewByReviewIdContaining(int reviewId);
+
+	List<BoardReview> findBoardReviewByReviewTitleContaining(String reviewTitle);
 	
 	
 	

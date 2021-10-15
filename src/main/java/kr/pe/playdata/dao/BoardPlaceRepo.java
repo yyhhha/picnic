@@ -19,4 +19,6 @@ public interface BoardPlaceRepo extends CrudRepository<BoardPlace, Integer>{
 	List<BoardPlace> findBoardPlaceByPlaceContent(String PlaceContent);
 	
 	List<BoardPlace> findBoardPlaceByPuser(Puser puser);
+
+	List<BoardPlace> findBoardPlaceByPlaceNameContaining(String placeName);
 }

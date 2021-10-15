@@ -14,6 +14,7 @@ public interface BoardTipRepo extends CrudRepository<BoardTip, Integer>{
 	
 	//select * from book where title like '%?%'
 	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
+	List<BoardTip> findBoardTipByTipTitleContaining(String tipTitle);
 	
 	
 	
