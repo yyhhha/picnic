@@ -12,7 +12,7 @@
 <body>
 <h2>피그닉 로그인</h2>
     <div class="container">
-    	<form action="con/checkLogin" method="post">
+    	<form action="ycon/checkLogin" method="post">
     	<input type="hidden" name="command" value="userLogin">
       <label for="email"><b>e-mail</b></label>
 	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
@@ -22,7 +22,7 @@
       </form>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
       <span class="psw"> <button type="button"  class="cancelbtn">비밀번호 찾기</button></span>
     </div>
 
