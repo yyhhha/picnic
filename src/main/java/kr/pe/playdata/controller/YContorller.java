@@ -2,6 +2,7 @@ package kr.pe.playdata.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +34,16 @@ import kr.pe.playdata.dao.BoardTipRepo;
 import kr.pe.playdata.dao.LocCategoryRepo;
 import kr.pe.playdata.dao.PcommentRepo;
 import kr.pe.playdata.dao.PuserRepo;
+import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
+import kr.pe.playdata.model.domain.BoardReview;
+import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.domain.Pcomment;
 import kr.pe.playdata.model.domain.Puser;
+import kr.pe.playdata.model.dto.BoardPlaceDTO;
+import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardReviewDTO;
+import kr.pe.playdata.model.dto.BoardTipDTO;
 import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
@@ -87,6 +95,9 @@ public class YContorller {
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) {
 		Puser puser = new Puser();
 		String redirect_uri="";
+		//작성자 세션 불러오기 위함
+		HttpSession session = request.getSession();
+
 		try{
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
 			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
@@ -94,6 +105,8 @@ public class YContorller {
 //				redirect_uri ="http://localhost/successLogin.html";
 				redirect_uri ="http://localhost/index3.html";
 				amail =email;
+				//작성자 세션 불러오기 위함
+				session.setAttribute("userEmail", email);
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
@@ -208,6 +221,147 @@ public class YContorller {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<BoardRentDTO> findUser(String useremail) {
+		Puser puer = pur.findPuserByUserEmail(useremail);
+		List<BoardRentDTO> test = new ArrayList<>();
+			List<BoardRent> han = brr.findBoardRentByPuser(puer);
+			
+			for(BoardRent rent:han) {
+				System.out.println(rent.toString());
+				test.add(new BoardRentDTO(rent.getRentId(),rent.getRentCateName(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(),
+						rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),
+						rent.getRentImg(),rent.getRentDel()));
+			}
+		return test;
+	}
+	
+	public List<BoardTipDTO> findUserT(String useremail) {
+		Puser puer = pur.findPuserByUserEmail(useremail);
+		List<BoardTipDTO> test = new ArrayList<>();
 
+			
+	
+			List<BoardTip> han = btr.findBoardTipByPuser(puer);
+			
+			for(BoardTip tip:han) {
+				test.add(new BoardTipDTO(tip.getTipId(),tip.getPuser().getUserEmail() ,tip.getTipTitle(), 
+						tip.getTipContent(),tip.getTipImg(),tip.getTipDate(),tip.getTipDel(),tip.getTipLike()));
+			}
+		
+		return test;
+	}
 
+	private List<BoardPlaceDTO> findUserP(String useremail) {
+		Puser puer = pur.findPuserByUserEmail(useremail);
+		List<BoardPlaceDTO> test = new ArrayList<>();
+		List<BoardPlace> han = bpr.findBoardPlaceByPuser(puer);
+		
+		for(BoardPlace place:han) {
+			test.add(new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),place.getPlaceName(), 
+					place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel()));
+		}
+		return test;
+	}
+	
+	private List<BoardReviewDTO> findUserR(String useremail) {
+		Puser puer = pur.findPuserByUserEmail(useremail);
+		List<BoardReviewDTO> test = new ArrayList<>();
+		List<BoardReview> han = brer.findBoardReviewByPuser(puer);
+		
+		for(BoardReview review:han) {
+			test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
+					review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
+		}
+		return test;
+	}
+	
+	@GetMapping("/mypage2")
+	public List<BoardRentDTO> findBoardRentList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
+//		List<BoardRentDTO> rent = null;
+		List<BoardRentDTO> rent = null;
+		
+		/* rent */
+		if(command.equals("rent")) {
+			if(myCate.equals("board")) {
+				rent = findUser(useremail);
+			}else if(myCate.equals("comment")) {
+//				rent = brr.findUser(myCate);
+			}
+		}
+		return rent;
+	}
+
+	@GetMapping("/mypage21")
+	public List<BoardTipDTO> findBoardTipList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
+		List<BoardTipDTO> rent = null;
+		
+		/* rent */
+		if(command.equals("rent")) {
+			if(myCate.equals("board")) {
+				rent = findUserT(useremail);
+			}else if(myCate.equals("comment")) {
+//				rent = brr.findUser(myCate);
+			}
+		}
+		return rent;
+	}
+
+	@GetMapping("/mypage22")
+	public List<BoardPlaceDTO> findBoardPlaceList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
+		List<BoardPlaceDTO> rent = null;
+		
+		/* rent */
+		if(command.equals("rent")) {
+			if(myCate.equals("board")) {
+				rent = findUserP(useremail);
+			}else if(myCate.equals("comment")) {
+//				rent = brr.findUser(myCate);
+			}
+		}
+		return rent;
+	}
+	
+	@GetMapping("/mypage23")
+	public List<BoardReviewDTO> findBoardReviewList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
+		List<BoardReviewDTO> rent = null;
+		
+		/* rent */
+		if(command.equals("rent")) {
+			if(myCate.equals("board")) {
+				rent = findUserR(useremail);
+			}else if(myCate.equals("comment")) {
+//				rent = brr.findUser(myCate);
+			}
+		}
+		return rent;
+	}
+	
+//	@GetMapping("/mypage24")
+//	public List<PcommentDTO> findComment(@RequestParam String useremail ) {
+////		List<PcommentDTO> rent = null;
+//		
+//		/* rent */
+////				rent = findUserR(useremail);
+//		return rent;
+//	}
+	
+	
+	@PostMapping("/findid2")
+	public void findid2(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
+		Puser puser = new Puser();
+		String redirect_uri="";
+		try{
+			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
+			
+				redirect_uri ="http://localhost/index3.html";
+				amail =email;
+				response.sendRedirect(redirect_uri);
+				System.out.println("패스워드가 틀렸습니다.");
+				throw new Exception("패스워드가 틀립니다.");
+		}catch (Exception e) {
+			//email이 틀렸을경우
+			e.printStackTrace();
+		}
+	}
 }

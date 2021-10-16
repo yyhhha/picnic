@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,15 +86,14 @@ public class Controller {
 	// 피크닉 꿀팁 작성하는 메소드
 	@PostMapping("/addBoardTip")
 	@Transactional
-	public String addBoardTip(@RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
+	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
 		System.out.println(111);
-
+		HttpSession session = request.getSession();
 		BoardTip A = new BoardTip();
 		A.setTipTitle(tipDto.getTipTitle());
 		A.setTipContent(tipDto.getTipContent());
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com")); // 저장된 로그인아이디로..?
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
 		A.setTipImg(tipDto.getTipImg());
-		A.setPuser(pur.findPuserByUserEmail("test1@gmail.com"));
 
 		btr.save(A);
 
@@ -102,19 +103,20 @@ public class Controller {
 	@GetMapping("/delBoardTip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
-		btr.findBoardTipByTipId(tipId).get(0).setTipDel(1);
+		btr.findBoardTipByTipId(tipId).setTipDel(1);
 		return "업체 게시글 삭제되었습니다.";
 	}
 	
 	//피크닉 rent대여업체 작성하는 메소드
 	@PostMapping("/addBoardRent")
 	@Transactional
-	public String addBoardRent(@RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
+	public String addBoardRent(HttpServletRequest request,  @RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
 		System.out.println(222);
+		HttpSession session = request.getSession();
 		
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -130,7 +132,7 @@ public class Controller {
 	@GetMapping("/delBoardRent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
-		brr.findBoardRentByRentId(rentId).get(0).setRentDel(1);
+		brr.findBoardRentByRentId(rentId).setRentDel(1);
 		return "업체 게시글 삭제되었습니다.";
 	}
 
@@ -153,57 +155,48 @@ public class Controller {
 
 	//tip_id로 tip게시글 상세 get 가능
 	@GetMapping("/board/tips/{tipId}")
-		public List<BoardTipDTO> boardTipDetail(@PathVariable("tipId") int tipId) {
-			List<BoardTip> all = btr.findBoardTipByTipId(tipId);
+		public BoardTipDTO boardTipDetail(@PathVariable("tipId") int tipId) {
+			BoardTip all = btr.findBoardTipByTipId(tipId);
 			
-			List<BoardTipDTO> board = new ArrayList<>();
-			for(BoardTip a : all) {
-				board.add(new BoardTipDTO(a.getTipId(),a.getPuser().getUserEmail() ,a.getTipTitle(), 
-						a.getTipContent(),a.getTipImg(),a.getTipDate(),a.getTipDel(),a.getTipLike()));
-			}
+			
+			BoardTipDTO board = new BoardTipDTO(all.getTipId(),all.getPuser().getUserEmail() ,all.getTipTitle(), 
+					all.getTipContent(),all.getTipImg(),all.getTipDate(),all.getTipDel(),all.getTipLike());
+			
 			
 			return board;
 	}
 	
 	//rent_id로 rent게시글 상세 get 가능
 	@GetMapping("/board/rents/{rentId}")
-		public List<BoardRentDTO> boardRentDetail(@PathVariable("rentId") int rentId) {
-			List<BoardRent> all = brr.findBoardRentByRentId(rentId);
+		public BoardRentDTO boardRentDetail(@PathVariable("rentId") int rentId) {
+			BoardRent rent = brr.findBoardRentByRentId(rentId);
 			
-			List<BoardRentDTO> board = new ArrayList<>();
-			for(BoardRent a : all) {
-				board.add(new BoardRentDTO(a.getRentId(),a.getRentCateName(),a.getLocCate().getLocName(),a.getPuser().getUserEmail(),a.getRentName(),
-						a.getRentLink(),a.getRentPrice(),a.getRentTime(),a.getRentContent(),
-						a.getRentImg(),a.getRentDel()));
+			BoardRentDTO board = new BoardRentDTO(rent.getRentId(),rent.getRentCateName(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(),
+					rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),
+					rent.getRentImg(),rent.getRentDel());
 			
-	}
 			return board;
 	}
 	
 	//place_id로 place게시글 상세 get가능
 	@GetMapping("/board/places/{placeId}")
-		public List<BoardPlaceDTO> boardPlaceDetail(@PathVariable("placeId") int placeId) {
-		List<BoardPlace> all = bpr.findBoardPlaceByPlaceId(placeId);
+		public BoardPlaceDTO boardPlaceDetail(@PathVariable("placeId") int placeId) {
+		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
 		
-		List<BoardPlaceDTO> board = new ArrayList<>();
-		for(BoardPlace a : all) {
-			board.add(new BoardPlaceDTO(a.getPlaceId(),a.getLocCate().getLocName(),a.getPuser().getUserEmail(),
-					a.getPlaceName(),a.getPlaceContent(),a.getPlaceImg(),a.getPlaceDel()));
-		}
+		BoardPlaceDTO board = new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),
+				place.getPlaceName(),place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel());
 		return board;
 }
 
 	
 	//review_id로 review게시글 상세 get가능
 	@GetMapping("/board/reviews/{reviewId}")
-		public List<BoardReviewDTO> boardReviewDetail(@PathVariable("reviewId") int reviewId) {
-		List<BoardReview> all = brer.findBoardReviewByReviewId(reviewId);
+		public BoardReviewDTO boardReviewDetail(@PathVariable("reviewId") int reviewId) {
+		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
 		
-		List<BoardReviewDTO> board = new ArrayList<>();
-		for(BoardReview a : all) {
-			board.add(new BoardReviewDTO(a.getReviewId(),a.getBoardPlace().getPlaceName(),a.getPuser().getUserEmail(),
-					a.getReviewTitle(),a.getReviewContent(),a.getReviewDate(),a.getReviewDel(),a.getReviewScore()));
-		}
+		BoardReviewDTO board = new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),
+				review.getReviewTitle(),review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore());
+		
 		return board;
 }
 	
@@ -366,7 +359,7 @@ public class Controller {
 		A.setCommentContent("comment content");
 		A.setCommentDel(0);
 //		A.setBoardRent(brr.findBoardRentByRentId(1));
-		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
+		A.setBoardTip(btr.findBoardTipByTipId(1));
 
 		pcor.save(A);
 
@@ -400,7 +393,7 @@ public class Controller {
 	@GetMapping("/delBoardReview")
 	@Transactional
 	public String delBoardReview(@RequestParam int reviewId) {
-		BoardReview A = brer.findBoardReviewByReviewId(reviewId).get(0);
+		BoardReview A = brer.findBoardReviewByReviewId(reviewId);
 		A.setReviewDel(1);
 		return "리뷰 삭제되었습니다.";
 	}

@@ -249,7 +249,7 @@
             <a target="_blank" href="single.html">
               <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
             </a>
-            <div class="desc">
+            <div class="desc" @click="showdetail(place.placeId)">
               <h3>{{place.placeName}}</h3>
               <h5>{{place.placeContent}}</h5>
               <h5>{{place.placeScore}}</h5>
@@ -304,6 +304,12 @@
               }).catch(errorData => {
                   alert(errorData);
               });
+            },
+            methods : {
+              showdetail: function(id){
+                //페이지로 이동
+                location.href = "/boardPlacedetail.html?placeId=" + id;
+              }
             }
             
           });

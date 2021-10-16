@@ -215,9 +215,9 @@
                     <span>상세 내용</span><br>
                     <textarea v-model="tipContent" placeholder="상세 내용을 써주세요."></textarea><br>
         
-                    <div class="input-container">
-                      <input v-on:change="tipImg" type="file" accept="image/*"  onchange="showMyImage(this)" /></div>
+                      <input v-model="tipImg" type="file" accept="image/*"  v-on:change="showMyImage(this)" />
                       <img id="thumbnil" style="width:20%; margin-top:10px;"  /><br>
+                    
                     <button v-on:click="submit()" style="background-color: rgb(68, 68, 248);">완료</button>
         
                     
@@ -248,32 +248,9 @@
 
           },
           methods :{
-            submit: function(){
-
-              axios({
-                method: "post",
-                url: "/con/addBoardTip",
-                data: {
-                  tipTitle : this.tipTitle, 
-                  tipContent : this.tipContent,
-                  tipImg : this.tipImg
-                  }
-              }).then(resData => {
-  
-                
-              }).catch(errorData => {
-                alert(errorData);
-              });
-              
-            }
-  
-          }
-         
-        });
-
-        function showMyImage(fileInput) {
-          var files = fileInput.files;
-          for (var i = 0; i < files.length; i++) {           
+            showMyImage : function(fileInput){
+              var files = fileInput.files;
+                for (var i = 0; i < files.length; i++) {           
               var file = files[i];
               var imageType = /image.*/;     
               if (!file.type.match(imageType)) {
@@ -289,7 +266,34 @@
               })(img);
               reader.readAsDataURL(file);
           }    
-      }
+            },
+
+            submit: function(){
+
+              axios({
+                method: "post",
+                url: "/con/addBoardTip",
+                data: {
+                  tipTitle : this.tipTitle, 
+                  tipContent : this.tipContent,
+                  tipImg : this.tipImg
+                  }
+              }).then(resData => {
+                location.href="boardTiplist.html";
+  
+                
+              }).catch(errorData => {
+                alert(errorData);
+              });
+              
+            }
+  
+          }
+         
+        });
+
+       
+      
       </script>
     
     </body>

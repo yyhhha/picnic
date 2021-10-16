@@ -219,9 +219,9 @@
             <th>작성일</th>
           </tr>
 
-          <tr v-for="v in datas" >
-            <td v-model="data">{{v.tipId}}</td>
-            <td>{{v.tipTitle}}</td>
+          <tr v-for="v in datas">
+            <td>{{v.tipId}}</td>
+            <td @click="showdetail(v.tipId)">{{v.tipTitle}}</td>
             <td>{{v.userEmail}}</td>
             <td>{{v.tipDate}}</td>
           </tr>
@@ -260,6 +260,12 @@
         .catch(error => {
           console.log(error)
         });
+      },
+      methods : {
+        showdetail: function(id){
+          //페이지로 이동
+          location.href = "/boardTipdetail.html?tipId=" + id;
+        }
       }
 
     });
