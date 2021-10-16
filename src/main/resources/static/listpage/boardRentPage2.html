@@ -257,8 +257,8 @@
             <a target="_blank" href="single.html">
               <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
             </a>
-            <div class="desc">
-              <h3>{{rent.rentName}}</h3>
+            <div class="desc" @click="showdetail(rent.rentId)">
+              <h3 >{{rent.rentName}}</h3>
               <h5>{{rent.rentCateName}}원</h5>
               <h5>{{rent.rentTime}}시간</h5>
               <h5>{{rent.rentPrice}}원</h5>
@@ -304,6 +304,12 @@
               }).catch(errorData => {
                   alert(errorData);
               });
+            },
+            methods : {
+              showdetail: function(id){
+                //페이지로 이동
+                location.href = "/boardRentdetail.html?rentId=" + id;
+              }
             }
             
           });

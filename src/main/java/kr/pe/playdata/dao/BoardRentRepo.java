@@ -9,7 +9,7 @@ import kr.pe.playdata.model.domain.Puser;
 
 public interface BoardRentRepo extends JpaRepository<BoardRent, Integer>{
 
-//	BoardRent findBoardRentByRentId(int rentId);
+	BoardRent findBoardRentByRentId(int rentId);
 	
 	BoardRent findBoardRentByRentName(String RentName);
 	
@@ -17,7 +17,7 @@ public interface BoardRentRepo extends JpaRepository<BoardRent, Integer>{
 	
 	List<BoardRent> findBoardRentByPuser(Puser puser);
 	
-	List<BoardRent> findBoardRentByRentId(int rentId);
+	
 
 	List<BoardRent> findBoardRentByRentNameContaining(String rentName);
 	
