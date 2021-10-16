@@ -1,6 +1,10 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -166,12 +170,25 @@ public class Controller {
 	@GetMapping("/delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
-		Puser A = pur.findPuserByUserEmail(userEmail);
+		System.out.println(userEmail);
+		Puser A = null;
+		A = pur.findPuserByUserEmail(userEmail);
 		A.setRoles("out"); // 로그인에서 확인
+<<<<<<< Updated upstream
 		A.setUserPassword("");
 		A.setUserOut(1);		
 		
 		return "계정탈퇴되었습니다";
+=======
+		A.setOutDate(LocalDate.now(ZoneId.of("Asia/Seoul")).toString()+" "+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+		A.setUserOut(1);
+
+		pur.save(A);
+//		pur.delete(A);
+		System.out.println(A);
+
+		return null;
+>>>>>>> Stashed changes
 	}
 	
 	
@@ -294,7 +311,6 @@ public class Controller {
 		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
 		A.setCommentContent("comment content");
 		A.setCommentDel(0);
-//		A.setBoardRent(brr.findBoardRentByRentId(1));
 		A.setBoardTip(btr.findBoardTipByTipId(1).get(0));
 		
 		pcor.save(A);
@@ -308,7 +324,12 @@ public class Controller {
 		A.setCommentDel(1);
 		return "댓글 삭제되었습니다.";
 	}
+<<<<<<< Updated upstream
 	
+=======
+
+// review
+>>>>>>> Stashed changes
 	
 	@GetMapping("/addBoardReview")
 	public String addBoardReview() {

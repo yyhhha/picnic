@@ -10,5 +10,6 @@ public interface LocCategoryRepo extends CrudRepository<LocCategory, Integer>{
 
 	List<LocCategory> findLocCategoryByLocId(int id);
 	List<LocCategory> findLocCategoryByLocName(String name);
+	List<LocCategory> findLocCategoryByLocNameContaining(String string);
 	
 }

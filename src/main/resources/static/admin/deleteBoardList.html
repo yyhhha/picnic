@@ -197,6 +197,139 @@
   </ul>
 </nav>
 <body>
+<<<<<<< Updated upstream
 
 </body>
+=======
+<div id = "main">
+	<section class="w3-row" v-if="showBoolean">
+    <div class="box alt"  v-for="rent in rentlist">
+      <div class="row gtr-uniform">
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <h3>{{rent.rentName}}</h3>
+              <p>{{rent.puser}}</p>
+              <button v-on:click="removeRent(rent.rentId)">삭제</button>
+            </header>
+          </article>
+        </div> 
+      </div> 
+    </div>
+  </section>
+
+  <hr color="blue">
+
+  <section class="w3-row" v-if="showBoolean">
+    <div id="placelist" class="box alt"  v-for="place in placelist">
+      <div class="row gtr-uniform">
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <h3>{{place.placeName}}</h3>
+              <button v-on:click="removePlace(place.placeId)">삭제</button>
+            </header>
+          </article>
+        </div> 
+      </div>
+    </div>
+  </section>
+
+  <hr color="blue">
+
+  <section class="w3-row" v-if="showBoolean">
+    <div id="tiplist" class="box alt"  v-for="tip in tiplist">
+      <div class="row gtr-uniform">
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <h3>{{tip.tipTitle}}</h3>
+              <button v-on:click="removeTip(tip.tipId)">삭제</button>
+            </header>
+          </article>
+        </div> 
+      </div> 
+    </div> 
+  </section>
+
+    <hr color="blue">
+
+  <section class="w3-row" v-if="showBoolean">
+    <div id="reviewlist" class="box alt"  v-for="review in reviewlist">
+      <div class="row gtr-uniform">
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <h3>{{review.reviewTitle}}</h3>
+              <button v-on:click="removeReview(review.reviewId)">삭제</button>
+            </header>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr color="blue">
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+          new Vue({
+            el: "#main",
+            data: {
+                sorted: "",
+                showBoolean: false,
+                placelist: [],
+                rentlist: [],
+                reviewlist:[],
+                tiplist:[]
+            },
+            created: function () {
+              axios({
+                  method: "get",
+                  url: "/scon/searchAll?searchString=All"
+              }).then(resData => {
+                this.showBoolean = true;
+                this.placelist = resData.data[0];
+                this.rentlist = resData.data[1];
+                this.reviewlist = resData.data[2];
+                this.tiplist = resData.data[3];
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            },
+            methods: {
+              removeRent(rent){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardRent?searchString=" + rent.rentId
+                });
+              
+            },
+            removePlace(place){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardPlace?searchString=" + place.placeId
+                });
+              
+            },
+            removeTip(tip){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardTip?searchString=" + tip.tipId
+                });
+              
+            },
+            removeReview(review){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardReview?searchString=" + review.reviewId                });
+            }
+          }// methods
+        });
+      
+   </script>
+>>>>>>> Stashed changes
 </html>

@@ -68,8 +68,19 @@ public class BoardTip {
 
 	@Override
 	public String toString() {
+<<<<<<< Updated upstream
 		return "BoardTip [tipId=" + tipId + ", tipTitle=" + tipTitle + ", tipContent=" + tipContent + ", tipImg="
 				+ tipImg + ", tipDate=" + tipDate + ", tipDel=" + tipDel + ", tipLike=" + tipLike + "]";
+=======
+		return "{\"tipId\":\"" + tipId + "\", " 
+				+ "\"tipTitle\":\"" + tipTitle + "\", "
+				+ "\"tipContent\":\"" + tipContent + "\", "
+				+ "\"tipImg\":\"" + tipImg + "\", "
+				+ "\"tipDate\":\"" + tipDate + "\", "
+				+ "\"tipDel\":\"" + tipDel + "\", "
+				+ "\"puser\":" + puser + "\", "
+				+ "\"tipLike\":\"" + tipLike + "\"}";
+>>>>>>> Stashed changes
 	}
 	
 //	@Builder

@@ -198,5 +198,82 @@
 </nav>
 <body>
 
+<div id = "main">
+	<input type="text" name="searchString" v-model:value="searchString">
+	<button v-on:click="search(searchString)">검색하기</button>
+	유저 표시
+ <section class="w3-row" v-if="showBoolean">
+    <div class="box alt"  >
+      <div class="row gtr-uniform">
+        <div class="col-4">
+           <table>
+	           <tr>
+	           	<th>유저이름</th>
+	           	<th>유저이메일</th>
+	           	<th>탈퇴여부</th>
+	           	<th>삭제</th>
+	           </tr>
+	           <tr v-for="(user,userEmail) in puserlist" :key="userEmail">
+	             <td>{{user.userNickname}}</td>
+	             <td>{{user.userEmail}}</td>
+	             <td>{{user.userOut}}</td>
+	             <td><button v-on:click="removeUser(user.userEmail)">삭제</button></td>
+	           </tr>
+           </table>
+        </div> 
+      </div> 
+    </div>
+  </section>
+</div>  
 </body>
+<script type="text/javascript">
+    new Vue({
+      el: "#main",
+      data: {
+          sorted: "",
+          showBoolean: false,
+          puserlist: [],
+    	  searchString : "",
+    	  userEmail: ""
+    	  
+      },
+      created: function () {
+        axios({
+            method: "get",
+            url: "/scon/searchUser?searchString=All"
+        }).then(resData => {
+          this.showBoolean = true;
+          this.puserlist = resData.data;
+        }).catch(errorData => {
+            alert(errorData);
+        });
+      },
+      methods: {
+        removeUser(userEmail){
+          axios({
+                  method: "get",
+                  url: "/con/delPUser?userEmail="+userEmail
+          }).then((response) => { 
+        	  search(searchString); 
+          }).catch(errorData => {
+              alert(errorData);
+          });
+        },
+        search(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/searchUser?searchString="+this.searchString
+            }).then(resData => {
+              this.showBoolean = true;
+              this.puserlist = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
+      }
+      
+    });
+  
+         
+</script>
 </html>
