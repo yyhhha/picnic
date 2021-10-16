@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.domain.Puser;
 
 public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 
@@ -17,6 +18,7 @@ public interface BoardTipRepo extends JpaRepository<BoardTip, Integer>{
 	List<BoardTip> findBoardTipByTipIdContaining(int tipId);
 	List<BoardTip> findBoardTipByTipTitleContaining(String tipTitle);
 	
+	List<BoardTip> findBoardTipByPuser(Puser puser);
 //	Iterator<BoardTip> findAllById(int tipId);
 	
 //	List<BoardTip> findBoardTipByRentCateName(String rengCateName);

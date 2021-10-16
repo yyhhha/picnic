@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import kr.pe.playdata.model.domain.BoardReview;
+import kr.pe.playdata.model.domain.Puser;
 
 public interface BoardReviewRepo extends JpaRepository<BoardReview, Integer>{
 
@@ -16,7 +17,7 @@ public interface BoardReviewRepo extends JpaRepository<BoardReview, Integer>{
 
 	List<BoardReview> findBoardReviewByReviewTitleContaining(String reviewTitle);
 	
-	
+	List<BoardReview> findBoardReviewByPuser(Puser puser);
 	
 	//select * from board_review where seq=? and writer=?
 //	BoardReviewRepo findBookBySeqAndWriter(Long s, String w);

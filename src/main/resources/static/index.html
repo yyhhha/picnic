@@ -145,7 +145,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        
+       <!--  <iframe src="C:\Users\Playdata\Desktop\Halo.mp3" allow="autoplay" id="audio"></iframe> -->
         
         <script>
         new Vue({
@@ -189,7 +189,8 @@
 				created:  function ()  {
         			axios({
         				method: "get",
-        				url: "ycon/boardrentpage2222"
+        				/* url: "ycon/boardrentpage2222" */
+        				url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
         			}).then(resData => {
         				this.datas = resData.data;
         			}).catch(errorData => {
