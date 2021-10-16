@@ -197,6 +197,129 @@
   </ul>
 </nav>
 <body>
+<div id = "main">
 
+<section class="w3-row" v-if="showBoolean">
+    <div class="box alt"  v-for="rent in rentlist">
+      <div class="row gtr-uniform">
+
+        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
+              <h3>{{rent.rentName}}</h3>
+              <p>{{rent.puser}}</p>
+              
+            </header>
+            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
+            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
+            <!-- <a href="#" class="author"></a> -->
+          </article>
+        </div> <!-- class="col-4" -->
+
+      </div> <!-- class="row gtr-uniform" -->
+    </div>  <!-- class="box alt" -->
+  </section>
+  <hr color="blue">
+  <section class="w3-row" v-if="showBoolean">
+    <div id="placelist" class="box alt"  v-for="place in placelist">
+      <div class="row gtr-uniform">
+
+        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
+              <h3>{{place.placeName}}</h3>
+            </header>
+            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
+            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
+            <!-- <a href="#" class="author"></a> -->
+          </article>
+        </div> <!-- class="col-4" -->
+
+      </div> <!-- class="row gtr-uniform" -->
+    </div>  <!-- class="box alt" -->
+  </section>
+  <hr color="blue">
+  <section class="w3-row" v-if="showBoolean">
+    <div id="tiplist" class="box alt"  v-for="tip in tiplist">
+      <div class="row gtr-uniform">
+
+        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
+              <h3>{{tip.tipTitle}}</h3>
+            </header>
+            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
+            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
+            <!-- <a href="#" class="author"></a> -->
+          </article>
+        </div> <!-- class="col-4" -->
+
+      </div> <!-- class="row gtr-uniform" -->
+    </div>  <!-- class="box alt" -->
+  </section>
+    <hr color="blue">
+  <section class="w3-row" v-if="showBoolean">
+    <div id="reviewlist" class="box alt"  v-for="review in reviewlist">
+      <div class="row gtr-uniform">
+
+        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
+        <div class="col-4">
+          <article class="mini-post">
+            <header>
+              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
+              <h3>{{review.reviewTitle}}</h3>
+            </header>
+            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
+            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
+            <!-- <a href="#" class="author"></a> -->
+          </article>
+        </div> <!-- class="col-4" -->
+
+      </div> <!-- class="row gtr-uniform" -->
+    </div>  <!-- class="box alt" -->
+  </section>
+  <hr color="blue">
+  
+
+</div>
 </body>
+
+<script type="text/javascript">
+        window.onload = function(){
+          new Vue({
+            el: "#main",
+            data: {
+                sorted: "",
+                showBoolean: false,
+                placelist: [],
+                rentlist: [],
+                reviewlist:[],
+                tiplist:[]
+            },
+            created: function () {
+              axios({
+                  method: "get",
+                  url: "/scon/searchAll?searchString=한강"
+              }).then(resData => {
+                this.showBoolean = true;
+                this.placelist = resData.data[0];
+                this.rentlist = resData.data[1];
+                this.reviewlist = resData.data[2];
+                this.tiplist = resData.data[3];
+                //console.log(this.rentlist);
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            }
+            
+          });
+        }
+          
+   </script>
 </html>

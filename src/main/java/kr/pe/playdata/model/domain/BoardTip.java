@@ -69,12 +69,13 @@ public class BoardTip {
 	@Override
 	public String toString() {
 		return "{\"tipId\":\"" + tipId + "\", " 
-				+ "\" tipTitle\":\"" + tipTitle + "\", "
-				+ "\" tipContent\":\"" + tipContent + "\", "
-				+ "\" tipImg\":\"" + tipImg + "\", "
-				+ "\" tipDate\":\"" + tipDate + "\", "
-				+ "\" tipDel\":\"" + tipDel + "\", "
-				+ "\" tipLike\":\"" + tipLike + "\"}";
+				+ "\"tipTitle\":\"" + tipTitle + "\", "
+				+ "\"tipContent\":\"" + tipContent + "\", "
+				+ "\"tipImg\":\"" + tipImg + "\", "
+				+ "\"tipDate\":\"" + tipDate + "\", "
+				+ "\"tipDel\":\"" + tipDel + "\", "
+				+ "\"puser\":\"" + puser + "\", "
+				+ "\"tipLike\":\"" + tipLike + "\"}";
 	}
 	
 //	@Builder
