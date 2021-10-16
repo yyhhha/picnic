@@ -65,13 +65,10 @@ public class BoardTip {
 	//tip_like 추가
 	@Column(name="tip_like")
 	private int tipLike;
-
+	
 	@Override
 	public String toString() {
-<<<<<<< Updated upstream
-		return "BoardTip [tipId=" + tipId + ", tipTitle=" + tipTitle + ", tipContent=" + tipContent + ", tipImg="
-				+ tipImg + ", tipDate=" + tipDate + ", tipDel=" + tipDel + ", tipLike=" + tipLike + "]";
-=======
+
 		return "{\"tipId\":\"" + tipId + "\", " 
 				+ "\"tipTitle\":\"" + tipTitle + "\", "
 				+ "\"tipContent\":\"" + tipContent + "\", "
@@ -80,7 +77,7 @@ public class BoardTip {
 				+ "\"tipDel\":\"" + tipDel + "\", "
 				+ "\"puser\":" + puser + "\", "
 				+ "\"tipLike\":\"" + tipLike + "\"}";
->>>>>>> Stashed changes
+
 	}
 	
 //	@Builder
@@ -93,6 +90,7 @@ public class BoardTip {
 //		this.tipDate = tipDate;
 //		
 //	}
+	
 	
 	
 }

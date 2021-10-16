@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>마이페이지</title>
+    <link href="css/mypage.css" rel="stylesheet" />
+       <script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" async defer></script>
+</head>
+
+</head>
+<body>
+<div class="header">
+    <header>
+      <div style="font-size: small; text-align: right; ">
+      <button class="btn btn-outline-dark" onclick="logout()">
+                            <a href="ycon/moveMainPage">로그아웃</a>
+      </button>
+    </div>
+    <a>피그닉 사이트</a>
+      <div> 
+      <form class="example" action="/searchall" style="margin:auto;max-width:500px">
+        <input type="text" placeholder="Search.." name="search2">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div> <br><br>
+  
+      <nav>
+        <ul class="nav-container" >
+          <li class="nav-item"> <a href="#">마이 페이지</a> </li>
+        </ul>
+      </nav>
+    </header>
+
+  </div>
+
+<div class="row">
+    <div class="column side" style="background-color:#ffffff; ">
+      <ul>
+      	<!-- <button id="myBtn">회원정보 수정</button> -->
+        <li id="myBtn"><a href="#home">회원정보 수정</a></li> <!-- /* class="active" -->
+        <li><a href="#news">내가 쓴 글</a></li>
+        <li><a href="#contact">내가 쓴 댓글</a></li>
+      </ul>
+    </div>
+    <div class="column middle" style="background-color:#ffffff;">
+
+        <div>
+            <form>
+            
+                    <!-- The Modal -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+      <form  action="ycon/captcheck" method="get">
+        <span>회원정보 수정 전,
+			본인확인을 위한 비밀번호를 입력하세요</span><br>
+                <h5>비밀번호</h5>
+                 <input placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}"><br>
+                  <br>
+              
+            	<!-- <div id="recaptcha1" ></div> -->
+                <input style="background-color: rgb(68, 68, 248);"  type="submit">
+                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소"> 
+        </form>
+      </div>
+ 		
+    </div>
+     </form>
+    
+        </div>
+
+     
+
+
+    </div>
+  
+
+  </div>
+
+  <div class="footer">
+    <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
+      게시된 정보는 무단으로 배포할 수 없습니다.</a>
+      ＠2021</p>
+  </div>
+
+</body>
+<script>
+var logout = function(){
+    localStorage.clear();
+    sessionStorage.clear();
+     window.location.href="ycon/moveMainPage";
+}
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];                                          
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+/* span.onclick = function() {
+    modal.style.display = "none";
+} */
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+var recaptcha1;
+var myCallBack = function() {
+  //Render the recaptcha1 on the element with ID "recaptcha1"
+	recaptcha1 = grecaptcha.render('recaptcha1', {
+        'sitekey' : '6LdtStAcAAAAALeCXP5lx1OH8hYCj_OcRWXkiI5_', //Replace this with your Site key
+        'theme' : 'dark'
+      });
+}
+
+</script>
+</html>

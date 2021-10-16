@@ -66,10 +66,7 @@ public class BoardReview {
 
 	@Override
 	public String toString() {
-<<<<<<< Updated upstream
-		return "BoardReview [reviewId=" + reviewId + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
-				+ ", reviewDate=" + reviewDate + ", reviewDel=" + reviewDel + ", reviewScore=" + reviewScore + "]";
-=======
+
 		return "{\"reviewId\":\"" + reviewId + "\", "
 				+ "\"reviewTitle\":\"" + reviewTitle + "\", "
 				+ "\"reviewContent\":\"" + reviewContent + "\", "
@@ -77,7 +74,7 @@ public class BoardReview {
 				+ "\"reviewDel\":\"" + reviewDel + "\", "
 				+ "\"puser\":" + puser + "\", "
 				+ "\"reviewScore\":\"" + reviewScore + "\"}";
->>>>>>> Stashed changes
+
 	}
 	
 }

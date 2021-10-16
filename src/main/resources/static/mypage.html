@@ -9,16 +9,22 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>마이페이지</title>
     <link href="css/mypage.css" rel="stylesheet" />
-       
-</head>
 
+<style type="text/css">
+div.gallery {
+          margin: 5px;
+          border: 1px solid #ccc;
+          float: left;
+          width: 180px;
+        }
+</style>
 </head>
 <body>
 <div class="header">
     <header>
       <div style="font-size: small; text-align: right; ">
       <button class="btn btn-outline-dark" onclick="logout()">
-                            <a href="con/moveMainPage">로그아웃</a>
+         <a href="ycon/moveMainPage">로그아웃</a>
       </button>
     </div>
     <a>피그닉 사이트</a>
@@ -37,72 +43,90 @@
     </header>
 
   </div>
-
+<div id="mypage">
 <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
       	<!-- <button id="myBtn">회원정보 수정</button> -->
         <li id="myBtn"><a href="#home">회원정보 수정</a></li> <!-- /* class="active" -->
-        <li><a href="#news">내가 쓴 글</a></li>
-        <li><a href="#contact">내가 쓴 댓글</a></li>
+        <li v-on:click="{selectBoard(),selectPlaceBoard(),selectTipBoard(),selectReviewBoard()}">내가 쓴 글</li>
+        <li v-on:click="selectComment()">내가 쓴 댓글</li>
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
 
         <div>
-            <form>
+       <form>
             
                     <!-- The Modal -->
     <div id="myModal" class="modal">
  
       <!-- Modal content -->
+      <form  action="ycon/captcheck" method="get">
       <div class="modal-content">
         <span>회원정보 수정 전,
 			본인확인을 위한 비밀번호를 입력하세요</span><br>
                 <h5>비밀번호</h5>
-                <input v-model="placeName" placeholder="비밀번호를 입력하세요"><br>
+                 <input placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}"><br>
                   <br>
               
-                <input style="background-color: rgb(68, 68, 248);"  type="submit" value="완료">
-                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소">
+                <input style="background-color: rgb(68, 68, 248);"  type="submit">
+                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소"> 
       </div>
+        </form>
  		
     </div>
      </form>
-    <!-- 
-                <span>장소 명칭</span><br>
-                <input v-model="placeName" placeholder="업체 이름을 써주세요."><br>
-                <span>위치</span><br>
-                <input v-model="placeLoc" placeholder="업체 위치를 써주세요."><br>
-                <span>장소 특징</span><br>
-                  <input type="checkbox"  value="강" v-model="placeCategory">
-                  <label for="river">강</label>
-                  <input type="checkbox" value="바다" v-model="placeCategory">
-                  <label for="beach">바다</label>
-                  <input type="checkbox"  value="숲" v-model="placeCategory">
-                  <label for="forest">숲</label>
-                  <input type="checkbox" value="도시" v-model="placeCategory">
-                  <label for="city">도시</label>
-                
-                  <br>
-              
-                <span>상세 내용</span><br>
-                <textarea v-model="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
-    
-                <input style="background-color: rgb(68, 68, 248);"  type="submit" value="완료">
-
-            </form> -->
-    
-        </div>
-
      
-
-
+     
+    <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
+            <a target="_blank" href="single.html">
+              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+            </a>
+            <div class="desc">
+              <h3>{{rent.rentName}}</h3>
+              <h5>{{rent.rentCateName}}원</h5>
+              <h5>{{rent.rentTime}}시간</h5>
+              <h5>{{rent.rentPrice}}원</h5>
+            </div>
+     </div>
+     <br>
+    <div class="gallery" v-if="showBoolean2" v-for="tip in tiplist">
+            <a target="_blank" href="single.html">
+              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+            </a>
+            <div class="desc">
+              <p>{{tip.tipTitle}}</p>
+              <p>{{tip.tipContent}}</p>
+              <p>{{tip.tipDate}}</p>
+              <p>{{tip.tipLike}}</p>
+            </div>
+     </div>
+     <div class="gallery" v-if="showBoolean3" v-for="place in placelist">
+            <a target="_blank" href="single.html">
+              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+            </a>
+            <div class="desc">
+               <h3>{{place.placeName}}</h3>
+              <h5>{{place.placeContent}}</h5>
+              <h5>{{place.userEmail}}</h5>
+            </div>
+     </div>   
+     <div class="gallery" v-if="showBoolean4" v-for="review in reviewlist">
+            <a target="_blank" href="single.html">
+              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+            </a>
+            <div class="desc">
+              <p>{{review.userEmail}}</p>
+              <p>{{review.reviewTitle}}</p>
+              <p>{{review.reviewContent}}</p>
+              <p>{{review.reviewScore}}</p>
+            </div>
+     </div>    
+        </div>
     </div>
-  
-
   </div>
-
+</div>
   <div class="footer">
     <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
       게시된 정보는 무단으로 배포할 수 없습니다.</a>
@@ -114,7 +138,7 @@
 var logout = function(){
     localStorage.clear();
     sessionStorage.clear();
-     window.location.href="con/moveMainPage";
+     window.location.href="ycon/moveMainPage";
 }
 
 // Get the modal
@@ -131,10 +155,6 @@ btn.onclick = function() {
     modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -143,5 +163,104 @@ window.onclick = function(event) {
     }
 }
 
+
+var email = sessionStorage.getItem('email');
+var tmp = "/ycon/mypage2?command=rent&myCate=board&useremail="+email+"";
+var tmp2 = "/ycon/mypage21?command=rent&myCate=board&useremail="+email+"";
+var tmp3 = "/ycon/mypage22?command=rent&myCate=board&useremail="+email+"";
+var tmp4 = "/ycon/mypage23?command=rent&myCate=board&useremail="+email+"";
+var tmp5 = "/ycon/mypage24?useremail="+email+"";
+
+var nav = new Vue({
+    el: "#mypage",
+    data: {
+        sorted: "",
+        showBoolean: false,
+        rentlist: [],
+        showBoolean2: false,
+        tiplist: [],
+        showBoolean3: false,
+        placelist: [],
+        showBoolean4: false,
+        reviewlist: [],
+        
+       
+        showBoolean5: false,
+        commenttiplist: [],
+ 
+        
+    },
+    
+    methods: {
+    	
+    	selectBoard: function(){
+    		
+            axios({
+                method: "get",
+                url: tmp
+            }).then(resData => {
+            	nav.showBoolean = true;
+            	nav.rentlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }, 
+          
+    	selectTipBoard: function(){
+    		
+            axios({
+                method: "get",
+                url: tmp4
+            }).then(resData => {
+            	nav.showBoolean = true;
+            	nav.tiptlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          
+          },
+          
+    	selectPlaceBoard: function(){
+      		
+            axios({
+                method: "get",
+                url: tmp2
+            }).then(resData => {
+            	nav.showBoolean2 = true;
+            	nav.placelist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+          
+          selectReviewBoard: function(){
+      		
+              axios({
+                  method: "get",
+                  url: tmp3
+              }).then(resData => {
+              	nav.showBoolean3 = true;
+              	nav.reviewlist = resData.data;
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            },
+            
+    	
+      
+          
+      selectComment: function(){
+       axios({
+           method: "get",
+           url: "/bcon/boardrentpage22?command=rent&rentCateName=한강 피크닉"
+       }).then(resData => {
+         main.showBoolean5 = true;
+         main.commenttiplist = resData.data;
+       }).catch(errorData => {
+           alert(errorData);
+       });
+      },
+    }
+  });
 </script>
 </html>

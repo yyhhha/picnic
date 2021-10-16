@@ -92,10 +92,7 @@ public class BoardRent {
 			   + "\"rentTime\":\"" + rentTime + "\", "
 			   + "\"rentContent\":\"" + rentContent + "\", "
 			   + "\"rentImg\":\"" + rentImg + "\", "
-<<<<<<< Updated upstream
-=======
 			   + "\"puser\":" + puser + "\", "
->>>>>>> Stashed changes
 			   + "\"rentDel\":\"" + rentDel + "\"}";
 	}
 

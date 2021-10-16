@@ -206,16 +206,16 @@
 
 
         <div class="column middle" style="background-color:#ffffff;">
-    
             <div id="boardTip">
-                <form action="/tip/{{tipId}}" method="post">
+                <form>
         
                     <span>제목</span><br>{{tipTitle}}
                             
                     <span>상세 내용</span><br>
-                    {{tipContent}}
+                    <div>{{tipContent}}</div><br>
                     {{tipImg}}
-                    
+                    <img src="tipImg">
+
                     <br>
                     <button style="background-color: rgb(68, 68, 248);">수정</button>
                     <button style="background-color: rgb(68, 68, 248);">삭제</button>
@@ -243,12 +243,27 @@
         new Vue({
           el: "#boardTip",
           data : {
-            tipTitle : "ss",
-            tipContent: "ss",
-            tipImg:""
+            tipTitle : "",
+            tipContent : "",
+            tipImg : "",
 
+          },
+          created : function(){
+            var params = new URLSearchParams(location.search);
+
+            axios.get('/con/board/tips/' + params.get('tipId'))
+            .then(response => {
+              this.tipTitle = response.data.tipTitle;
+              this.tipContent = response.data.tipContent;
+              this.tipImg = response.data.tipImg;
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
           }
-        })
+    
+        });
       </script>
     
     </body>

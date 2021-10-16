@@ -209,9 +209,8 @@
 
     <div class="column middle" id="tiplist" style="background-color:#ffffff;">
 
-      <button @click="submit">2. 클릭</button>
       <div id="viewData">
-        <table border=1>
+        <table border=1 >
 
           <tr>
             <th>번호</th>
@@ -220,21 +219,18 @@
             <th>작성일</th>
           </tr>
 
-          <!-- <tr v-if="!datas">
-              <td>게시글이 없습니다.</td>
-          </tr> -->
-
           <tr v-for="v in datas">
-            <td v-model="data">{{v.tipId}}</td>
-            <td>{{v.tipTitle}}</td>
+            <td>{{v.tipId}}</td>
+            <td @click="showdetail(v.tipId)">{{v.tipTitle}}</td>
             <td>{{v.userEmail}}</td>
             <td>{{v.tipDate}}</td>
           </tr>
+
+          
         </table>
       </div>
 
-      안녕안녕
-
+<button><a href="/boardtip.html"> 글쓰기</a></button>
 
     </div>
 
@@ -255,29 +251,23 @@
       data: {
         datas: []
       },
-      methods :{
-        submit: function(){
-
-          axios({
-            method: "get",
-            url: "/con/board/tips",
-            datas: {
-              tipId : this.tipTitle, 
-              tipTitle : this.tipContent,
-              userEmail : this.tipImg,
-              tipDate : this.tipDate
-              }
-          }).then(resData => {
-
-            
-          }).catch(errorData => {
-            alert(errorData);
-          });
-          
+      mounted : function(){
+        axios.get('/con/board/tips')
+        .then(response => {
+          this.datas = response.data;
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        });
+      },
+      methods : {
+        showdetail: function(id){
+          //페이지로 이동
+          location.href = "/boardTipdetail.html?tipId=" + id;
         }
-
       }
-     
+
     });
 
 

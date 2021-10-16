@@ -73,11 +73,7 @@ public class Puser {
 
 	@Override
 	public String toString() {
-<<<<<<< Updated upstream
-		return "Puser [userEmail=" + userEmail + ", userPassword=" + userPassword + ", userNickname=" + userNickname
-				+ ", roles=" + roles + ", userOut=" + userOut + ", assignDate=" + assignDate + ", outDate=" + outDate
-				+ "]";
-=======
+
 		return "{\"userEmail\":\"" + userEmail + "\", "
 //				+ "\"userPassword\":\"" + userPassword + "\", "
 				+ "\"userNickname\":\"" + userNickname+ "\", "
@@ -85,7 +81,6 @@ public class Puser {
 				+ "\"userOut\":" + userOut + ", "
 				+ "\"assignDate\":\"" + assignDate + "\", "
 				+ "\"outDate\":\"" + outDate + "\"}";
->>>>>>> Stashed changes
 	}
 
 	

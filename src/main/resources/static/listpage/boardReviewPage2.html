@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="assets/css/main.css" />
+
     <title>Document</title>
   
     <style>
@@ -203,29 +206,38 @@
 
       <div class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardtippage22?command=rent">전체보기</a></li>
+          <li><a class="active" href="/bcon/boardreviewpage22?command=rent">전체보기</a></li>
           
-          <li><a href="/bcon/boardtippage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">글램핑</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent&">한강 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">바다 피크닉</a></li>
+          <li><a href="/bcon/boardreviewpage22?command=rent">글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
+
+        <div id="sort">
+          <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="1">높은 평점순</option>
+          </select> 
+        </div>
+
+        <br>
+
         <div id="main">
-          <article class="post" v-if="showBoolean" v-for="tip in tiplist" >
-            <section  @click="showdetail(tip.tipId)">
-              <p>{{tip.tipTitle}}</p>
-              <p>{{tip.tipContent}}</p>
-              <p>{{tip.tipDate}}</p>
-              <p>{{tip.tipLike}}</p>
-              <a>{{tip.tipId}}</a>
-              
-              <hr />
+
+          <article class="post" v-if="showBoolean" v-for="review in reviewlist">
+            <section>
+              <p>{{review.userEmail}}</p>
+              <p>{{review.reviewTitle}}</p>
+              <p>{{review.reviewContent}}</p>
+              <p>{{review.reviewScore}}</p>
             </section>
           </article>
+
         </div>
+
       </div>
       
     </div>
@@ -245,40 +257,38 @@
 
 
     <script type="text/javascript">
-      window.onload = function(){
-        new Vue({
+      // window.onload = function(){
+        var main = new Vue({
           el: "#main",
           data: {
-              sorted: "",
               showBoolean: false,
-              tiplist: [],
-              imgName: ""
+              reviewlist: []
           },
           created: function () {
             axios({
                 method: "get",
-                url: "/bcon/boardtips"
+                url: "/bcon/boardreviews"
             }).then(resData => {
-              this.showBoolean = true;
-              this.tiplist = resData.data;
-              this.imgName = resData.data.rentImg;
-              // console.log(this.imgName);
-              //console.log(this.rentlist);
+              main.showBoolean = true;
+              main.reviewlist = resData.data;
             }).catch(errorData => {
                 alert(errorData);
             });
-          },
-          methods: {
-            showdetail : function(id){
-            //페이지로 이동
-            location.href = "/boardTipdetail.html?tipId=" + id;
-   
           }
-          }
-          
         });
-        
-    
+
+        var sort = new Vue({
+          el: "#sort",
+          methods: {
+            onChange: function(event){
+              if(event.target.value == '1'){
+                main.reviewlist.sort(function(a,b){
+                  return b.reviewScore - a.reviewScore;
+                });
+              }
+            }
+          }
+        });
 
 
         // function showMyImage(fileInput) {
@@ -310,7 +320,7 @@
 
         
             
-      }
+      // }
     </script>
     
     </body>

@@ -45,14 +45,19 @@
                     </ul>
                     
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" >
+                     
+                      <div id="nickdiv" >{{datas.userNickname}}님 환영합니다</div>
+                      
+                     <!-- <input type="text" id="dataView"> -->
+                     
+                    	<button class="btn btn-outline-dark" onclick="logout()">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/login">로그인</a>
+                            <a href="ycon/moveMainPage">로그아웃</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="con/signup">회원가입</a>
+                            <a href="ycon/mypage">마이 페이지</a>
                         </button>
                     </form>
                 </div>
@@ -99,19 +104,19 @@
               </div><br>
            
 			<div class="swiper-container">
-				<!-- <div class="swiper-wrapper">
+				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 			            <div class="col mb-5">
                         	<div class="card h-100">
-                           	 Product image
+                           	 <!-- Product image-->
                            		 <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            	Product details
+                            	<!-- Product details-->
                             	<div class="card-body p-4">
                                	 <div class="text-center">
-                                    Product name
+                                    <!-- Product name-->
                                     <h5 class="fw-bolder">Fancy Product</h5>
                                     
-                                    *** 레이팅
+                                    <!-- *** 레이팅 -->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
@@ -119,11 +124,11 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    Product price
+                                    <!-- Product price-->
                                     $40.00 - $80.00
                                 </div>
                             </div>
-                            Product actions
+                            <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                             </div>
@@ -134,12 +139,12 @@
            <div class="swiper-slide">
                     <div class="col mb-5">
                         <div class="card h-100">
-                            Product image
+                            <!-- Product image-->
                             <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            Product details
+                            <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    Product name
+                                    <!-- Product name-->
                                     <h5 class="fw-bolder">Fancy Product</h5>
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -148,11 +153,11 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    Product price
+                                    <!-- Product price-->
                                     $40.00 - $80.00
                                 </div>
                             </div>
-                            Product actions
+                            <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                             </div>
@@ -163,18 +168,18 @@
           <div class="swiper-slide">
                     <div class="col mb-5">
                         <div class="card h-100">
-                            Product image
+                            <!-- Product image-->
                             <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            Product details
+                            <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    Product name
+                                    <!-- Product name-->
                                     <h5 class="fw-bolder">Fancy Product</h5>
-                                    Product price
+                                    <!-- Product price-->
                                     $40.00 - $80.00
                                 </div>
                             </div>
-                            Product actions
+                            <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
                             </div>
@@ -182,107 +187,6 @@
                     </div>
                 
           </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            Product image
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            Product details
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    Product name
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    Product price
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            Product actions
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            Product image
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            Product details
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    Product name
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    Product price
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            Product actions
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div>
-          <div class="swiper-slide">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            Product image
-                            <img class="swiper-slide" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            Product details
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    Product name
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    Product price
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            Product actions
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                
-          </div> -->
-          
-          <div id="rentdetail">
-          	<div class="swiper-slide" v-for="data in datas">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-	                            <!-- Product image-->
-	                            <img class="swiper-slide"  src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTFfNjEg/MDAxNTcwNzg1ODM3Nzc0.zxDXm20VlPdQv8GQi9LWOdPwkqoBdiEmf8aBTWTsPF8g.FqMQTiF6ufydkQxrLBgET3kNYAyyKGJTWTyi1qd1-_Ag.PNG.kkson50/sample_images_01.png?type=w800" width="20" height="20" alt="..."/>
-	                            <!-- Product details-->
-	                            <div class="card-body p-4">
-	                                <div class="text-center">
-	                                    <!-- Product name-->
-	                                    <h5 class="fw-bolder">{{data.rentName}}</h5>
-	                                    <div class="d-flex justify-content-center small text-warning mb-2">
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-	                                        <div class="bi-star-fill"></div>
-                                    	</div>
-	                                    <!-- Product price-->
-	                                    {{data.rentPrice}}만원<br>
-	                                    {{data.rentTime}}
-	                                </div>
-	                            </div>
-	                            <!-- Product actions-->
-	                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-	                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-	                           </div>
-                           </div>
-                       </div>
-                 </div>
-               
-          </div>
-          
-          
                     
 	</div>
 
@@ -310,9 +214,9 @@
         <script>
         new Swiper('.swiper-container', {
 
-        	slidesPerView : 3, // 동시에 보여줄 슬라이드 갯수
+        	slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
         	spaceBetween : 30, // 슬라이드간 간격
-        	slidesPerGroup : 3, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+        	slidesPerGroup : 4, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 
         	// 그룹수가 맞지 않을 경우 빈칸으로 메우기
         	// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
@@ -329,23 +233,45 @@
         		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
         	},
         });
-        
-        new Vue({
-			el: '#rentdetail',
+       new Vue({
+			el: '#nickdiv',
 			data : {
 				datas: []
 			},
 			created: function ()  {
         			axios({
         				method: "get",
-        				url: "con/boardrentpage2222"
+        				url: "ycon/checkLogininfo"
         			}).then(resData => {
         				this.datas = resData.data;
+        				/* localStorage.setItem('datas', JSON.stringify(this.datas));*/
+        				/* sessionStorage.setItem('datas', JSON.stringify(this.datas)); */ 
+        				/* localStorage.setItem('email', this.datas.userEmail)
+        				localStorage.setItem('nickname', this.datas.userNickname) */
+        				sessionStorage.setItem('email', this.datas.userEmail)
+        				sessionStorage.setItem('nickname', this.datas.userNickname)
         			}).catch(errorData => {
         				alert(errorData);
         			});
-        	}
+        	},
+			
 		});
+
+		/* axios({
+			method :"get",
+			url:"con/checkLogininfo"
+		}).then(resData=> {
+			console.log(resData);
+			console.log(resData.data);
+			document.getElementById("dataView").value = resData.data.userNickname;
+		}).catch(errorData =>{
+			alert(errorData)
+		}); */
+		 var logout = function(){
+            localStorage.clear();
+            sessionStorage.clear();
+             window.location.href="ycon/moveMainPage";
+        }
         </script>
     </body>
 </html>

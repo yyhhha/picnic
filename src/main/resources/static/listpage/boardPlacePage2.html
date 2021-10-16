@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css" />
     
     <title>Document</title>
   
@@ -167,26 +170,47 @@
           display: table;
         }
 
+        div.gallery {
+          margin: 5px;
+          border: 1px solid #ccc;
+          float: left;
+          width: 180px;
+        }
+
+        div.gallery:hover {
+          border: 1px solid #777;
+        }
+
+        div.gallery img {
+          width: 100%;
+          height: auto;
+        }
+
+        div.desc {
+          padding: 15px;
+          text-align: center;
+        }
 
         
       </style>
 </head>
+
 <body>
     <div class="header">
-        <header>
-          <div style="font-size: small; text-align: right; ">
+      <header>
+        <div style="font-size: small; text-align: right; ">
           <a href="#" >마이페이지</a>
           <a href="#" >로그인</a>
           <a href="#" >회원가입</a>
         </div>
         <a>피그닉 사이트</a>
-          <div> 
+        <div> 
           <form class="example" action="" style="margin:auto;max-width:500px">
             <input type="text" placeholder="Search.." name="search2">
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div> <br><br>
-      
+    
         <nav>
           <ul class="nav-container" >
             <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
@@ -195,41 +219,59 @@
             <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
           </ul>
         </nav>
-        </header>
-    
-      </div>
+      </header>
+    </div>
 
     <div class="row">
 
       <div class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardtippage22?command=rent">전체보기</a></li>
-          
-          <li><a href="/bcon/boardtippage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">글램핑</a></li>
+          <li><a class="active" href="/bcon/boardplacepage22?command=rent">전체보기</a></li>
+        
+          <li><a href="/bcon/boardplacepage22?command=rent&">한강 피크닉</a></li>
+          <li><a href="/bcon/boardplacepage22?command=rent&">바다 피크닉</a></li>
+          <li><a href="/bcon/boardplacepage22?command=rent&">글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
-        <div id="main">
-          <article class="post" v-if="showBoolean" v-for="tip in tiplist" >
-            <section  @click="showdetail(tip.tipId)">
-              <p>{{tip.tipTitle}}</p>
-              <p>{{tip.tipContent}}</p>
-              <p>{{tip.tipDate}}</p>
-              <p>{{tip.tipLike}}</p>
-              <a>{{tip.tipId}}</a>
-              
-              <hr />
-            </section>
-          </article>
+
+        <div id="sort">
+          <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="1">평점순</option>
+          </select>
         </div>
-      </div>
-      
-    </div>
+  
+		    <div id="main">
+
+          <div class="gallery" v-if="showBoolean" v-for="place in placelist">
+            <a target="_blank" href="single.html">
+              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
+            </a>
+            <div class="desc" @click="showdetail(place.placeId)">
+              <h3>{{place.placeName}}</h3>
+              <h5>{{place.placeContent}}</h5>
+              <h5>{{place.placeScore}}</h5>
+              <h5>{{place.userEmail}}</h5>
+            </div>
+          </div>
+
+            
+            
+
+                        
+
+			    </div>  <!-- main div -->
+			    
     
+        </div> <!-- column middle div -->
+
+
+      </div> <!-- row div -->
+
+
+
     
     
     
@@ -242,77 +284,74 @@
 
 
 
-
-
     <script type="text/javascript">
-      window.onload = function(){
-        new Vue({
-          el: "#main",
-          data: {
-              sorted: "",
-              showBoolean: false,
-              tiplist: [],
-              imgName: ""
-          },
-          created: function () {
-            axios({
-                method: "get",
-                url: "/bcon/boardtips"
-            }).then(resData => {
-              this.showBoolean = true;
-              this.tiplist = resData.data;
-              this.imgName = resData.data.rentImg;
-              // console.log(this.imgName);
-              //console.log(this.rentlist);
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          },
-          methods: {
-            showdetail : function(id){
-            //페이지로 이동
-            location.href = "/boardTipdetail.html?tipId=" + id;
-   
-          }
-          }
-          
-        });
-        
-    
-
-
-        // function showMyImage(fileInput) {
-
-        //   var files = fileInput.files;
-
-        //   for (var i = 0; i < files.length; i++) {           
-        //     var file = files[i];
-        //     var imageType = /image.*/;
-        //     if (!file.type.match(imageType)) {
-        //       continue;
-        //     }
-
-        //     var img=document.getElementById("thumbnil");            
-        //     img.file = file;    
-        //     var reader = new FileReader();
-
-        //     reader.onload = (function(aImg) { 
-        //       return function(e) { 
-        //           aImg.src = e.target.result; 
-        //       };
-        //     })(img);
-
-        //     reader.readAsDataURL(file);
-        //   }
-        // }
-
-
-
-        
+        // window.onload = function(){
+          var main = new Vue({
+            el: "#main",
+            data: {
+                sorted: "",
+                showBoolean: false,
+                placelist: []
+            },
+            created: function () {
+              axios({
+                  method: "get",
+                  url: "/bcon/boardplaces"
+              }).then(resData => {
+                main.showBoolean = true;
+                main.placelist = resData.data;
+                //console.log(this.rentlist);
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            },
+            methods : {
+              showdetail: function(id){
+                //페이지로 이동
+                location.href = "/boardPlacedetail.html?placeId=" + id;
+              }
+            }
             
-      }
+          });
+
+          
+
+
+          // function showMyImage(fileInput) {
+
+          //   var files = fileInput.files;
+
+          //   for (var i = 0; i < files.length; i++) {           
+          //     var file = files[i];
+          //     var imageType = /image.*/;
+          //     if (!file.type.match(imageType)) {
+          //       continue;
+          //     }
+
+          //     var img=document.getElementById("thumbnil");            
+          //     img.file = file;    
+          //     var reader = new FileReader();
+
+          //     reader.onload = (function(aImg) { 
+          //       return function(e) { 
+          //           aImg.src = e.target.result; 
+          //       };
+          //     })(img);
+
+          //     reader.readAsDataURL(file);
+          //   }
+          // }
+
+
+
+          
+              
+        // }
     </script>
+
+
+
+
     
-    </body>
-    
-    </html>
+</body>
+</html>

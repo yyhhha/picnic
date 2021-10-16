@@ -72,17 +72,13 @@ public class BoardPlace  {
 	
 	@Override
 	public String toString() {
-<<<<<<< Updated upstream
-		return "BoardPlace [placeId=" + placeId + ", placeName=" + placeName + ", placeContent=" + placeContent
-				+ ", placeImg=" + placeImg + ", placeDel=" + placeDel + "]";
-=======
 		return "{\"placeId\":\"" + placeId + "\", " 
 				+ "\"placeName\":\"" + placeName + "\", "
 				+ "\"placeContent\":\"" + placeContent + "\", "
 				+ "\"placeImg\":\"" + placeImg + "\", "
 				+ "\"puser\":" + puser + "\", "
 				+ "\"placeDel\":\"" + placeDel + "\"}";
->>>>>>> Stashed changes
+
 	}
 
 }
