@@ -236,20 +236,14 @@
 
 
       <div class="column middle" style="background-color:#ffffff;">
+
+        <div id="sort">
+          <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="1">평점순</option>
+          </select>
+        </div>
   
 		    <div id="main">
-			  
-          <span v-text="sorted"></span> <br>
-          {{sorted}} <br>
-
-          <template>
-              <select name="sort" id="sort" v-model="sorted">
-                <option v-on:event="ordered()">dkdk</option>
-                <option value="1">전체</option>
-                <option value="2">가격순</option>
-                <option value="3">가나다순</option>
-              </select>
-          </template>
 
           <div class="gallery" v-if="showBoolean" v-for="place in placelist">
             <a target="_blank" href="single.html">
@@ -258,6 +252,7 @@
             <div class="desc" @click="showdetail(place.placeId)">
               <h3>{{place.placeName}}</h3>
               <h5>{{place.placeContent}}</h5>
+              <h5>{{place.placeScore}}</h5>
               <h5>{{place.userEmail}}</h5>
             </div>
           </div>
@@ -318,6 +313,8 @@
             }
             
           });
+
+          
 
 
           // function showMyImage(fileInput) {
