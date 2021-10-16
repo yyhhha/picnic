@@ -12,6 +12,7 @@ public interface PcommentRepo  extends CrudRepository<Pcomment, Integer>{
 
 	List<Pcomment> findPcommentByCommentId(int id);
 	List<Pcomment> findPcommentByCommentContentContaining(String comment);
+	List<Pcomment> findPcommentByPuserUserEmail(String useremail);
 	
 
 
