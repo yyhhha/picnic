@@ -187,14 +187,14 @@
           </form>
         </div> <br><br>
       
-        <nav>
-          <ul class="nav-container" >
-            <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
-            <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
-          </ul>
-        </nav>
+          <nav>
+            <ul class="nav-container" >
+              <li class="nav-item"> <a href="">피크닉 물품대여</a> </li>
+              <li class="nav-item"> <a href="">피크닉 장소추천</a> </li>
+              <li class="nav-item"> <a href="">피크닉 장소후기</a> </li>
+              <li class="nav-item"> <a href="">피크닉 꿀팁</a> </li>
+            </ul>
+          </nav>
         </header>
     
       </div>
@@ -203,25 +203,23 @@
 
       <div class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardtippage22?command=rent">전체보기</a></li>
+          <li><a class="active" href="#home">전체보기</a></li>
           
-          <li><a href="/bcon/boardtippage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardtippage22?command=rent&">글램핑</a></li>
+          <li><a href="#news">한강 피크닉</a></li>
+          <li><a href="#contact">바다 피크닉</a></li>
+          <li><a href="#about">글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
         <div id="main">
-          <article class="post" v-if="showBoolean" v-for="tip in tiplist" >
-            <section  @click="showdetail(tip.tipId)">
+          <article class="post" v-if="showBoolean" v-for="tip in tiplist">
+            <section>
               <p>{{tip.tipTitle}}</p>
               <p>{{tip.tipContent}}</p>
               <p>{{tip.tipDate}}</p>
               <p>{{tip.tipLike}}</p>
-              <a>{{tip.tipId}}</a>
-              
               <hr />
             </section>
           </article>
@@ -257,7 +255,7 @@
           created: function () {
             axios({
                 method: "get",
-                url: "/bcon/boardtips"
+                url: "/con2/boardtippage2222"
             }).then(resData => {
               this.showBoolean = true;
               this.tiplist = resData.data;
@@ -267,18 +265,9 @@
             }).catch(errorData => {
                 alert(errorData);
             });
-          },
-          methods: {
-            showdetail : function(id){
-            //페이지로 이동
-            location.href = "/boardTipdetail.html?tipId=" + id;
-   
-          }
           }
           
         });
-        
-    
 
 
         // function showMyImage(fileInput) {

@@ -87,6 +87,9 @@ public class YContorller {
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) {
 		Puser puser = new Puser();
 		String redirect_uri="";
+		//작성자 세션 불러오기 위함
+		HttpSession session = request.getSession();
+
 		try{
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
 			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
@@ -94,6 +97,8 @@ public class YContorller {
 //				redirect_uri ="http://localhost/successLogin.html";
 				redirect_uri ="http://localhost/index3.html";
 				amail =email;
+				//작성자 세션 불러오기 위함
+				session.setAttribute("userEmail", email);
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");

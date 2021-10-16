@@ -12,7 +12,7 @@ public interface BoardPlaceRepo extends JpaRepository<BoardPlace, Integer>{
 	
 	
 	
-	List<BoardPlace> findBoardPlaceByPlaceId(int placeId);
+	BoardPlace findBoardPlaceByPlaceId(int placeId);
 	
 	List<BoardPlace> findBoardPlaceByPlaceName(String placeName);
 	

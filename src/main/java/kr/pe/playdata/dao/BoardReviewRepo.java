@@ -9,7 +9,7 @@ import kr.pe.playdata.model.domain.BoardReview;
 public interface BoardReviewRepo extends JpaRepository<BoardReview, Integer>{
 
 	//select * from board_review where title=?
-	List<BoardReview> findBoardReviewByReviewId(int reviewId);
+	BoardReview findBoardReviewByReviewId(int reviewId);
 	
 	//select * from board_review where title like '%?%'
 	List<BoardReview> findBoardReviewByReviewIdContaining(int reviewId);
