@@ -236,23 +236,20 @@
         </ul>
       </div>
 
-
       <div class="column middle" style="background-color:#ffffff;">
+
+        <div id="sort">
+          <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="1">낮은 가격순</option>
+            <option value="2">높은 가격순</option>
+            <option value="3">가나다순</option>
+          </select>
+        </div>
     
+        <br>
+
 		    <div id="main">
 			  
-          <span v-text="sorted"></span> <br>
-          {{sorted}} <br>
-
-          <template>
-              <select name="sort" id="sort" v-model="sorted">
-                <option v-on:event="ordered()">dkdk</option>
-                <option value="1">전체</option>
-                <option value="2">가격순</option>
-                <option value="3">가나다순</option>
-              </select>
-          </template>
-
           <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
             <a target="_blank" href="single.html">
               <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
@@ -264,8 +261,6 @@
               <h5>{{rent.rentPrice}}원</h5>
             </div>
           </div>
-
-                        
 
 			  </div>  <!-- main div -->
 			    
@@ -289,7 +284,6 @@
           var main = new Vue({
             el: "#main",
             data: {
-                sorted: "",
                 showBoolean: false,
                 rentlist: []
             },
@@ -300,14 +294,33 @@
               }).then(resData => {
                 main.showBoolean = true;
                 main.rentlist = resData.data;
-                //console.log(this.rentlist);
               }).catch(errorData => {
                   alert(errorData);
               });
             }
-            
           });
         // }
+
+          var sort = new Vue({
+            el: "#sort",
+            methods: {
+              onChange: function(event){
+                if(event.target.value == '1'){
+                  main.rentlist.sort(function(a,b){
+                    return a.rentPrice - b.rentPrice;
+                  });
+                }else if(event.target.value == '2'){
+                  main.rentlist.sort(function(a,b){
+                    return b.rentPrice - a.rentPrice;
+                  });
+                }else if(event.target.value == '3'){
+                  main.rentlist.sort(function(a,b){
+                    return a.rentName.localeCompare(b.rentName);
+                  });
+                }
+              }
+            }
+          });
 
           var nav = new Vue({
             el: "#nav",
@@ -358,33 +371,7 @@
               }
 
             }
-
           });
-
-
-          // function comp(val1, val2){
-          //   return val1.id < val2.id;
-          // }
-          // vm.datas.sort(comp);
-
-
-          // function priceLow(){
-          //   this.oneroom.sort(function(a,b){
-          //     return a.price - b.price
-          //   });
-          // }
-
-          // function priceHigh(){
-          //   this.oneroom.sort(function(a,b){
-          //     return b.price - a.price
-          //   });
-          // }
-
-          // function sortABC(){
-          //   this.oneroom.sort(function(a,b){
-          //     return a.title.localeCompare(b.title)
-          //   });
-          // }
 
 
           // function showMyImage(fileInput) {

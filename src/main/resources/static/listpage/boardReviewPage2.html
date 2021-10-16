@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="assets/css/main.css" />
+
     <title>Document</title>
   
     <style>
@@ -213,17 +216,28 @@
 
 
       <div class="column middle" style="background-color:#ffffff;">
+
+        <div id="sort">
+          <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="1">높은 평점순</option>
+          </select> 
+        </div>
+
+        <br>
+
         <div id="main">
+
           <article class="post" v-if="showBoolean" v-for="review in reviewlist">
             <section>
               <p>{{review.userEmail}}</p>
               <p>{{review.reviewTitle}}</p>
               <p>{{review.reviewContent}}</p>
               <p>{{review.reviewScore}}</p>
-              <hr />
             </section>
           </article>
+
         </div>
+
       </div>
       
     </div>
@@ -244,7 +258,7 @@
 
     <script type="text/javascript">
       // window.onload = function(){
-        new Vue({
+        var main = new Vue({
           el: "#main",
           data: {
               showBoolean: false,
@@ -255,16 +269,25 @@
                 method: "get",
                 url: "/bcon/boardreviews"
             }).then(resData => {
-              this.showBoolean = true;
-              this.reviewlist = resData.data;
-              // this.imgName = resData.data.rentImg;
-              // console.log(this.imgName);
-              //console.log(this.rentlist);
+              main.showBoolean = true;
+              main.reviewlist = resData.data;
             }).catch(errorData => {
                 alert(errorData);
             });
           }
-          
+        });
+
+        var sort = new Vue({
+          el: "#sort",
+          methods: {
+            onChange: function(event){
+              if(event.target.value == '1'){
+                main.reviewlist.sort(function(a,b){
+                  return b.reviewScore - a.reviewScore;
+                });
+              }
+            }
+          }
         });
 
 
