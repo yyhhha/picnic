@@ -44,6 +44,7 @@ import kr.pe.playdata.model.dto.BoardPlaceDTO;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardReviewDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
+import kr.pe.playdata.model.dto.PuserDTO;
 import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
@@ -128,8 +129,10 @@ public class YContorller {
 	
 	//axios로 받기 위해 사용 
 	@GetMapping("/checkLogininfo")
-	public Puser checkLogininfo() {
-		return pur.findPuserByUserEmail(amail);
+	public PuserDTO checkLogininfo() {
+		Puser puser = pur.findPuserByUserEmail(amail);
+		PuserDTO pu = new PuserDTO(puser.getUserEmail(),puser.getUserPassword(),puser.getUserNickname(),puser.getRoles(),puser.getUserOut(),puser.getAssignDate(),puser.getOutDate());
+		return pu;
 	}
 	
 	//가입 메소드

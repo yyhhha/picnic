@@ -112,15 +112,13 @@ div.gallery {
               <h5>{{place.userEmail}}</h5>
             </div>
      </div>   
-     <div class="gallery" v-if="showBoolean4" v-for="review in reviewlist">
-            <a target="_blank" href="single.html">
-              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
-            </a>
+     <div class="gallery" v-if="showBoolean4" v-for="rent in rentlist">
+             <img v-bind:src="review.rentImg">
             <div class="desc">
-              <p>{{review.userEmail}}</p>
-              <p>{{review.reviewTitle}}</p>
-              <p>{{review.reviewContent}}</p>
-              <p>{{review.reviewScore}}</p>
+              <p>{{rent.userEmail}}</p>
+              <p>{{rent.reviewTitle}}</p>
+              <p>{{rent.reviewContent}}</p>
+              <p>{{rent.reviewScore}}</p>
             </div>
      </div>    
         </div>
