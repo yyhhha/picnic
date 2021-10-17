@@ -72,7 +72,7 @@ public class BoardReview {
 				+ "\"reviewContent\":\"" + reviewContent + "\", "
 				+ "\"reviewDate\":\"" + reviewDate + "\", "
 				+ "\"reviewDel\":\"" + reviewDel + "\", "
-				+ "\"puser\":" + puser + "\", "
+				+ "\"puser\":" + puser + ", "
 				+ "\"reviewScore\":\"" + reviewScore + "\"}";
 
 	}

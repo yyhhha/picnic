@@ -75,7 +75,7 @@ public class BoardTip {
 				+ "\"tipImg\":\"" + tipImg + "\", "
 				+ "\"tipDate\":\"" + tipDate + "\", "
 				+ "\"tipDel\":\"" + tipDel + "\", "
-				+ "\"puser\":" + puser + "\", "
+				+ "\"puser\":" + puser + ", "
 				+ "\"tipLike\":\"" + tipLike + "\"}";
 
 	}

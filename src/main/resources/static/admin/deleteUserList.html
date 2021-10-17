@@ -208,12 +208,14 @@
         <div class="col-4">
            <table>
 	           <tr>
+	            <th>선택</th>
 	           	<th>유저이름</th>
 	           	<th>유저이메일</th>
 	           	<th>탈퇴여부</th>
 	           	<th>삭제</th>
 	           </tr>
-	           <tr v-for="(user,userEmail) in puserlist" :key="userEmail">
+	           <tr v-for="(user, index) in puserlist" :id="index">
+	             <td><input type="checkbox" :id="index" name="checked" v-model:value="checked[index]"></td><!--@change="update(user.userEmail)"-->
 	             <td>{{user.userNickname}}</td>
 	             <td>{{user.userEmail}}</td>
 	             <td>{{user.userOut}}</td>
@@ -234,7 +236,8 @@
           showBoolean: false,
           puserlist: [],
     	  searchString : "",
-    	  userEmail: ""
+    	  userEmail: "",
+    	  checked:[]
     	  
       },
       created: function () {
@@ -269,7 +272,10 @@
             }).catch(errorData => {
                 alert(errorData);
             });
-          }
+        },
+        update(userEmail) {
+        	this.checked = userEmail;
+        }
       }
       
     });

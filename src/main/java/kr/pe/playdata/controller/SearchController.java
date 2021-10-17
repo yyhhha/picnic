@@ -152,7 +152,7 @@ public class SearchController {
 				e.printStackTrace();
 			}
 		}else {
-			List<LocCategory> A = lcr.findLocCategoryByLocNameContaining("");
+			List<LocCategory> A = lcr.findLocCategoryByLocNameContaining(searchString);
 			try {
 				arrayA = jsonParse.parse(A.toString());
 			} catch (ParseException e) {

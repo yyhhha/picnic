@@ -210,12 +210,14 @@
 
         <div id= "placeapp">
 			<form id = "placeform" method="GET" action="con/addplace2">
+	            <span>이메일</span><br>
+	            <input v-model:values="userEmail" name="userEmail" placeholder="이메일을 써주세요."><br>
 	            <span>장소 명칭</span><br>
 	            <input v-model:values="placeName" name="placeName" placeholder="장소 이름을 써주세요."><br>
 	            <span>위치</span><br>
 	            <input v-model:values="placeLoc" name="placeLoc" placeholder="장소에 해당하는 위치이름를 써주세요."><br>
 	          	<span>이미지</span><br>
-	            <input v-model:values="img" name="placeImg" placeholder="장소이미지의 URL을 써주세요."><br>
+	            <input v-model:values="placeImg" name="placeImg" placeholder="장소이미지의 URL을 써주세요."><br>
 	          
 	            <span>상세 내용</span><br>
 	            <textarea v-model="placeContent" name="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
@@ -248,8 +250,10 @@
       placeName : "",
       placeLoc : "",
       placeCategory : [],
-      placeContent : ""
+      placeContent : "",
+      userEmail: "",
       placeImg : ""
+      
     }
   })
 

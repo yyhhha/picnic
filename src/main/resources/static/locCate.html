@@ -211,10 +211,25 @@
     
     <div class="column middle" style="background-color:#ffffff;">
 		<div id="search">
-			
+		  <input type="text" v-model:value="searchString" placeholder = "검색할 장소 이름을 입력하세요">
+		  <button v-on:click="search(searchString)">검색</button>
+			<table border="1">
+	           <tr>
+	           	<th>장소 이름</th>
+	           	<th>전체 주소</th>
+	           	<th>시도</th>
+	           	<th>시군구</th>
+	           </tr>
+	           <tr v-for="(loc) in locList">
+	             <td>{{loc.locName}}</td>
+	             <td>{{loc.locAddress}}</td>
+	             <td>{{loc.locSido}}</td>
+	             <td>{{loc.locSigungu}}</td>
+	           </tr>
+           </table>
 		
 		</div>
-
+<hr color="green">
 
         <div id= "locapp">
 			<form id = "locform" method="GET" action="con/addLoc2">
@@ -268,6 +283,7 @@
     	address : "",
     	sido : "",
     	sigungu: "",
+
       placeCategory : [],
     },
     methods : {
@@ -275,6 +291,39 @@
       }
 
     }
+  });
+  
+  new Vue({
+	  el: "#search",
+  	  data : {
+  		  searchString : "",
+  		  locId : "",
+  		  locList : []
+  	  },
+  	  created: function () {
+        axios({
+            method: "get",
+            url: "/scon/searchLoc?searchString=All"
+        }).then(resData => {
+          this.showBoolean = true;
+          this.locList = resData.data;
+        }).catch(errorData => {
+            alert(errorData);
+        });
+      },
+  	  methods: {
+        search(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/searchLoc?searchString="+this.searchString
+            }).then(resData => {
+              this.showBoolean = true;
+              this.locList = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
+      }
   })
 
 

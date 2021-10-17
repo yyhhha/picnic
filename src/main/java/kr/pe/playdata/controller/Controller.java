@@ -205,7 +205,7 @@ public class Controller {
 }
 	
 
-	@GetMapping("addPUser")
+	@GetMapping("addPUser") //test용
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -236,7 +236,7 @@ public class Controller {
 		return null;
 	}
 
-	@GetMapping("/addLocCate")
+	@GetMapping("/addLocCate") // test용
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -278,7 +278,7 @@ public class Controller {
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
-	@GetMapping("/addBoardPlace")
+	@GetMapping("/addBoardPlace") // test용
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -297,15 +297,16 @@ public class Controller {
 	@GetMapping("/addplace2")
 	@Transactional
 	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName,
-			@RequestParam String placeLoc, @RequestParam String placeContent) {
+			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
 		BoardPlace A = new BoardPlace();
 		
 		if (lcr.findLocCategoryByLocName(placeLoc) != null) {
-//			A.setPlaceName(placeName);
-//			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
-//			A.setPlaceContent(placeContent);
-//			A.setPuser(pur.findPuserByUserEmail("test1@gmail.com"));
-//			bpr.save(A);
+			A.setPlaceName(placeName);
+			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
+			A.setPlaceContent(placeContent);
+			A.setPuser(pur.findPuserByUserEmail(userEmail));
+			A.setPlaceImg(placeImg);
+			bpr.save(A);
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
 		} else {
 			try {
@@ -329,7 +330,7 @@ public class Controller {
 	@GetMapping("/delBoardPlace")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
-//		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
+		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
 		return "장소 게시글 삭제되었습니다.";
 	}
 

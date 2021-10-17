@@ -92,7 +92,7 @@ public class BoardRent {
 			   + "\"rentTime\":\"" + rentTime + "\", "
 			   + "\"rentContent\":\"" + rentContent + "\", "
 			   + "\"rentImg\":\"" + rentImg + "\", "
-			   + "\"puser\":" + puser + "\", "
+			   + "\"puser\":" + puser + ", "
 			   + "\"rentDel\":\"" + rentDel + "\"}";
 	}
 
