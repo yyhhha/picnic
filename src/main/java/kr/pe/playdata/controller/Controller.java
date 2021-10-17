@@ -88,7 +88,7 @@ public class Controller {
 	/**/
 
 	// 피크닉 꿀팁 작성하는 메소드
-	@PostMapping("/addBoardTip")
+	@PostMapping("/add/tip")
 	@Transactional
 	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
 		System.out.println(111);
@@ -104,7 +104,7 @@ public class Controller {
 		return "";
 	}
 
-	@GetMapping("/delBoardTip")
+	@GetMapping("/del/tip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
 		btr.findBoardTipByTipId(tipId).setTipDel(1);
@@ -112,7 +112,7 @@ public class Controller {
 	}
 	
 	//피크닉 rent대여업체 작성하는 메소드
-	@PostMapping("/addBoardRent")
+	@PostMapping("/add/rent")
 	@Transactional
 	public String addBoardRent(HttpServletRequest request,  @RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
 		System.out.println(222);
@@ -133,7 +133,7 @@ public class Controller {
 		return null;
 	}
 	
-	@GetMapping("/delBoardRent")
+	@GetMapping("/del/rent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
 		brr.findBoardRentByRentId(rentId).setRentDel(1);
@@ -205,7 +205,7 @@ public class Controller {
 }
 	
 
-	@GetMapping("addPUser") //test용
+	@GetMapping("add/PUser") //test용
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -219,7 +219,7 @@ public class Controller {
 		return "puser 저장 성공";
 	}
 
-	@GetMapping("/delPUser")
+	@GetMapping("/del/PUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		System.out.println(userEmail);
@@ -236,7 +236,7 @@ public class Controller {
 		return null;
 	}
 
-	@GetMapping("/addLocCate") // test용
+	@GetMapping("/add/loc") // test용
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -251,7 +251,7 @@ public class Controller {
 		return "loc 저장 성공";
 	}
 
-	@GetMapping("/addLoc2")
+	@GetMapping("/add/Loc2")
 	@Transactional
 	public String addLocCate2(HttpServletResponse response, @RequestParam String locName, @RequestParam String sido,
 			@RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
@@ -271,14 +271,14 @@ public class Controller {
 		return "성공";
 	}
 
-	@GetMapping("/delLocCate")
+	@GetMapping("/del/loc")
 	@Transactional
 	public String delLocCate(@RequestParam int locId) {
 		lcr.deleteById(locId); // 필요없는 카테고리 삭제용
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
-	@GetMapping("/addBoardPlace") // test용
+	@GetMapping("/add/place") // test용
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -294,7 +294,7 @@ public class Controller {
 		return "place 저장 성공";
 	}
 
-	@GetMapping("/addplace2")
+	@GetMapping("/add/place2")
 	@Transactional
 	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response, @RequestParam String placeName,
 			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
@@ -312,14 +312,14 @@ public class Controller {
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
 		} else {
 			try {
-				response.sendRedirect("http://localhost/locCate.html");
+				response.sendRedirect("http://localhost/writepage/locCate.html");
 				return "위치 데이터를 입력해주세요";
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
-			response.sendRedirect("http://localhost/boardPlace.html");
+			response.sendRedirect("http://localhost/writepage/boardPlace.html");
 			return "성공";
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -329,7 +329,7 @@ public class Controller {
 
 	}
 
-	@GetMapping("/delBoardPlace")
+	@GetMapping("/del/place")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
 		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
@@ -364,7 +364,7 @@ public class Controller {
 //	}
 	
 	
-	@GetMapping("/addPComment")
+	@GetMapping("/add/PComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
 		A.setCommentId(2);
@@ -379,7 +379,7 @@ public class Controller {
 		return "comment 저장 성공";
 	}
 
-	@GetMapping("/delPcomment")
+	@GetMapping("/del/Pcomment")
 	@Transactional
 	public String delPcomment(@RequestParam int commentid) {
 		Pcomment A = pcor.findPcommentByCommentId(commentid).get(0);
@@ -390,7 +390,7 @@ public class Controller {
 
 // review
 
-	@GetMapping("/addBoardReview")
+	@GetMapping("/add/review")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 
@@ -406,7 +406,7 @@ public class Controller {
 		return "리뷰 저장 성공";
 	}
 
-	@GetMapping("/delBoardReview")
+	@GetMapping("/del/review")
 	@Transactional
 	public String delBoardReview(@RequestParam int reviewId) {
 		BoardReview A = brer.findBoardReviewByReviewId(reviewId);

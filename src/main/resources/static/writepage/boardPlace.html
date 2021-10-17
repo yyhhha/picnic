@@ -207,8 +207,49 @@
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
+		
 
         <div id= "placeapp">
+			<input type="text" v-model:values="searchString">
+			<button v-on:click="search(searchString)">장소검색</button>
+			<section class="w3-row" v-if="showBoolean">
+			    <div id="placelist" class="box alt"  >
+			      <div class="row gtr-uniform">
+			        <div class="col-4">
+			          <table>
+			          	<tr>
+			              <th>장소 Id</th>
+			              <th>장소 이름</th>
+						</tr>
+						<tr v-for="place in placeList">
+						  <td>{{place.placeId}}</td>
+						  <td>{{place.placeName}}</td>
+						</tr>
+			          </table>
+			        </div> 
+			      </div>
+			    </div>
+  			</section> <br>
+  			<input type="text" v-model:values="searchString2">
+			<button v-on:click="search2(searchString)">위치검색</button>
+			<section class="w3-row" v-if="showBoolean2">
+			    <div id="placelist" class="box alt"  >
+			      <div class="row gtr-uniform">
+			        <div class="col-4">
+			          <table>
+			          	<tr>
+			              <th>위치 Id</th>
+			              <th>위치 이름</th>
+						</tr>
+						<tr v-for="loc in locList">
+						  <td>{{loc.locId}}</td>
+						  <td>{{loc.locName}}</td>
+						</tr>
+			          </table>
+			        </div> 
+			      </div>
+			    </div>
+  			</section>
 			<form id = "placeform" method="GET" action="con/addplace2">
 	            <span>이메일</span><br>
 	            <input v-model:values="userEmail" name="userEmail" placeholder="이메일을 써주세요."><br>
@@ -224,11 +265,6 @@
 	
 				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
 	            
-	            <li v-text="placeName"></li>
-	            <li v-text="placeLoc"></li>
-	            <li v-text="placeImg"></li>
-	            <li v-text="placeCategory"></li>
-	            <li v-text="placeContent"></li>
 			</form>
         </div>
     </div>
@@ -252,8 +288,36 @@
       placeCategory : [],
       placeContent : "",
       userEmail: "",
-      placeImg : ""
+      placeImg : "",
+      searchString : "",
+      searchString2 : "",
+      placeList : [],
+      locList : []
       
+    },
+    methods: {
+    	search(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/search/all?searchString="+ this.searchString
+            }).then(resData => {
+              this.showBoolean = true;
+              this.placeList = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+        search2(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/search/loc?searchString="+this.searchString2
+            }).then(resData => {
+              this.showBoolean2 = true;
+              this.locList = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
     }
   })
 

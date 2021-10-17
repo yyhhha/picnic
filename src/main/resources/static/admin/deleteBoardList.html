@@ -329,33 +329,33 @@
               removeRent(rentId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardRent?rentId=" + rentId
+                        url: "/con/del/rent?rentId=" + rentId
                 });
               
             },
             removePlace(placeId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardPlace?placeId=" + placeId
+                        url: "/con/del/place?placeId=" + placeId
                 });
               
             },
             removeTip(tipId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardTip?tipId=" + tipId
+                        url: "/con/del/tip?tipId=" + tipId
                 });
               
             },
             removeReview(reviewId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardReview?reviewId=" + reviewId                });
+                        url: "/con/del/review?reviewId=" + reviewId                });
             },
 			search(searchString) {
               axios({
                   method: "get",
-                  url: "/scon/searchAll?searchString="+ this.searchString
+                  url: "/scon/search/all?searchString="+ this.searchString
               }).then(resData => {
                 this.showBoolean = true;
                 this.placelist = resData.data[0];
