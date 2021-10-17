@@ -82,6 +82,7 @@ public class Puser {
 				+ "\"assignDate\":\"" + assignDate + "\", "
 				+ "\"outDate\":\"" + outDate + "\"}";
 	}
+	
 
 	
 }

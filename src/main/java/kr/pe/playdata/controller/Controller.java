@@ -296,15 +296,17 @@ public class Controller {
 
 	@GetMapping("/addplace2")
 	@Transactional
-	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName,
+	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response, @RequestParam String placeName,
 			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
+		
+		HttpSession session = request.getSession();
 		BoardPlace A = new BoardPlace();
 		
 		if (lcr.findLocCategoryByLocName(placeLoc) != null) {
 			A.setPlaceName(placeName);
 			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
 			A.setPlaceContent(placeContent);
-			A.setPuser(pur.findPuserByUserEmail(userEmail));
+			A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
 			A.setPlaceImg(placeImg);
 			bpr.save(A);
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
