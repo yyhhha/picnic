@@ -185,9 +185,9 @@ public class BController {
 		
 		/* rent */
 		if(command.equals("rent")) {
-			if(rentCateName.equals("한강 피크닉")) {
+			if(rentCateName.equals("한강피크닉")) {
 				rent = findBoardRentListByRentCateName(rentCateName);
-			}else if(rentCateName.equals("바다 피크닉")) {
+			}else if(rentCateName.equals("바다피크닉")) {
 				rent = findBoardRentListByRentCateName(rentCateName);
 			}else if(rentCateName.equals("글램핑")) {
 				rent = findBoardRentListByRentCateName(rentCateName);
@@ -259,21 +259,11 @@ public class BController {
 //	}
 	
 	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
 	
 // ----------------------------------------------------
 	
-	
-	
+
 	
 	/* 피크닉 물품대여 read (all)  */
 	@GetMapping("/boardrentpage2")
@@ -377,20 +367,3 @@ public class BController {
 	}
 	
 }
-
-
-
-
-//	/* read (all) */
-//	@GetMapping("/boardrentpage222")
-//	@Transactional
-//	public String findBoardRentAll3(){ // toString 재정의 안됨
-//		List<BoardRent> al = new ArrayList<>();
-//		
-//		al.addAll(brr.findAll());
-//		
-//		return al.toString();
-//	}
-	
-
-

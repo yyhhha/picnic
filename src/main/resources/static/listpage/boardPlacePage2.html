@@ -139,7 +139,7 @@
     
         /* Style the header */
     
-      form.example input[type=text] {
+        form.example input[type=text] {
           padding: 10px;
           font-size: 17px;
           border: 2px solid #ff6f1c;
@@ -190,8 +190,6 @@
           padding: 15px;
           text-align: center;
         }
-
-        
       </style>
 </head>
 
@@ -199,11 +197,13 @@
     <div class="header">
       <header>
         <div style="font-size: small; text-align: right; ">
-          <a href="#" >마이페이지</a>
-          <a href="#" >로그인</a>
-          <a href="#" >회원가입</a>
+          <a href="/mypage.html">마이페이지</a>
+          <a href="/login.html">로그인</a>
+          <a href="/signup.html">회원가입</a>
         </div>
-        <a>피그닉 사이트</a>
+
+        <p>피그닉 사이트</p>
+        
         <div> 
           <form class="example" action="" style="margin:auto;max-width:500px">
             <input type="text" placeholder="Search.." name="search2">
@@ -224,31 +224,22 @@
 
     <div class="row">
 
-      <div class="column side" style="background-color:#ffffff; ">
+      <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
-          <li><a class="active" href="/bcon/boardplacepage22?command=rent">전체보기</a></li>
-        
-          <li><a href="/bcon/boardplacepage22?command=rent&">한강 피크닉</a></li>
-          <li><a href="/bcon/boardplacepage22?command=rent&">바다 피크닉</a></li>
-          <li><a href="/bcon/boardplacepage22?command=rent&">글램핑</a></li>
+          <li style="cursor: pointer;"><a>전체보기</a></li>
+          <li style="cursor: pointer;"><a>한강 피크닉</a></li>
+          <li style="cursor: pointer;"><a>바다 피크닉</a></li>
+          <li style="cursor: pointer;"><a>글램핑</a></li>
         </ul>
       </div>
 
 
       <div class="column middle" style="background-color:#ffffff;">
 
-        <div id="sort">
-          <select name="sortselect" id="sortselect" @change="onChange($event)">
-            <option value="1">평점순</option>
-          </select>
-        </div>
-  
-		    <div id="main">
+        <div id="main">
 
-          <div class="gallery" v-if="showBoolean" v-for="place in placelist">
-            <a target="_blank" href="single.html">
-              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
-            </a>
+          <div class="gallery" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer;">
+            <img v-bind:src="place.placeImg">
             <div class="desc" @click="showdetail(place.placeId)">
               <h3>{{place.placeName}}</h3>
               <h5>{{place.placeContent}}</h5>
@@ -257,24 +248,12 @@
             </div>
           </div>
 
-            
-            
-
-                        
-
-			    </div>  <!-- main div -->
-			    
+        </div>  <!-- main div -->
     
-        </div> <!-- column middle div -->
+      </div> <!-- column middle div -->
 
+    </div> <!-- row div -->
 
-      </div> <!-- row div -->
-
-
-
-    
-    
-    
     
     <div class="footer">
       <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
@@ -283,75 +262,35 @@
     </div>
 
 
-
     <script type="text/javascript">
-        // window.onload = function(){
-          var main = new Vue({
-            el: "#main",
-            data: {
-                sorted: "",
-                showBoolean: false,
-                placelist: []
-            },
-            created: function () {
-              axios({
-                  method: "get",
-                  url: "/bcon/boardplaces"
-              }).then(resData => {
-                main.showBoolean = true;
-                main.placelist = resData.data;
-                //console.log(this.rentlist);
-              }).catch(errorData => {
-                  alert(errorData);
-              });
-            },
-            methods : {
-              showdetail: function(id){
-                //페이지로 이동
-                location.href = "/boardPlacedetail.html?placeId=" + id;
-              }
-            }
-            
+
+      var main = new Vue({
+        el: "#main",
+        data: {
+            showBoolean: false,
+            placelist: []
+        },
+        created: function () {
+          axios({
+              method: "get",
+              url: "/bcon/boardplaces"
+          }).then(resData => {
+            main.showBoolean = true;
+            main.placelist = resData.data;
+            // main.placelist.placeContent = resData.data.slice(0, 20);
+          }).catch(errorData => {
+              alert(errorData);
           });
-
-          
-
-
-          // function showMyImage(fileInput) {
-
-          //   var files = fileInput.files;
-
-          //   for (var i = 0; i < files.length; i++) {           
-          //     var file = files[i];
-          //     var imageType = /image.*/;
-          //     if (!file.type.match(imageType)) {
-          //       continue;
-          //     }
-
-          //     var img=document.getElementById("thumbnil");            
-          //     img.file = file;    
-          //     var reader = new FileReader();
-
-          //     reader.onload = (function(aImg) { 
-          //       return function(e) { 
-          //           aImg.src = e.target.result; 
-          //       };
-          //     })(img);
-
-          //     reader.readAsDataURL(file);
-          //   }
-          // }
-
-
-
-          
-              
-        // }
+        },
+        methods : {
+          showdetail: function(id){
+            //페이지로 이동
+            location.href = "/boardPlacedetail.html?placeId=" + id;
+          }
+        }
+      });
+      
     </script>
 
-
-
-
-    
 </body>
 </html>

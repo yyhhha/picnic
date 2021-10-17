@@ -210,10 +210,10 @@ var nav = new Vue({
     		
             axios({
                 method: "get",
-                url: tmp4
+                url: tmp2
             }).then(resData => {
             	nav.showBoolean = true;
-            	nav.tiptlist = resData.data;
+            	nav.tiplist = resData.data;
             }).catch(errorData => {
                 alert(errorData);
             });
@@ -224,7 +224,7 @@ var nav = new Vue({
       		
             axios({
                 method: "get",
-                url: tmp2
+                url: tmp4
             }).then(resData => {
             	nav.showBoolean2 = true;
             	nav.placelist = resData.data;
