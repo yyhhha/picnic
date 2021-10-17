@@ -12,6 +12,10 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
     
     <title>Document</title>
   
@@ -238,9 +242,9 @@
 
         <div id="main">
 
-          <div class="gallery" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer;">
+          <div class="gallery" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
             <img v-bind:src="place.placeImg">
-            <div class="desc" @click="showdetail(place.placeId)">
+            <div class="desc">
               <h3>{{place.placeName}}</h3>
               <h5>{{place.placeContent}}</h5>
               <h5>{{place.placeScore}}</h5>
