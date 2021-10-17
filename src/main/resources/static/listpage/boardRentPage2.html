@@ -170,9 +170,6 @@
           display: table;
         }
 
-
-
-
         div.gallery {
           margin: 5px;
           border: 1px solid #ccc;
@@ -193,8 +190,6 @@
           padding: 15px;
           text-align: center;
         }
-
-        
       </style>
 </head>
 
@@ -202,11 +197,13 @@
     <div class="header">
       <header>
         <div style="font-size: small; text-align: right; ">
-          <a href="#" >마이페이지</a>
-          <a href="#" >로그인</a>
-          <a href="#" >회원가입</a>
+          <a href="/mypage.html">마이페이지</a>
+          <a href="/login.html">로그인</a>
+          <a href="/signup.html">회원가입</a>
         </div>
-        <a>피그닉 사이트</a>
+
+        <p>피그닉 사이트</p>
+        
         <div> 
           <form class="example" action="" style="margin:auto;max-width:500px">
             <input type="text" placeholder="Search.." name="search2">
@@ -229,10 +226,10 @@
 
       <div id="nav" class="column side" style="background-color:#ffffff;">
         <ul>
-          <li v-on:click="selectAll" style="cursor: pointer;">전체보기</li>
-          <li v-on:click="selectHan" style="cursor: pointer;">한강 피크닉</li>
-          <li v-on:click="selectBa" style="cursor: pointer;">바다 피크닉</li>
-          <li v-on:click="selectG" style="cursor: pointer;">글램핑</li>
+          <li v-on:click="selectAll" style="cursor: pointer;"><a>전체보기</a></li>
+          <li v-on:click="selectHan" style="cursor: pointer;"><a>한강 피크닉</a></li>
+          <li v-on:click="selectBa" style="cursor: pointer;"><a>바다 피크닉</a></li>
+          <li v-on:click="selectG" style="cursor: pointer;"><a>글램핑</a></li>
         </ul>
       </div>
 
@@ -240,6 +237,7 @@
 
         <div id="sort">
           <select name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="" selected disabled hidden>-정렬방식-</option>
             <option value="1">낮은 가격순</option>
             <option value="2">높은 가격순</option>
             <option value="3">가나다순</option>
@@ -248,28 +246,24 @@
     
         <br>
 
-		    <div id="main">
-			  
-          <div class="gallery" v-if="showBoolean" v-for="rent in rentlist">
-            <a target="_blank" href="single.html">
-              <!-- <img src="img_5terre.jpg" width="600" height="400"> -->
-            </a>
-            <div class="desc" @click="showdetail(rent.rentId)">
+        <div id="main">
+        
+          <div class="gallery" v-if="showBoolean" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
+            <img v-bind:src="rent.rentImg">
+            <div class="desc">
               <h3 >{{rent.rentName}}</h3>
-              <h5>{{rent.rentCateName}}원</h5>
+              <h5>{{rent.rentCateName}}</h5>
               <h5>{{rent.rentTime}}시간</h5>
               <h5>{{rent.rentPrice}}원</h5>
             </div>
           </div>
 
-			  </div>  <!-- main div -->
-			    
+        </div>  <!-- main div -->
+          
       </div> <!-- column middle div -->
 
     </div> <!-- row div -->
 
-    
-    
     
     <div class="footer">
       <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
@@ -278,143 +272,103 @@
     </div>
 
 
-
     <script type="text/javascript">
-        // window.onload = function(){
-          var main = new Vue({
-            el: "#main",
-            data: {
-                showBoolean: false,
-                rentlist: []
-            },
-            created: function () {
-              axios({
-                  method: "get",
-                  url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
-              }).then(resData => {
-                main.showBoolean = true;
-                main.rentlist = resData.data;
-              }).catch(errorData => {
-                  alert(errorData);
+
+      var main = new Vue({
+        el: "#main",
+        data: {
+            showBoolean: false,
+            rentlist: []
+        },
+        created: function () {
+          axios({
+              method: "get",
+              url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
+          }).then(resData => {
+            main.showBoolean = true;
+            main.rentlist = resData.data;
+          }).catch(errorData => {
+              alert(errorData);
+          });
+        },
+        methods : {
+          showdetail: function(id){
+            location.href = "/boardRentdetail.html?rentId=" + id;
+          }
+        }
+      });
+
+      var sort = new Vue({
+        el: "#sort",
+        methods: {
+          onChange: function(event){
+            if(event.target.value == '1'){
+              main.rentlist.sort(function(a,b){
+                return a.rentPrice - b.rentPrice;
               });
-            },
-            methods : {
-              showdetail: function(id){
-                //페이지로 이동
-                location.href = "/boardRentdetail.html?rentId=" + id;
-              }
+            }else if(event.target.value == '2'){
+              main.rentlist.sort(function(a,b){
+                return b.rentPrice - a.rentPrice;
+              });
+            }else if(event.target.value == '3'){
+              main.rentlist.sort(function(a,b){
+                return a.rentName.localeCompare(b.rentName);
+              });
             }
-          });
-        // }
+          }
+        }
+      });
 
-          var sort = new Vue({
-            el: "#sort",
-            methods: {
-              onChange: function(event){
-                if(event.target.value == '1'){
-                  main.rentlist.sort(function(a,b){
-                    return a.rentPrice - b.rentPrice;
-                  });
-                }else if(event.target.value == '2'){
-                  main.rentlist.sort(function(a,b){
-                    return b.rentPrice - a.rentPrice;
-                  });
-                }else if(event.target.value == '3'){
-                  main.rentlist.sort(function(a,b){
-                    return a.rentName.localeCompare(b.rentName);
-                  });
-                }
-              }
-            }
-          });
-
-          var nav = new Vue({
-            el: "#nav",
-            methods: {
-              selectAll: function(){
-                axios({
-                    method: "get",
-                    url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
-                }).then(resData => {
-                  main.showBoolean = true;
-                  main.rentlist = resData.data;
-                }).catch(errorData => {
-                    alert(errorData);
-                });
-              },
-              selectHan: function(){
-               axios({
-                   method: "get",
-                   url: "/bcon/boardrentpage22?command=rent&rentCateName=한강 피크닉"
-               }).then(resData => {
-                 main.showBoolean = true;
-                 main.rentlist = resData.data;
-               }).catch(errorData => {
-                   alert(errorData);
-               });
-              },
-              selectBa: function(){
-                axios({
-                    method: "get",
-                    url: "/bcon/boardrentpage22?command=rent&rentCateName=바다 피크닉"
-                }).then(resData => {
-                  main.showBoolean = true;
-                  main.rentlist = resData.data;
-                }).catch(errorData => {
-                    alert(errorData);
-                });
-              },
-              selectG: function(){
-                axios({
-                    method: "get",
-                    url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑"
-                }).then(resData => {
-                  main.showBoolean = true;
-                  main.rentlist = resData.data;
-                }).catch(errorData => {
-                    alert(errorData);
-                });
-              }
-
-            }
-          });
-
-
-          // function showMyImage(fileInput) {
-
-          //   var files = fileInput.files;
-
-          //   for (var i = 0; i < files.length; i++) {           
-          //     var file = files[i];
-          //     var imageType = /image.*/;
-          //     if (!file.type.match(imageType)) {
-          //       continue;
-          //     }
-
-          //     var img=document.getElementById("thumbnil");            
-          //     img.file = file;    
-          //     var reader = new FileReader();
-
-          //     reader.onload = (function(aImg) { 
-          //       return function(e) { 
-          //           aImg.src = e.target.result; 
-          //       };
-          //     })(img);
-
-          //     reader.readAsDataURL(file);
-          //   }
-          // } 
-
-
-
-          
-              
-        
+      var nav = new Vue({
+        el: "#nav",
+        methods: {
+          selectAll: function(){
+            axios({
+                method: "get",
+                url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+          selectHan: function(){
+            axios({
+                method: "get",
+                url: "/bcon/boardrentpage22?command=rent&rentCateName=한강피크닉"
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+          selectBa: function(){
+            axios({
+                method: "get",
+                url: "/bcon/boardrentpage22?command=rent&rentCateName=바다피크닉"
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+          selectG: function(){
+            axios({
+                method: "get",
+                url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑"
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentlist = resData.data;
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
+        }
+      });
     </script>
 
-
-
-
-    
 </body>
 </html>
