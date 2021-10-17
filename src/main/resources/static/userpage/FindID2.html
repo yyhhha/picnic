@@ -10,15 +10,16 @@
 		</style>
 </head>
 <body>
-<h2>피그닉 회원 찾기</h2>
+<h2>피그닉 회원 정보</h2>
 <div id="findid">
     <div class="container">
-    	<form action="../ycon/findpswByEmail" method="post">
+    <div id="loglog">
     	<input type="hidden" name="command" value="userLogin">
-      <label for="email"><b>e-mail</b></label>
-	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
-      <button type="submit">비밀번호 찾기</button>
-      </form>
+      <label for="email"><b>e-mail :</b></label>
+	      <label for="password"><b>{{datas.userEmail}}</b></label><br>
+	      <label for="password"><b>password :</b></label>
+	      <label for="password"><b>{{datas.userPassword}}</b></label>
+    </div>
     </div>
 	 </div>
     <div class="container" style="background-color:#f1f1f1">
@@ -26,4 +27,24 @@
     </div>
 </div>
 </body>
+<script>
+new Vue({
+	el: '#loglog',
+	data : {
+		datas: []
+	},
+	created: function ()  {
+			axios({
+				method: "get",
+				url: "ycon/checkLogininfo"
+			}).then(resData => {
+				this.datas = resData.data;
+				
+			}).catch(errorData => {
+				alert(errorData);
+			});
+	},
+	
+});
+</script>
 </html>

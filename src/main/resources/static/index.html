@@ -110,19 +110,22 @@
 
 
         <section class="py-5">
-            <div class="w3-section w3-bottombar w3-padding-16">
-                <span class="w3-margin-right">테마:</span> 
-                <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-                <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-                <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+            <div class="w3-section w3-bottombar w3-padding-16" id ="nav">
+                <!-- <span class="w3-margin-right">테마:</span>  -->
+                <button v-on:click="selectAll" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>전체보기</button>
+                <button v-on:click="selectHan" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>한강 피크닉</button>
+                <button v-on:click="selectBa" class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>바다 피크닉</button>
+                <button v-on:click="selectG" class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>글램핑</button>
               </div><br>
+        </div>
+        
            
 	 <div id="rentdetail"> 
 	<div class="swiper-container">
 	<div class="swiper-wrapper">
-				  <div class="swiper-slide" v-for="data in datas">
+				  <div class="swiper-slide" v-if="showBoolean" v-for="data in datas"  >
 				  <!-- <img src="https://ktsmemo.cafe24.com/p/0401.jpg"> -->
-				  <img v-bind:src="data.rentImg">
+				  <img v-bind:src="data.rentImg" >
 				  </div>
 	</div>
 
@@ -145,13 +148,14 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-       <!--  <iframe src="C:\Users\Playdata\Desktop\Halo.mp3" allow="autoplay" id="audio"></iframe> -->
-        
-        <script>
+         <!--   <iframe src="https://drive.google.com/file/d/12YTf5XIyzOUw54_CfyHB27Q-Zbphk9AX/view?usp=sharing" allow="autoplay" id="audio"></iframe>  -->
+         <!-- <iframe width="560" height="315"  src="https://drive.google.com/file/d/12YTf5XIyzOUw54_CfyHB27Q-Zbphk9AX/view?usp=sharing" frameborder="0" allowfullscreen></iframe>
+        -->  <script>
         new Vue({
 			el: '#loglog',
 			data : {
 				logCheck :false,
+				
 				datas: []
 			},
 			created: function ()  {
@@ -170,9 +174,6 @@
              				sessionStorage.setItem('email', this.datas.userEmail)
              				sessionStorage.setItem('nickname', this.datas.userNickname)
         				}
-        				/* logCheck = true;
-        				sessionStorage.setItem('email', this.datas.userEmail)
-        				sessionStorage.setItem('nickname', this.datas.userNickname) */
         			}).catch(errorData => {
         				alert(errorData);
         			});
@@ -180,23 +181,29 @@
 			
 		});
         
-        new Vue({
+        var main=new Vue({
 			el: '#rentdetail',
 			data : {
-				
+				showBoolean: false,
 				datas: [],
 			},
-				created:  function ()  {
+			methods : {
+		          showdetail: function(id){
+		            location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+		          }
+		        },
+				/* created:  function ()  {
         			axios({
         				method: "get",
-        				/* url: "ycon/boardrentpage2222" */
+        				
         				url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
         			}).then(resData => {
         				this.datas = resData.data;
         			}).catch(errorData => {
         				alert(errorData);
         			});
-        	},
+        	}, */
+        	
         	
     	},
         	
@@ -223,14 +230,65 @@
         		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
         	},
         });
-        },80) 
+        },800) 
+        
         var logout = function(){
             localStorage.clear();
             sessionStorage.clear();
             sessionStorage.removeItem('nickname');
             window.location.href="ycon/moveMainPage";
         }
-        
+         
+         var nav = new Vue({
+             el: "#nav",
+             methods: {
+               selectAll: function(){
+                 axios({
+                     method: "get",
+                     url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
+                 }).then(resData => {
+                   main.showBoolean = true;
+                   main.datas = resData.data;
+                 }).catch(errorData => {
+                     alert(errorData);
+                 });
+               },
+               selectHan: function(){
+                 axios({
+                     method: "get",
+                     url: "/bcon/boardrentpage22?command=rent&rentCateName=한강피크닉"
+                 }).then(resData => {
+                   main.showBoolean = true;
+                   main.datas = resData.data;
+                 }).catch(errorData => {
+                     alert(errorData);
+                 });
+               },
+               selectBa: function(){
+                 axios({
+                     method: "get",
+                     url: "/bcon/boardrentpage22?command=rent&rentCateName=바다피크닉"
+                 }).then(resData => {
+                   main.showBoolean = true;
+                   main.datas = resData.data;
+                 }).catch(errorData => {
+                     alert(errorData);
+                 });
+               },
+               selectG: function(){
+                 axios({
+                     method: "get",
+                     url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑"
+                 }).then(resData => {
+                   main.showBoolean = true;
+                   main.datas = resData.data;
+                 }).catch(errorData => {
+                     alert(errorData);
+                 });
+               }
+             }
+           });
+
         </script>
     </body>
 </html>
