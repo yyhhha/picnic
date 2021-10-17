@@ -66,13 +66,15 @@ public class BoardReview {
 
 	@Override
 	public String toString() {
+
 		return "{\"reviewId\":\"" + reviewId + "\", "
 				+ "\"reviewTitle\":\"" + reviewTitle + "\", "
 				+ "\"reviewContent\":\"" + reviewContent + "\", "
 				+ "\"reviewDate\":\"" + reviewDate + "\", "
 				+ "\"reviewDel\":\"" + reviewDel + "\", "
-				+ "\"puser\":\"" + puser + "\", "
+				+ "\"puser\":" + puser + ", "
 				+ "\"reviewScore\":\"" + reviewScore + "\"}";
+
 	}
 	
 }

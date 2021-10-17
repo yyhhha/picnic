@@ -83,8 +83,6 @@ public class BoardRent {
 	
 	
 	
-	
-
 	@Override
 	public String toString() {
 		return  "{\"rentId\":\"" + rentId + "\", "
@@ -94,7 +92,7 @@ public class BoardRent {
 			   + "\"rentTime\":\"" + rentTime + "\", "
 			   + "\"rentContent\":\"" + rentContent + "\", "
 			   + "\"rentImg\":\"" + rentImg + "\", "
-			   + "\"puser\":\"" + puser + "\", "
+			   + "\"puser\":" + puser + ", "
 			   + "\"rentDel\":\"" + rentDel + "\"}";
 	}
 

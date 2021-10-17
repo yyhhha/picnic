@@ -1,6 +1,10 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -201,7 +205,7 @@ public class Controller {
 }
 	
 
-	@GetMapping("addPUser")
+	@GetMapping("addPUser") //test용
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -218,15 +222,21 @@ public class Controller {
 	@GetMapping("/delPUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
-		Puser A = pur.findPuserByUserEmail(userEmail);
+		System.out.println(userEmail);
+		Puser A = null;
+		A = pur.findPuserByUserEmail(userEmail);
 		A.setRoles("out"); // 로그인에서 확인
-		A.setUserPassword("");
+		A.setOutDate(LocalDate.now(ZoneId.of("Asia/Seoul")).toString()+" "+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
 		A.setUserOut(1);
 
-		return "계정탈퇴되었습니다";
+		pur.save(A);
+//		pur.delete(A);
+		System.out.println(A);
+
+		return null;
 	}
 
-	@GetMapping("/addLocCate")
+	@GetMapping("/addLocCate") // test용
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -268,7 +278,7 @@ public class Controller {
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
-	@GetMapping("/addBoardPlace")
+	@GetMapping("/addBoardPlace") // test용
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -287,15 +297,16 @@ public class Controller {
 	@GetMapping("/addplace2")
 	@Transactional
 	public String addBoardPlace2(HttpServletResponse response, @RequestParam String placeName,
-			@RequestParam String placeLoc, @RequestParam String placeContent) {
+			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
 		BoardPlace A = new BoardPlace();
 		
 		if (lcr.findLocCategoryByLocName(placeLoc) != null) {
-//			A.setPlaceName(placeName);
-//			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
-//			A.setPlaceContent(placeContent);
-//			A.setPuser(pur.findPuserByUserEmail("test1@gmail.com"));
-//			bpr.save(A);
+			A.setPlaceName(placeName);
+			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
+			A.setPlaceContent(placeContent);
+			A.setPuser(pur.findPuserByUserEmail(userEmail));
+			A.setPlaceImg(placeImg);
+			bpr.save(A);
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
 		} else {
 			try {
@@ -319,7 +330,7 @@ public class Controller {
 	@GetMapping("/delBoardPlace")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
-//		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
+		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
 		return "장소 게시글 삭제되었습니다.";
 	}
 
@@ -373,6 +384,9 @@ public class Controller {
 		A.setCommentDel(1);
 		return "댓글 삭제되었습니다.";
 	}
+
+
+// review
 
 	@GetMapping("/addBoardReview")
 	public String addBoardReview() {

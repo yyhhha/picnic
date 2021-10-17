@@ -28,6 +28,8 @@ import kr.pe.playdata.model.domain.BoardPlace;
 import kr.pe.playdata.model.domain.BoardRent;
 import kr.pe.playdata.model.domain.BoardReview;
 import kr.pe.playdata.model.domain.BoardTip;
+import kr.pe.playdata.model.domain.LocCategory;
+import kr.pe.playdata.model.domain.Puser;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -53,30 +55,39 @@ public class SearchController {
 	@GetMapping("/searchAll")
 	@ResponseBody
 	public JSONArray searchAll(@RequestParam String searchString) {
+		
 		JSONParser jsonParse = new JSONParser();
 		Object arrayA = null;
 		Object arrayB = null;
 		Object arrayC = null;
 		Object arrayD = null;
-		
-		List<BoardPlace> A = bpr.findBoardPlaceByPlaceNameContaining(searchString);
-		List<BoardRent> B = brr.findBoardRentByRentNameContaining(searchString);
-		List<BoardReview> C = brer.findBoardReviewByReviewTitleContaining(searchString);
-		List<BoardTip> D = btr.findBoardTipByTipTitleContaining(searchString);
-		
-		try {
-			arrayA = jsonParse.parse(A.toString());
-			arrayB = jsonParse.parse(B.toString());
-			arrayC = jsonParse.parse(C.toString());
-			arrayD = jsonParse.parse(D.toString());
-		} catch (ParseException e) {//+B.toString()+C.toString()+D.toString()
-			e.printStackTrace();
+		if (searchString.equals("All")) {
+			List<BoardPlace> A = bpr.findAll();
+			List<BoardRent> B = brr.findAll();
+			List<BoardReview> C = brer.findAll();
+			List<BoardTip> D = btr.findAll();
+			try {
+				arrayA = jsonParse.parse(A.toString());
+				arrayB = jsonParse.parse(B.toString());
+				arrayC = jsonParse.parse(C.toString());
+				arrayD = jsonParse.parse(D.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			}else {
+				List<BoardPlace> A = bpr.findBoardPlaceByPlaceNameContaining(searchString);
+				List<BoardRent> B = brr.findBoardRentByRentNameContaining(searchString);
+				List<BoardReview> C = brer.findBoardReviewByReviewTitleContaining(searchString);
+				List<BoardTip> D = btr.findBoardTipByTipTitleContaining(searchString);
+			try {
+				arrayA = jsonParse.parse(A.toString());
+				arrayB = jsonParse.parse(B.toString());
+				arrayC = jsonParse.parse(C.toString());
+				arrayD = jsonParse.parse(D.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
-//		List<Object> all = new ArrayList<>();
-//		all.add(0,A);
-//		all.add(1,B);
-//		all.add(2,C);
-//		all.add(3,D);
 		String all = null;
 		JSONArray array = null;
 		
@@ -94,6 +105,70 @@ public class SearchController {
 		return array;
 	}
 	
+	@GetMapping("/searchUser")
+	@ResponseBody
+	public JSONArray searchUser(@RequestParam String searchString) {
+		JSONParser jsonParse = new JSONParser();
+		Object arrayA = null;
+		
+		if (searchString.equals("All")) {
+			List<Puser> A = (List<Puser>) pur.findAll();
+			try {
+				arrayA = jsonParse.parse(A.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}else {
+			List<Puser> A = pur.findPuserByUserEmailContaining(searchString);
+			try {
+				arrayA = jsonParse.parse(A.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String all = null;
+		JSONArray array = null;
+		all = "[" + arrayA + "]";
+		try {
+			array = (JSONArray) jsonParse.parse(all);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(array);
+		return array;
+	}
+	
+	@GetMapping("/searchLoc")
+	@ResponseBody
+	public JSONArray searchLoc(@RequestParam String searchString) {
+		JSONParser jsonParse = new JSONParser();
+		Object arrayA = null;
+		
+		if (searchString.equals("All")) {
+			List<LocCategory> A = lcr.findLocCategoryByLocName("");
+			try {
+				arrayA = jsonParse.parse(A.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}else {
+			List<LocCategory> A = lcr.findLocCategoryByLocNameContaining(searchString);
+			try {
+				arrayA = jsonParse.parse(A.toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String all = null;
+		JSONArray array = null;
+		all = "[" + arrayA + "]";
+		try {
+			array = (JSONArray) jsonParse.parse(all);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
 	
 //	@GetMapping("boardrentpage2222")
 //	@Transactional

@@ -197,101 +197,109 @@
   </ul>
 </nav>
 <body>
+
 <div id = "main">
+  <input type="text" v-model:value="searchString" placeholder = "검색할 장소 이름을 입력하세요">
+  <button v-on:click="search(searchString)">검색</button>
 
-<section class="w3-row" v-if="showBoolean">
-    <div class="box alt"  v-for="rent in rentlist">
-      <div class="row gtr-uniform">
-
-        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
-        <div class="col-4">
-          <article class="mini-post">
-            <header>
-              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
-              <h3>{{rent.rentName}}</h3>
-              <p>{{rent.puser}}</p>
-              
-            </header>
-            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
-            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
-            <!-- <a href="#" class="author"></a> -->
-          </article>
-        </div> <!-- class="col-4" -->
-
-      </div> <!-- class="row gtr-uniform" -->
-    </div>  <!-- class="box alt" -->
-  </section>
-  <hr color="blue">
   <section class="w3-row" v-if="showBoolean">
-    <div id="placelist" class="box alt"  v-for="place in placelist">
+    <div class="box alt"  >
       <div class="row gtr-uniform">
-
-        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
         <div class="col-4">
-          <article class="mini-post">
-            <header>
-              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
-              <h3>{{place.placeName}}</h3>
-            </header>
-            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
-            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
-            <!-- <a href="#" class="author"></a> -->
-          </article>
-        </div> <!-- class="col-4" -->
-
-      </div> <!-- class="row gtr-uniform" -->
-    </div>  <!-- class="box alt" -->
+          <table>
+          	<tr>
+              <th>업체 Id</th>
+              <th>업체 이름</th>
+              <th></th>
+			</tr>
+			<tr v-for="rent in rentlist">
+			  <td>{{rent.rentDel}}</td>
+			  <td>{{rent.rentName}}</td>
+			  
+			  <td><button v-on:click="removeRent(rent.rentId)">삭제</button></td>
+			</tr>
+          </table>
+        </div> 
+      </div> 
+    </div>
   </section>
+
   <hr color="blue">
+
   <section class="w3-row" v-if="showBoolean">
-    <div id="tiplist" class="box alt"  v-for="tip in tiplist">
+    <div id="placelist" class="box alt"  >
       <div class="row gtr-uniform">
-
-        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
         <div class="col-4">
-          <article class="mini-post">
-            <header>
-              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
-              <h3>{{tip.tipTitle}}</h3>
-            </header>
-            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
-            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
-            <!-- <a href="#" class="author"></a> -->
-          </article>
-        </div> <!-- class="col-4" -->
-
-      </div> <!-- class="row gtr-uniform" -->
-    </div>  <!-- class="box alt" -->
+          <table>
+          	<tr>
+              <th>장소 Id</th>
+              <th>장소 이름</th>
+              <th></th>
+			</tr>
+			<tr v-for="place in placelist">
+			  <td>{{place.placeDel}}</td>
+			  <td>{{place.placeName}}</td>
+			  <td><button v-on:click="removePlace(place.placeId)">삭제</button></td>
+			</tr>
+          </table>
+        </div> 
+      </div>
+    </div>
   </section>
+
+  <hr color="blue">
+
+  <section class="w3-row" v-if="showBoolean">
+    <div id="tiplist" class="box alt" >
+      <div class="row gtr-uniform">
+        <div class="col-4">
+          <table>
+          	<tr>
+              <th>팁 Id</th>
+              <th>팁 이름</th>
+              <th></th>
+			</tr>
+			<tr v-for="tip in tiplist">
+			  <td>{{tip.tipDel}}</td>
+			  <td>{{tip.tipTitle}}</td>
+			  <td><button v-on:click="removeTip(tip.tipId)">삭제</button></td>
+			</tr>
+          </table>
+        </div> 
+      </div> 
+    </div> 
+  </section>
+
     <hr color="blue">
+
   <section class="w3-row" v-if="showBoolean">
-    <div id="reviewlist" class="box alt"  v-for="review in reviewlist">
+    <div id="reviewlist" class="box alt"  >
       <div class="row gtr-uniform">
-
-        <!-- <div class="col-12"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div> -->
         <div class="col-4">
-          <article class="mini-post">
-            <header>
-              <!-- <img v-bind:src="images/avatar.jpg" alt="" /> -->
-              <h3>{{review.reviewTitle}}</h3>
-            </header>
-            <!-- <img id="thumbnil" style="width:20%; margin-top:10px;" /> -->
-            <!-- <a href="single.html" class="image"><img id="thumbnil" style="width:20%; margin-top:10px;" alt="" /></a> -->
-            <!-- <a href="#" class="author"></a> -->
-          </article>
-        </div> <!-- class="col-4" -->
-
-      </div> <!-- class="row gtr-uniform" -->
-    </div>  <!-- class="box alt" -->
+          <table>
+          	<tr>
+              <th>리뷰 Id</th>
+              <th>리뷰 이름</th>
+              <th></th>
+			</tr>
+			<tr v-for="review in reviewlist">
+			  <td>{{review.reviewDel}}</td>
+			  <td>{{review.reviewTitle}}</td>
+			  <td><button v-on:click="removeReview(review.reviewId)">삭제</button></td>
+			</tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
+
   <hr color="blue">
-  
 
 </div>
+
 </body>
 
 <script type="text/javascript">
-        window.onload = function(){
           new Vue({
             el: "#main",
             data: {
@@ -300,26 +308,66 @@
                 placelist: [],
                 rentlist: [],
                 reviewlist:[],
-                tiplist:[]
+                tiplist:[],
+                searchString:""
             },
             created: function () {
               axios({
                   method: "get",
-                  url: "/scon/searchAll?searchString=한강"
+                  url: "/scon/searchAll?searchString=All"
               }).then(resData => {
                 this.showBoolean = true;
                 this.placelist = resData.data[0];
                 this.rentlist = resData.data[1];
                 this.reviewlist = resData.data[2];
                 this.tiplist = resData.data[3];
-                //console.log(this.rentlist);
+              }).catch(errorData => {
+                  alert(errorData);
+              });
+            },
+            methods: {
+              removeRent(rentId){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardRent?rentId=" + rentId
+                });
+              
+            },
+            removePlace(placeId){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardPlace?placeId=" + placeId
+                });
+              
+            },
+            removeTip(tipId){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardTip?tipId=" + tipId
+                });
+              
+            },
+            removeReview(reviewId){
+                axios({
+                        method: "get",
+                        url: "/con/delBoardReview?reviewId=" + reviewId                });
+            },
+			search(searchString) {
+              axios({
+                  method: "get",
+                  url: "/scon/searchAll?searchString="+ this.searchString
+              }).then(resData => {
+                this.showBoolean = true;
+                this.placelist = resData.data[0];
+                this.rentlist = resData.data[1];
+                this.reviewlist = resData.data[2];
+                this.tiplist = resData.data[3];
               }).catch(errorData => {
                   alert(errorData);
               });
             }
-            
-          });
-        }
-          
+            }
+            });
+      
    </script>
 </html>

@@ -64,8 +64,12 @@ public class LocCategory {
 
 	@Override
 	public String toString() {
-		return "LocCategory [locId=" + locId + ", placeCategory=" + placeCategory + ", locName=" + locName
-				+ ", locAddress=" + locAddress + ", locSido=" + locSido + ", locSigungu=" + locSigungu + "]";
+		return "{\"locId\":\"" + locId + "\", "
+				+ "\"placeCategory\":\"" + placeCategory + "\", "
+				+ "\"locName\":\"" + locName + "\", "
+				+ "\"locAddress\":\"" + locAddress + "\", "
+				+ "\"locSido\":\"" + locSido + "\", "
+				+ "\"locSigungu\":\"" + locSigungu + "\"}";
 	}
 	
 	

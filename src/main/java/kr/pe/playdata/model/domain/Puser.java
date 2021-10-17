@@ -73,11 +73,12 @@ public class Puser {
 
 	@Override
 	public String toString() {
+
 		return "{\"userEmail\":\"" + userEmail + "\", "
-				+ "\"userPassword\":\"" + userPassword + "\", "
+//				+ "\"userPassword\":\"" + userPassword + "\", "
 				+ "\"userNickname\":\"" + userNickname+ "\", "
 				+ "\"roles\":\"" + roles + "\", "
-				+ "\"userOut\":\"" + userOut + "\", "
+				+ "\"userOut\":" + userOut + ", "
 				+ "\"assignDate\":\"" + assignDate + "\", "
 				+ "\"outDate\":\"" + outDate + "\"}";
 	}
