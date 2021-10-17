@@ -217,6 +217,7 @@
             <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
             <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
             <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+           
           </ul>
         </nav>
       </header>
@@ -226,10 +227,14 @@
 
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
+        
           <li style="cursor: pointer;"><a>전체보기</a></li>
           <li style="cursor: pointer;"><a>한강 피크닉</a></li>
           <li style="cursor: pointer;"><a>바다 피크닉</a></li>
           <li style="cursor: pointer;"><a>글램핑</a></li>
+          <li style="cursor: pointer;"><a style="font-size: small; text-align: left;" href="/writepage/boardPlace.html">&nbsp &nbsp글쓰기✍</a> </li>
+         
+          
         </ul>
       </div>
 
@@ -239,7 +244,7 @@
         <div id="main">
 
           <div class="gallery" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer;">
-            <img v-bind:src="place.placeImg">
+            <img v-bind:src="place.placeImg" @click="showdetail(place.placeId)">
             <div class="desc" @click="showdetail(place.placeId)">
               <h3>{{place.placeName}}</h3>
               <h5>{{place.placeContent}}</h5>
@@ -285,7 +290,7 @@
         methods : {
           showdetail: function(id){
             //페이지로 이동
-            location.href = "/boardPlacedetail.html?placeId=" + id;
+            location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
           }
         }
       });

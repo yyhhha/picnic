@@ -350,7 +350,8 @@
             removeReview(reviewId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardReview?reviewId=" + reviewId                });
+                        url: "/con/delBoardReview?reviewId=" + reviewId                
+                });
             },
 			search(searchString) {
               axios({
