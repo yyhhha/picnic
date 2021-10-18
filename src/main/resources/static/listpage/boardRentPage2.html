@@ -20,40 +20,36 @@
 
     <div class="header">
       <header>
-        <!-- <div style="font-size: small; text-align: right;">
-          <form class="example" action="" style="margin:auto;max-width:200px">
-            <input type="text" placeholder="Search" name="search2">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-          <a href="/userpage/mypage.html">마이페이지</a>
-          <a href="/userpage/login.html">로그인</a>
-          <a href="/userpage/signup.html">회원가입</a>
-        </div> -->
+        <div id="loglog">
 
-        <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
-          <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
-          <button class="w3-bar-item w3-button w3-mobile">검색</button>
-            <a href="/userpage/mypage.html" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
-            <a href="/userpage/login.html" class="w3-bar-item w3-button w3-mobile">로그인</a>
-            <a href="/userpage/signup.html" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+          <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+            <div v-if="!logCheck">
+                <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
+                <button class="w3-bar-item w3-button w3-mobile">검색</button>
+                  <a href="../ycon/login" class="w3-bar-item w3-button w3-mobile">로그인</a>
+                  <a href="../ycon/signup" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+            </div>
+
+            <div v-else>
+
+            {{nickname}}님 환영합니다
+
+              <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
+                <button class="w3-bar-item w3-button w3-mobile">검색</button>
+                <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
+                <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+          </div>
+
         </div>
 
         <p class="w3-wide" style="font-size: 30px; font-weight: bold;"><a href="/index.html">피그닉</a></p>
         
-        <!-- <div> 
-          <form class="example" action="" style="margin:auto;max-width:500px">
-            <input type="text" placeholder="Search.." name="search2">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div> -->
-    
         <nav>
           <ul class="nav-container" >
             <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
             <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
             <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
             <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
-            
           </ul>
         </nav>
       </header>
@@ -67,7 +63,7 @@
           <li v-on:click="selectHan" style="cursor: pointer;"><a>한강 피크닉</a></li>
           <li v-on:click="selectBa" style="cursor: pointer;"><a>바다 피크닉</a></li>
           <li v-on:click="selectG" style="cursor: pointer;"><a>글램핑</a></li>
-          <li style="cursor: pointer;"><a style="font-size: small; text-align: left;" href="/writepage/boardRent.html">&nbsp &nbsp글쓰기✍</a> </li>
+          <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardRent.html">&nbsp &nbsp글쓰기✍</a> </li>
         </ul>
       </div>
 
@@ -206,6 +202,28 @@
           }
         }
       });
+
+      var loglog = new Vue({
+        el: '#loglog',
+        data : {
+          logCheck :false,
+          datas: [],
+          nickname: ""
+        },
+        created: function ()  {
+          if(sessionStorage.getItem('loginCheck')=="true"){
+            this.logCheck = true;
+            this.nickname = sessionStorage.getItem('nickname');
+          }
+        },
+      });
+
+      var logout = function(){
+        localStorage.clear();
+        sessionStorage.clear();
+        sessionStorage.removeItem('nickname');
+        window.location.href="../ycon/moveMainPage";
+      }
     </script>
 
 </body>
