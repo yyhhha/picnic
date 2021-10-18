@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.json.simple.JSONArray;
@@ -188,8 +189,6 @@ public class SearchController {
 //				e.printStackTrace();
 //			}
 //			return array;}}
-	
-	
 	
 	
 }
