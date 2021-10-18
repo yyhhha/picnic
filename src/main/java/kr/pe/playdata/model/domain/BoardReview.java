@@ -58,7 +58,7 @@ public class BoardReview {
 	private String reviewDate; //YYYYMMDD
 	
 	@Column(name = "review_del")
-	private int reviewDel; //boolean -> int
+	private String reviewDel; //boolean -> int
 	
 	//리뷰 스코어 추가
 	@Column(name="review_score")

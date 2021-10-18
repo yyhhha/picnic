@@ -1,7 +1,6 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +88,7 @@ public class Controller {
 	/**/
 
 	// 피크닉 꿀팁 작성하는 메소드
-	@PostMapping("/addBoardTip")
+	@PostMapping("/add/tip")
 	@Transactional
 	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
 		System.out.println(111);
@@ -96,23 +96,84 @@ public class Controller {
 		BoardTip A = new BoardTip();
 		A.setTipTitle(tipDto.getTipTitle());
 		A.setTipContent(tipDto.getTipContent());
-		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
+//		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
+		A.setPuser(pur.findPuserByUserEmail("ssss")); //Ycontroller에서 attribute값 지정
 		A.setTipImg(tipDto.getTipImg());
 
 		btr.save(A);
 
 		return "";
 	}
+	
+
+
+	//1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
+	@PutMapping("/del/tips/{tipId}")
+	@Transactional
+	public boolean delBoardTip1(@PathVariable("tipId") int tipId) {
+		System.out.println("수정");
+
+		try {
+			
+			BoardTip tip = btr.findBoardTipByTipId(tipId);
+			tip.setTipDel("1");
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	@PutMapping("/del/rents/{rentId}")
+	@Transactional
+	public boolean delBoardRent1(@PathVariable("rentId") int rentId) {
+		System.out.println("렌트수정");
+
+		try {	
+			BoardRent rent = brr.findBoardRentByRentId(rentId);
+			rent.setRentDel("1");
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	@PutMapping("/del/places/{placeId}")
+	@Transactional
+	public boolean delBoardPlace1(@PathVariable("placeId") int placeId) {
+		System.out.println("렌트수정");
+
+		try {	
+			BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
+			place.setPlaceDel("1");
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	@PutMapping("/del/reviews/{reviewId}")
+	@Transactional
+	public boolean delBoardReview1(@PathVariable("reviewId") int reviewId) {
+		System.out.println("리뷰 수정");
+
+		try {
+			BoardReview review = brer.findBoardReviewByReviewId(reviewId);
+			review.setReviewDel("1");
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 
 	@GetMapping("/del/tip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
-		btr.findBoardTipByTipId(tipId).setTipDel(1);
+		btr.findBoardTipByTipId(tipId).setTipDel("1");
 		return "업체 게시글 삭제되었습니다.";
 	}
 	
 	//피크닉 rent대여업체 작성하는 메소드
-	@PostMapping("/addBoardRent")
+	@PostMapping("/add/rent")
 	@Transactional
 	public String addBoardRent(HttpServletRequest request,  @RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
 		System.out.println(222);
@@ -120,7 +181,8 @@ public class Controller {
 		
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+//		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+		A.setPuser(pur.findPuserByUserEmail("ssss"));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -128,7 +190,7 @@ public class Controller {
 		A.setRentPrice(rentDto.getRentPrice());
 		A.setRentLink(rentDto.getRentLink());
 		A.setRentImg(rentDto.getRentImg());
-		A.setRentDel(0);
+		A.setRentDel("0");
 		brr.save(A);
 		return null;
 	}
@@ -136,7 +198,7 @@ public class Controller {
 	@GetMapping("/del/rent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
-		brr.findBoardRentByRentId(rentId).setRentDel(1);
+		brr.findBoardRentByRentId(rentId).setRentDel("1");
 		return "업체 게시글 삭제되었습니다.";
 	}
 
@@ -156,6 +218,9 @@ public class Controller {
 		return test;
 
 	}
+	
+	
+
 
 	//tip_id로 tip게시글 상세 get 가능
 	@GetMapping("/board/tips/{tipId}")
@@ -168,7 +233,9 @@ public class Controller {
 			
 			
 			return board;
+//			return null;
 	}
+	
 	
 	//rent_id로 rent게시글 상세 get 가능
 	@GetMapping("/board/rents/{rentId}")
@@ -205,7 +272,7 @@ public class Controller {
 }
 	
 
-	@GetMapping("addPUser") //test용
+	@GetMapping("add/PUser") //test용
 	@Transactional
 	public String addPUser() {
 		Puser B = new Puser();
@@ -219,7 +286,7 @@ public class Controller {
 		return "puser 저장 성공";
 	}
 
-	@GetMapping("/delPUser")
+	@GetMapping("/del/PUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		System.out.println(userEmail);
@@ -236,7 +303,7 @@ public class Controller {
 		return null;
 	}
 
-	@GetMapping("/addLocCate") // test용
+	@GetMapping("/add/loc") // test용
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -251,7 +318,7 @@ public class Controller {
 		return "loc 저장 성공";
 	}
 
-	@GetMapping("/addLoc2")
+	@GetMapping("/add/Loc2")
 	@Transactional
 	public String addLocCate2(HttpServletResponse response, @RequestParam String locName, @RequestParam String sido,
 			@RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
@@ -271,14 +338,14 @@ public class Controller {
 		return "성공";
 	}
 
-	@GetMapping("/delLocCate")
+	@GetMapping("/del/loc")
 	@Transactional
 	public String delLocCate(@RequestParam int locId) {
 		lcr.deleteById(locId); // 필요없는 카테고리 삭제용
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
-	@GetMapping("/addBoardPlace") // test용
+	@GetMapping("/add/place") // test용
 	@Transactional
 	public String addBoardPlace() {
 		BoardPlace A = new BoardPlace();
@@ -294,7 +361,7 @@ public class Controller {
 		return "place 저장 성공";
 	}
 
-	@GetMapping("/addplace2")
+	@GetMapping("/add/place2")
 	@Transactional
 	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response, @RequestParam String placeName,
 			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
@@ -312,14 +379,14 @@ public class Controller {
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
 		} else {
 			try {
-				response.sendRedirect("http://localhost/locCate.html");
+				response.sendRedirect("http://localhost/writepage/locCate.html");
 				return "위치 데이터를 입력해주세요";
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
-			response.sendRedirect("http://localhost/boardPlace.html");
+			response.sendRedirect("http://localhost/writepage/boardPlace.html");
 			return "성공";
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -332,7 +399,7 @@ public class Controller {
 	@GetMapping("/del/place")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
-		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
+		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel("1");
 		return "장소 게시글 삭제되었습니다.";
 	}
 
@@ -364,7 +431,7 @@ public class Controller {
 //	}
 	
 	
-	@GetMapping("/addPComment")
+	@GetMapping("/add/PComment")
 	public String addPComment() {
 		Pcomment A = new Pcomment();
 		A.setCommentId(2);
@@ -379,7 +446,7 @@ public class Controller {
 		return "comment 저장 성공";
 	}
 
-	@GetMapping("/delPcomment")
+	@GetMapping("/del/Pcomment")
 	@Transactional
 	public String delPcomment(@RequestParam int commentid) {
 		Pcomment A = pcor.findPcommentByCommentId(commentid).get(0);
@@ -390,7 +457,7 @@ public class Controller {
 
 // review
 
-	@GetMapping("/addBoardReview")
+	@GetMapping("/add/review")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 
@@ -410,7 +477,7 @@ public class Controller {
 	@Transactional
 	public String delBoardReview(@RequestParam int reviewId) {
 		BoardReview A = brer.findBoardReviewByReviewId(reviewId);
-		A.setReviewDel(1);
+		A.setReviewDel("1");
 		return "리뷰 삭제되었습니다.";
 	}
 }

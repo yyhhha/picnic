@@ -75,7 +75,7 @@ public class BoardRent {
 	private String rentImg;
 	
 	@Column(name = "rent_del")
-	private int rentDel;
+	private String rentDel;
 	
 	//새로 추가
 	@Column(name = "rent_cate_name")

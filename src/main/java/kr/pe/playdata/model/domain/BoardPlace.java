@@ -68,7 +68,7 @@ public class BoardPlace  {
 	private String placeImg;
 	
 	@Column(name = "place_del")
-	private int placeDel; //boolean -> int 0,1로 구분 Y N
+	private String placeDel; //boolean -> int 0,1로 구분 Y N  // -> Char로 Db에 설정되있어서 String으로 바꿈 10/18일새벽..
 	
 	@Override
 	public String toString() {

@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <title>Document</title>
-  
+
     <style>
         * {
           box-sizing: border-box;
@@ -202,75 +198,33 @@
     <div class="row">
         <div class="column side" style="background-color:#ffffff; ">
           <ul>
-            <li><a class="active" href="#home">글쓰기</a></li>
-            <li><a href="/writepage/boardRent.html">물품대여</a></li>
-            <li><a href="/writepage/boardPlace.html">장소추천</a></li>
-            <li><a href="/writepage/boardReview.html">장소 후기</a></li>
-            <li><a href="/writepage/boardTip.html">피크닉 꿀팁</a></li>
-            <li><a href="/writepage/locCate.html">위치 추가</a></li>
+            <li><a class="active" href="#home">전체보기</a></li>
+           
+           
           </ul>
         </div>
+
+
         <div class="column middle" style="background-color:#ffffff;">
-    
-            <div id="rentboard">
-            
-              <h3>피크닉물품 대여업체 등록</h3>
-              <br>
-              <label class="w3-text-grey">카테고리</label><br>
-            
-            
-              <input type="radio" id="one" class="w3-radio" value="한강피크닉" v-model="rentCateName">
-              <label for="one">한강 피크닉</label>
-            
-              <input type="radio" id="two" class="w3-radio" value="바다피크닉" v-model="rentCateName">
-              <label for="two">바다 피크닉</label>
-            
-              <input type="radio" id="three" class="w3-radio" value="글램핑" v-model="rentCateName">
-              <label for="three">글램핑</label>
-            
-              <input type="radio" id="four" class="w3-radio" value="그 외" v-model="rentCateName">
-              <label for="four">그 외</label>
-            
-            
-              <p>
-                <label class="w3-text-grey">대여업체 이름</label>
-                <input class="w3-input w3-border" type="text" v-model="rentName" placeholder="업체 이름을 써주세요.">
-              </p>
-            
-              <p>
-                <label class="w3-text-grey">위치</label>
-                <input class="w3-input w3-border" type="text" v-model="rentLoc" placeholder="업체 위치를 써주세요.">
-              </p>
-            
-              <p>
-                <label class="w3-text-grey">홈페이지 링크</label>
-                <input class="w3-input w3-border" type="text" v-model="rentLink" placeholder="홈페이지 링크를 써주세요.">
-              </p>
-            
-              <p>
-                <label class="w3-text-grey">가격 **원(숫자만 입력하세요.)</label>
-                <input class="w3-input w3-border" type="number" v-model="rentPrice">
-              </p>
-            
-              <p>
-                <label class="w3-text-grey">대여시간 **시간 (숫자만 입력하세요.)</label>
-                <input class="w3-input w3-border" type="number" v-model="rentTime">
-              </p>
-              <p>
-                <label class="w3-text-grey">상세내용</label>
-                <textarea class="w3-input w3-border" style="resize:none; height: 300px;" v-model="rentContent"
-                  placeholder="상세 내용을 써주세요."></textarea>
-              </p>
-              <p>
-                <label class="w3-text-grey">이미지 추가</label>
-                <input class="w3-input w3-border" type="text" v-model="rentImg" placeholder="현재 파일을 받지 못합니다. 이미지 주소복사를 해주세요">
-              </p>
-            
-              <button v-on:click="submit" style="background-color: rgb(68, 68, 248);">완료</button>
-            
+            <div id="boardReview">
+                
+         
+                    <span>제목</span><br>{{reviewTitle}}
+                    <div>{{placeName}}</div>
+                    <div>{{reviewScore}}</div>
+                            
+                    <span>상세 내용</span><br>
+                    <div>{{reviewContent}}</div><br>
+
+                    <br>
+                    <!-- <button style="background-color: rgb(68, 68, 248);">수정</button> -->
+                    <button v-on:click="removeRent" style="background-color: rgb(68, 68, 248);">삭제</button>
+        
+                    
+              
+                
             </div>
-    
-          
+           
     
     
     
@@ -284,79 +238,49 @@
           게시된 정보는 무단으로 배포할 수 없습니다.</a>
           ＠2021</p>
       </div>
-    
 
       <script>
-
         new Vue({
-          el: "#rentboard",
+          el: "#boardReview",
           data : {
-            rentCateName : "",
-            rentName : "",
-            rentLoc : "",
-            rentLink: "",
-            rentPrice : "",
-            rentTime : "",
-            rentContent : "",
-            rentImg : ""            
+            reviewTitle : "",
+            reviewContent : "",
+            reviewScore : "",
+            placeName : "",
+
           },
-          methods : {
+          created : function(){
+            var params = new URLSearchParams(location.search);
 
-            submit: function(){
+            axios.get('/con/board/reviews/' + params.get('reviewId'))
+            .then(response => {
+              this.reviewTitle = response.data.reviewTitle;
+              this.reviewContent = response.data.reviewContent;
+              this.reviewScore = response.data.reviewScore;
+              this.placeName = response.data.placeName;
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
+          },
+          methods: {
+            removeRent(){
+              var params = new URLSearchParams(location.search);
 
-              axios({
-                method: "post",
-                url: "/con/addBoardRent",
-                data: {
-                  rentName : this.rentName,
-                  rentLoc : this.rentLoc,
-                  rentLink: this.rentLink,
-                  rentPrice : this.rentPrice,
-                  rentTime : this.rentTime,
-                  rentContent : this.rentContent,
-                  rentCateName : this.rentCateName,
-                  rentImg : this.rentImg
-                  }
-              }).then(resData => {
-                var link = "/listpage/boardRentPage2.html"
-                location.href=link;
-                
-              }).catch(errorData => {
-                alert(errorData);
-              });
-              
-            },
-           
-          
-  
+            axios.put('/con/del/reviews/' + params.get('reviewId'))
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
+          },
           }
+    
         });
-        function showMyImage(fileInput) {
-          var files = fileInput.files;
-          for (var i = 0; i < files.length; i++) {           
-              var file = files[i];
-          //    var imageType = /image.*/;     
-              if (!file.type.match(imageType)) {
-                  continue;
-              }           
-              var img=document.getElementById("thumbnil");            
-              img.file = file;    
-              var reader = new FileReader();
-              reader.onload = (function(aImg) { 
-                  return function(e) { 
-                      aImg.src = e.target.result; 
-                  }; 
-              })(img);
-              reader.readAsDataURL(file);
-          } 
-             
-      }
-
-
       </script>
-
-
-
+    
     </body>
     
     </html>

@@ -44,7 +44,6 @@ import kr.pe.playdata.model.dto.BoardPlaceDTO;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardReviewDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
-import kr.pe.playdata.model.dto.PuserDTO;
 import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
@@ -93,7 +92,7 @@ public class YContorller {
 	
 	//로그인 확인 메소드
 	@PostMapping("/checkLogin")
-	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) {
+	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) throws IOException {
 		Puser puser = new Puser();
 		String redirect_uri="";
 		//작성자 세션 불러오기 위함
@@ -111,10 +110,15 @@ public class YContorller {
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
+				redirect_uri ="http://localhost/userpage/login.html";
+				response.sendRedirect(redirect_uri);
 				throw new Exception("패스워드가 틀립니다.");
 			}
 		}catch (Exception e) {
 			//email이 틀렸을경우
+			System.out.println("email을 틀렸습니다.");
+			 redirect_uri="http://localhost/userpage/login.html";
+			 response.sendRedirect(redirect_uri);
 			e.printStackTrace();
 		}
 	}
@@ -129,10 +133,8 @@ public class YContorller {
 	
 	//axios로 받기 위해 사용 
 	@GetMapping("/checkLogininfo")
-	public PuserDTO checkLogininfo() {
-		Puser puser = pur.findPuserByUserEmail(amail);
-		PuserDTO pu = new PuserDTO(puser.getUserEmail(),puser.getUserPassword(),puser.getUserNickname(),puser.getRoles(),puser.getUserOut(),puser.getAssignDate(),puser.getOutDate());
-		return pu;
+	public Puser checkLogininfo() {
+		return pur.findPuserByUserEmail(amail);
 	}
 	
 	//가입 메소드
@@ -350,20 +352,17 @@ public class YContorller {
 //	}
 	
 	
-	@PostMapping("/findid2")
-	public void findid2(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
+	@PostMapping("/findpswByEmail")
+	public void findpswByEmail(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
 		Puser puser = new Puser();
 		String redirect_uri="";
 		try{
+			System.out.println(email);
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
-			
-				redirect_uri ="http://localhost/index3.html";
+				redirect_uri ="http://localhost/userpage/FindID2.html";
 				amail =email;
 				response.sendRedirect(redirect_uri);
-				System.out.println("패스워드가 틀렸습니다.");
-				throw new Exception("패스워드가 틀립니다.");
 		}catch (Exception e) {
-			//email이 틀렸을경우
 			e.printStackTrace();
 		}
 	}

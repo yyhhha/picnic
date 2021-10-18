@@ -208,14 +208,15 @@
         <div class="col-4">
           <table>
           	<tr>
+          	  <th>선택</th>
               <th>업체 Id</th>
               <th>업체 이름</th>
               <th></th>
 			</tr>
-			<tr v-for="rent in rentlist">
+			<tr v-for="(rent,index) in rentlist">
+			  <td><input type="checkbox" :id="index" name="checked1" v-model:value="checked1[index]"></td>
 			  <td>{{rent.rentDel}}</td>
 			  <td>{{rent.rentName}}</td>
-			  
 			  <td><button v-on:click="removeRent(rent.rentId)">삭제</button></td>
 			</tr>
           </table>
@@ -232,11 +233,13 @@
         <div class="col-4">
           <table>
           	<tr>
+          	  <th>선택</th>
               <th>장소 Id</th>
               <th>장소 이름</th>
               <th></th>
 			</tr>
-			<tr v-for="place in placelist">
+			<tr v-for="(place,index) in placelist">
+			  <td><input type="checkbox" :id="index" name="checked2" v-model:value="checked2[index]"></td><!--@change="update(user.userEmail)"-->
 			  <td>{{place.placeDel}}</td>
 			  <td>{{place.placeName}}</td>
 			  <td><button v-on:click="removePlace(place.placeId)">삭제</button></td>
@@ -255,11 +258,13 @@
         <div class="col-4">
           <table>
           	<tr>
+          	  <th>선택</th>
               <th>팁 Id</th>
               <th>팁 이름</th>
               <th></th>
 			</tr>
-			<tr v-for="tip in tiplist">
+			<tr v-for="(tip,index) in tiplist">
+			  <td><input type="checkbox" :id="index" name="checked3" v-model:value="checked3[index]"></td>
 			  <td>{{tip.tipDel}}</td>
 			  <td>{{tip.tipTitle}}</td>
 			  <td><button v-on:click="removeTip(tip.tipId)">삭제</button></td>
@@ -278,11 +283,13 @@
         <div class="col-4">
           <table>
           	<tr>
+          	  <th>선택</th>
               <th>리뷰 Id</th>
               <th>리뷰 이름</th>
               <th></th>
 			</tr>
-			<tr v-for="review in reviewlist">
+			<tr v-for="(review,index) in reviewlist">
+			  <td><input type="checkbox" :id="index" name="checked4" v-model:value="checked4[index]"></td>
 			  <td>{{review.reviewDel}}</td>
 			  <td>{{review.reviewTitle}}</td>
 			  <td><button v-on:click="removeReview(review.reviewId)">삭제</button></td>
@@ -294,38 +301,43 @@
   </section>
 
   <hr color="blue">
+  <br><button v-on:click="delAll(checked1,checked2,checked3,checked4, placelist,rentlist,reviewlist,tiplist)">일괄선택 삭제</button>
 
 </div>
 
 </body>
 
 <script type="text/javascript">
-          new Vue({
-            el: "#main",
-            data: {
-                sorted: "",
-                showBoolean: false,
-                placelist: [],
-                rentlist: [],
-                reviewlist:[],
-                tiplist:[],
-                searchString:""
-            },
-            created: function () {
-              axios({
-                  method: "get",
-                  url: "/scon/searchAll?searchString=All"
-              }).then(resData => {
-                this.showBoolean = true;
-                this.placelist = resData.data[0];
-                this.rentlist = resData.data[1];
-                this.reviewlist = resData.data[2];
-                this.tiplist = resData.data[3];
-              }).catch(errorData => {
-                  alert(errorData);
-              });
-            },
-            methods: {
+        new Vue({
+          el: "#main",
+          data: {
+              sorted: "",
+              showBoolean: false,
+              placelist: [],
+              rentlist: [],
+              reviewlist:[],
+              tiplist:[],
+              searchString:"",
+              checked1:[],
+        	  checked2:[],
+              checked3:[],
+        	  checked4:[]
+          },
+          created: function () {
+            axios({
+                method: "get",
+                url: "/scon/search/all?searchString=All"
+            }).then(resData => {
+              this.showBoolean = true;
+              this.placelist = resData.data[0];
+              this.rentlist = resData.data[1];
+              this.reviewlist = resData.data[2];
+              this.tiplist = resData.data[3];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+          methods: {
               removeRent(rentId){
                 axios({
                         method: "get",
@@ -336,26 +348,27 @@
             removePlace(placeId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardPlace?placeId=" + placeId
+                        url: "/con/del/place?placeId=" + placeId
                 });
               
             },
             removeTip(tipId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardTip?tipId=" + tipId
+                        url: "/con/del/tip?tipId=" + tipId
                 });
               
             },
             removeReview(reviewId){
                 axios({
                         method: "get",
-                        url: "/con/delBoardReview?reviewId=" + reviewId                });
+                        url: "/con/del/review?reviewId=" + reviewId
+                });
             },
 			search(searchString) {
               axios({
                   method: "get",
-                  url: "/scon/searchAll?searchString="+ this.searchString
+                  url: "/scon/search/all?searchString="+ this.searchString
               }).then(resData => {
                 this.showBoolean = true;
                 this.placelist = resData.data[0];
@@ -365,9 +378,28 @@
               }).catch(errorData => {
                   alert(errorData);
               });
+            },
+            delAll(checked1,checked2,checked3,checked4, placelist,rentlist,reviewlist,tiplist) {
+            	for(i in this.checked1) {
+            		if(i) {
+            			this.removePlace(this.placelist[i].placeId)
+            		}}
+            	for(i in this.checked2) {
+            		if(i) {
+            			this.removeRent(this.rentlist[i].rentId)
+            		}}
+            	for(i in this.checked3) {
+            		if(i) {
+            			this.removeReview(this.reviewlist[i].reviewId)
+            		}}
+            	for(i in this.checked4) {
+                		if(i) {
+            			this.tiplist(this.tiplist[i].tipId)
+            		}
+            	}
             }
-            }
-            });
+          }
+        });
       
    </script>
 </html>
