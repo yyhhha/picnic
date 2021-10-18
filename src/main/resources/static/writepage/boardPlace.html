@@ -210,6 +210,7 @@
 		
 
         <div id= "placeapp">
+        
 			<input type="text" v-model:values="searchString">
 			<button v-on:click="search(searchString)">장소검색</button>
 			<section class="w3-row" v-if="showBoolean">
@@ -250,6 +251,8 @@
 			      </div>
 			    </div>
   			</section>
+  			
+  			
 			<form id = "placeform" method="GET" action="con/addplace2">
 	            <span>이메일</span><br>
 	            <input v-model:values="userEmail" name="userEmail" placeholder="이메일을 써주세요."><br>
