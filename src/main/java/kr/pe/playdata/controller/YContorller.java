@@ -221,7 +221,7 @@ public class YContorller {
 				response.sendRedirect(redirect_uri);
 			}
 		} catch (IOException e) {
-			redirect_uri="http://localhost/mypage.html";
+			redirect_uri="http://localhost/userpage/mypage.html";
 			response.sendRedirect(redirect_uri);
 			e.printStackTrace();
 		}

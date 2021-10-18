@@ -165,7 +165,6 @@ public class Controller {
 		return true;
 	}
 
-
 	@GetMapping("/del/tip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
