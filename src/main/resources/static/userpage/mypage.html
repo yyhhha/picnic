@@ -8,16 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>마이페이지</title>
-    <link href="../css/mypage.css" rel="stylesheet" />
-
-<style type="text/css">
-div.gallery {
-          margin: 5px;
-          border: 1px solid #ccc;
-          float: left;
-          width: 180px;
-        }
-</style>
+    <!-- <link href="../css/mypage.css" rel="stylesheet" /> -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../css/main.css">
+	
 </head>
 <body>
 <div class="header">
@@ -49,33 +43,28 @@ div.gallery {
       <ul>
       	 <!-- <button id="myBtn">회원정보 수정</button>  -->
         <!-- <li id="myBtn">회원정보 수정</li> /* class="active" -->
-        <li id="myBtn">회원정보 수정</li> <!-- /* class="active" -->
+        <li v-on:click="showinfo()">회원정보 수정</li> <!-- /* class="active" -->
         <li v-on:click="{selectBoard(),selectPlaceBoard(),selectTipBoard(),selectReviewBoard()}">내가 쓴 글</li>
         <li v-on:click="selectComment()">내가 쓴 댓글</li>
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
-
-        <div>
-            
-                    <!-- The Modal -->
-    <div id="myModal" class="modal">
- 
-      <!-- Modal content -->
-     <!--  <form  action="ycon/captcheck" method="get"> -->
-      <div class="modal-content">
-        <span>회원정보 수정 전,
-			본인확인을 위한 비밀번호를 입력하세요</span><br>
-                <h5>비밀번호</h5>
-                 <input placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}"><br>
+    
+	<div v-if="showBoolean6">
+            <div class="desc">
+            <span>회원정보 수정 전,
+			본인확인을 위한 닉네임을 입력하세요</span><br>
+                <h5>닉네임</h5>
+                 <input placeholder="닉네임을 입력하세요" name="psw" v-model="nick"><br>
                   <br>
               
-                <input style="background-color: rgb(68, 68, 248);"  type="submit">
-                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소"> 
-      </div>
-      <!--   </form> -->
- 		
-    </div>
+                <input style="background-color: rgb(68, 68, 248);" v-on:click="updateInfo()" type="submit">
+           
+             <hr>
+             </div>
+	 </div>
+
+
      <div  v-if="showBoolean" v-for="rent in rentlist" @click="showRentdetail(rent.rentId)">
             <div class="desc">
             <table>
@@ -144,33 +133,13 @@ div.gallery {
 
 </body>
 <script>
+
 var logout = function(){
     localStorage.clear();
     sessionStorage.clear();
-     window.location.href="ycon/moveMainPage";
+     window.location.href="../ycon/moveMainPage";
 }
 
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];                                          
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 
 var email = sessionStorage.getItem('email');
@@ -197,10 +166,28 @@ var nav = new Vue({
         showBoolean5: false,
         commenttiplist: [],
  
+        showBoolean6: false,
+        nick :"",
         
     },
     
     methods: {
+		showinfo: function(){
+            	nav.showBoolean6 = true;
+            	nav.showBoolean = false;
+            	nav.showBoolean2= false;
+            	nav.showBoolean3= false;
+            	nav.showBoolean4= false;
+          }, 
+          updateInfo: function(){
+        	  if(nav.nick == sessionStorage.getItem('nickname')){
+        		  location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+        	  }else{
+        		  alert("닉네임이 다릅니다. 다시 시도해주세요");
+        		  nav.showBoolean6 = false;
+        	  }
+        		  
+          }, 
     	showRentdetail: function(id){
             location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
           },
@@ -218,6 +205,7 @@ var nav = new Vue({
                 url: tmp
             }).then(resData => {
             	nav.showBoolean = true;
+            	nav.showBoolean6 = false;
             	nav.rentlist = resData.data;
             }).catch(errorData => {
                 alert(errorData);
