@@ -16,35 +16,34 @@
 </head>
 
 <body>
-  <div id="main">
 
     <div class="header">
       <header>
-        <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
-          <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
-          <button v-on:click="search(searchString)" class="w3-bar-item w3-button w3-mobile">검색</button>
-
-          <div id="loglog">
-
-            <div v-if="!logCheck">
-                <a href="../ycon/login" class="w3-bar-item w3-button w3-mobile">로그인</a>
-                <a href="../ycon/signup" class="w3-bar-item w3-button w3-mobile">회원가입</a>
-            </div>
-
-          <div v-else>
-
-            {{nickname}}님 환영합니다
-
-            <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
-            <button v-on:click="search(searchString)" class="w3-bar-item w3-button w3-mobile">검색</button>
-              <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
-              <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
-
+        <div id="search">
+          <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+              <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
+              <button v-on:click="search(searchString)" class="w3-bar-item w3-button w3-mobile">검색</button>
+    
+              <div id="loglog">
+    
+                <div v-if="!logCheck">
+                    <a href="../ycon/login" class="w3-bar-item w3-button w3-mobile">로그인</a>
+                    <a href="../ycon/signup" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+                </div>
+    
+                <div v-else>
+                  {{nickname}}님 환영합니다
+                  <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
+                  <button v-on:click="search(searchString)" class="w3-bar-item w3-button w3-mobile">검색</button>
+                    <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
+                    <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+                </div>
+                
+              </div>
           </div>
-
         </div>
 
-        <p class="w3-wide" style="font-size: 30px; font-weight: bold; text-align: center;"><a href="/index.html">피그닉</a></p>
+        <p class="w3-wide" style="font-size: 30px; text-align: center;"><a href="/index.html">피그닉</a></p>
     
         <nav>
           <ul class="nav-container">
@@ -58,6 +57,7 @@
     </div>
 
     <div class="row">
+
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
@@ -66,6 +66,7 @@
 
       <div class="column middle" style="background-color:#ffffff;">
 
+        
         <div id="sort">
           <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
             <option value="" selected disabled hidden>-정렬방식-</option>
@@ -74,77 +75,99 @@
             <option value="3">높은 평점순</option>
           </select>
         </div>
-
+        
         <br>
+        
+        <div id="main">
 
-        <article class="post" v-if="showBoolean" style="cursor: pointer;">
-          <section class="w3-row">
-            <div class="gallery" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
-              <img v-bind:src="rent.rentImg">
-              <div class="desc">
-                <p>{{rent.rentName}}</p>
-                <p>{{rent.rentCateName}}</p>
-                <p>{{rent.rentTime}}</p>
-                <p>{{rent.rentPrice}}원</p>
+          <article class="post" v-if="showBoolean" style="cursor: pointer;">
+            <section class="w3-row">
+              <div class="gallery" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
+                <img v-bind:src="rent.rentImg">
+                <div class="desc">
+                  <p>{{rent.rentName}}</p>
+                  <p>{{rent.rentCateName}}</p>
+                  <p>{{rent.rentTime}}</p>
+                  <p>{{rent.rentPrice}}원</p>
+                </div>
               </div>
-            </div>
-          </section> <br>
-          
-          <hr color="blue">
+            </section> <br>
+            
+            <hr color="blue">
 
-          <section class="w3-row">
-            <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
-              <img v-bind:src="place.placeImg">
-              <div class="desc">
-                <p style="font-size:0.8rem">{{place.placeName}}</p>
-                <p style="font-size:0.8rem">{{place.placeContent}}</p>
-                <p style="font-size:0.8rem">{{place.userEmail}}</p>
+            <section class="w3-row">
+              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
+                <img v-bind:src="place.placeImg">
+                <div class="desc">
+                  <p style="font-size:0.8rem">{{place.placeName}}</p>
+                  <p style="font-size:0.8rem">{{place.placeContent}}</p>
+                  <p style="font-size:0.8rem">{{place.userEmail}}</p>
+                </div>
               </div>
-            </div>
-          </section> <br>
+            </section> <br>
 
-          <hr color="blue">
-          
-          <section class="w3-row" @click="showdetail(review.reviewId)">
-            <table>
-              <tr>
-                <th>장소</th>
-                <th>상세 내용</th>
-                <th>상세 내용</th>
-                <th>상세 내용</th>
-              </tr>
-              <tr v-for="review in reviewlist">
-                <td>{{review.userEmail}}</td>
-                <td>{{review.reviewTitle}}</td>
-                <td>{{review.reviewContent}}</td>
-                <td>{{review.reviewScore}}</td>
-              </tr>
-            </table>
-          </section> <br>
+            <hr color="blue">
+            
+            <section class="w3-row" @click="showdetail(review.reviewId)">
+              <table>
+                <tr>
+                  <th>장소</th>
+                  <th>상세 내용</th>
+                  <th>상세 내용</th>
+                  <th>상세 내용</th>
+                </tr>
+                <tr v-for="review in reviewlist">
+                  <td>{{review.userEmail}}</td>
+                  <td>{{review.reviewTitle}}</td>
+                  <td>{{review.reviewContent}}</td>
+                  <td>{{review.reviewScore}}</td>
+                </tr>
+              </table>
+            </section> <br>
 
-          <hr color="blue">
+            <hr color="blue">
 
-          <section class="w3-row">
-            <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showdetail(tip.tipId)">
-              <img v-bind:src="tip.tipImg">
-              <div class="desc">
-                <p>{{tip.tipTitle}}</p>
-                <p>{{tip.tipContent}}</p>
-                <p>{{tip.tipDate}}</p>
-                <p>{{tip.tipLike}} 좋아요</p>
-                <p>{{tip.userEmail}}</p>
+            <section class="w3-row">
+              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showdetail(tip.tipId)">
+                <img v-bind:src="tip.tipImg">
+                <div class="desc">
+                  <p>{{tip.tipTitle}}</p>
+                  <p>{{tip.tipContent}}</p>
+                  <p>{{tip.tipDate}}</p>
+                  <p>{{tip.tipLike}} 좋아요</p>
+                  <p>{{tip.userEmail}}</p>
+                </div>
               </div>
-            </div>
-          </section> <br>
-        </article>
+            </section> <br>
+          </article>
+
+        </div>
 
       </div>
 
     </div>
 
-  </div>
-
   <script type="text/javascript">
+
+    var search = new Vue({
+      el: "#search",
+      methods: {
+        search(searchString) {
+          axios({
+            method: "get",
+            url: "/scon/search/all?searchString="+ this.searchString
+          }).then(resData => {
+            main.showBoolean = true;
+            main.placelist = resData.data[0];
+            main.rentlist = resData.data[1];
+            main.reviewlist = resData.data[2];
+            main.tiplist = resData.data[3];
+          }).catch(errorData => {
+              alert(errorData);
+          });
+        },
+      },
+    });
 
     var main = new Vue({
       el: "#main",
@@ -171,21 +194,20 @@
         });
       },
       methods: {
-        search(searchString) {
-          axios({
-            method: "get",
-            url: "/scon/search/all?searchString="+ this.searchString
-          }).then(resData => {
-            main.showBoolean = true;
-            main.placelist = resData.data[0];
-            main.rentlist = resData.data[1];
-            main.reviewlist = resData.data[2];
-            main.tiplist = resData.data[3];
-          }).catch(errorData => {
-              alert(errorData);
-          });
-        },
-        
+        // search(searchString) {
+        //   axios({
+        //     method: "get",
+        //     url: "/scon/search/all?searchString="+ this.searchString
+        //   }).then(resData => {
+        //     main.showBoolean = true;
+        //     main.placelist = resData.data[0];
+        //     main.rentlist = resData.data[1];
+        //     main.reviewlist = resData.data[2];
+        //     main.tiplist = resData.data[3];
+        //   }).catch(errorData => {
+        //       alert(errorData);
+        //   });
+        // },
         showdetail: function(id){
           if(id == rent.rentId){
             location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
