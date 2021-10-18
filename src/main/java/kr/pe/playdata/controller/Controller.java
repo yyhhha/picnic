@@ -114,20 +114,20 @@ public class Controller {
 	//1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
 	@PutMapping("/del/tips/{tipId}")
 	@Transactional
-	public boolean delBoardTip1(@PathVariable("tipId") int tipId) {
+	public void delBoardTip1(@PathVariable("tipId") int tipId, HttpServletResponse response) throws IOException {
 		System.out.println("수정");
 
 		try {
-			
 			BoardTip tip = btr.findBoardTipByTipId(tipId);
 			tip.setTipDel("1");
+			response.sendRedirect("http://localhost/listpage/boardTipPage2.html");
 		} catch (Exception e) {
-			return false;
+			System.out.println(e);
 		}
-		return true;
+	
 	}
 	
-	
+
 	
 	@PutMapping("/del/rents/{rentId}")
 	@Transactional
