@@ -25,7 +25,7 @@
     </div>
 	 </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
+      <button type="button" onclick="location.href='../ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
     </div>
 </div>
 </body>
@@ -38,7 +38,7 @@ new Vue({
 	created: function ()  {
 			axios({
 				method: "get",
-				url: "ycon/checkLogininfo"
+				url: "../ycon/checkLogininfo"
 			}).then(resData => {
 				this.datas = resData.data;
 				

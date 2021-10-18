@@ -233,7 +233,7 @@
 <hr color="green">
 
         <div id= "locapp">
-			<form id = "locform" method="GET" action="con/addLoc2">
+			<form id = "locform" method="GET" action="../con/add/loc">
 	            <span>장소 명칭</span><br>
 	            <input v-model:values="locName" name="locName" placeholder="장소 이름을 써주세요."><br>
 	            <span>위치</span><br>
@@ -295,7 +295,7 @@
   	  created: function () {
         axios({
             method: "get",
-            url: "/scon/search/loc?searchString=All"
+            url: "../scon/search/loc?searchString=All"
         }).then(resData => {
           this.showBoolean = true;
           this.locList = resData.data;
@@ -307,7 +307,7 @@
         search(searchString) {
             axios({
                 method: "get",
-                url: "/scon/search/loc?searchString="+this.searchString
+                url: "../scon/search/loc?searchString="+this.searchString
             }).then(resData => {
               this.showBoolean = true;
               this.locList = resData.data[0];

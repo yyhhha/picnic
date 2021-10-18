@@ -255,9 +255,8 @@
   			</section>
   			
   			
-			<form id = "placeform" method="GET" action="con/addplace2">
-	            <span>이메일</span><br>
-	            <input v-model:values="userEmail" name="userEmail" placeholder="이메일을 써주세요."><br>
+			<form id = "placeform" method="GET" action="../con/add/place2">
+	           
 	            <span>장소 명칭</span><br>
 	            <input v-model:values="placeName" name="placeName" placeholder="장소 이름을 써주세요."><br>
 	            <span>위치</span><br>
@@ -294,7 +293,6 @@
       placeCategory: [],
       placeContent: "",
       userEmail: "",
-
       placeImg : "",
       searchString : "",
       searchString2 : "",
@@ -306,7 +304,7 @@
     	search(searchString) {
             axios({
                 method: "get",
-                url: "/scon/search/all?searchString="+ this.searchString
+                url: "../scon/search/all?searchString="+ this.searchString
             }).then(resData => {
               this.showBoolean = true;
               this.placeList = resData.data[0];
@@ -317,7 +315,7 @@
         search2(searchString) {
             axios({
                 method: "get",
-                url: "/scon/search/loc?searchString="+this.searchString2
+                url: "../scon/search/loc?searchString="+this.searchString2
             }).then(resData => {
               this.showBoolean2 = true;
               this.locList = resData.data[0];

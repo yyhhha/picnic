@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -184,8 +185,10 @@ public class Controller {
 		
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-//		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
-		A.setPuser(pur.findPuserByUserEmail("ssss"));
+	//	A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+		System.out.println("안녕");
+		System.out.println(session.getAttribute("userEmail").toString());
+		A.setPuser(pur.findPuserByUserEmail("sss"));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -296,6 +299,7 @@ public class Controller {
 		Date to = null;
 		try {
 			to = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.nnn").parse(LocalDate.now(ZoneId.of("Asia/Seoul"))+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -312,7 +316,7 @@ public class Controller {
 		return null;
 	}
 
-	@GetMapping("/add/loc") // test용
+	@GetMapping("/add/loc2") // test용
 	@Transactional
 	public String addLocCate() {
 		LocCategory A = new LocCategory();
@@ -327,7 +331,7 @@ public class Controller {
 		return "loc 저장 성공";
 	}
 
-	@GetMapping("/add/Loc2")
+	@GetMapping("/add/loc")
 	@Transactional
 	public String addLocCate2(HttpServletResponse response, @RequestParam String locName, @RequestParam String sido,
 			@RequestParam String sigungu, @RequestParam String address, @RequestParam String placeCategory) {
@@ -339,7 +343,7 @@ public class Controller {
 		A.setPlaceCategory(placeCategory);
 		lcr.save(A);
 		try {
-			response.sendRedirect("http://localhost/locCate.html");
+			response.sendRedirect("http://localhost/writepage/locCate.html");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -373,7 +377,7 @@ public class Controller {
 	@GetMapping("/add/place2")
 	@Transactional
 	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response, @RequestParam String placeName,
-			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg, @RequestParam String userEmail) {
+			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg) {
 		
 		HttpSession session = request.getSession();
 		BoardPlace A = new BoardPlace();
@@ -383,6 +387,8 @@ public class Controller {
 			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
 			A.setPlaceContent(placeContent);
 			A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+			System.out.println(session.getAttribute("userEmail").toString());
+//			A.setPuser(pur.findPuserByUserEmail("ssss"));
 			A.setPlaceImg(placeImg);
 			bpr.save(A);
 			System.out.println(lcr.findLocCategoryByLocName(placeLoc));
@@ -489,4 +495,22 @@ public class Controller {
 		A.setReviewDel("1");
 		return "리뷰 삭제되었습니다.";
 	}
+	
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/writer")
+	@Transactional
+	public boolean checkWriter(@RequestParam String userEmail, HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userEmail").equals(userEmail)) {
+			return true;
+		}else {
+			return false;
+		}
+				
+	}
+	
+	
+	
 }
