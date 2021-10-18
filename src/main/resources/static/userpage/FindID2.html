@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<link rel="stylesheet" href="../css/signup.css" >
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<title>로그인</title>
+<style type="text/css"> 
+		a { text-decoration:none } 
+		a:visited { color: black; text-decoration: none;}
+		</style>
+</head>
+<body>
+<h2>피그닉 회원 정보</h2>
+<div id="findid">
+    <div class="container">
+    <div id="loglog">
+    	<input type="hidden" name="command" value="userLogin">
+      <label for="email"><b>e-mail :</b></label>
+	      <label for="password"><b>{{datas.userEmail}}</b></label><br>
+	      <label for="password"><b>password :</b></label>
+	      <label for="password"><b>{{datas.userPassword}}</b></label>
+    </div>
+    </div>
+	 </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
+    </div>
+</div>
+</body>
+<script>
+new Vue({
+	el: '#loglog',
+	data : {
+		datas: []
+	},
+	created: function ()  {
+			axios({
+				method: "get",
+				url: "ycon/checkLogininfo"
+			}).then(resData => {
+				this.datas = resData.data;
+				
+			}).catch(errorData => {
+				alert(errorData);
+			});
+	},
+	
+});
+</script>
+</html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-<link rel="stylesheet" href="css/signup.css" >
+<link rel="stylesheet" href="../css/signup.css" >
 <title>로그인</title>
 <style type="text/css"> 
 		a { text-decoration:none } 
@@ -10,43 +10,20 @@
 		</style>
 </head>
 <body>
-<h2>피그닉 로그인</h2>
+<h2>피그닉 회원 찾기</h2>
 <div id="findid">
     <div class="container">
-    	<form action="ycon/checkLogin" method="post">
+    	<form action="../ycon/findpswByEmail" method="post">
     	<input type="hidden" name="command" value="userLogin">
       <label for="email"><b>e-mail</b></label>
 	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
       <button type="submit">비밀번호 찾기</button>
       </form>
     </div>
+	 </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
+      <button type="button" onclick="location.href='../ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
     </div>
 </div>
 </body>
-<script type="text/javascript">
-new Vue({
-	el: "#mypage",
-    data: {
-    	
-    	showBoolean : false;
-    	datas :[],
-    },
-   methods: {
-    	
-    	selectBoard: function(){
-    		
-            axios({
-                method: "get",
-                url: tmp
-            }).then(resData => {
-            	nav.showBoolean = true;
-            	nav.rentlist = resData.data;
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          },
-})
-</script>
 </html>

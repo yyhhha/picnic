@@ -71,7 +71,7 @@ public class YContorller {
 	
 	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
-		String redirect_uri="http://localhost/signup.html";
+		String redirect_uri="http://localhost/userpage/signup.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -80,7 +80,7 @@ public class YContorller {
 	}
 	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
-		String redirect_uri="http://localhost/login.html";
+		String redirect_uri="http://localhost/userpage/login.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -92,7 +92,7 @@ public class YContorller {
 	
 	//로그인 확인 메소드
 	@PostMapping("/checkLogin")
-	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) {
+	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) throws IOException {
 		Puser puser = new Puser();
 		String redirect_uri="";
 		//작성자 세션 불러오기 위함
@@ -110,10 +110,15 @@ public class YContorller {
 				response.sendRedirect(redirect_uri);
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
+				redirect_uri ="http://localhost/userpage/login.html";
+				response.sendRedirect(redirect_uri);
 				throw new Exception("패스워드가 틀립니다.");
 			}
 		}catch (Exception e) {
 			//email이 틀렸을경우
+			System.out.println("email을 틀렸습니다.");
+			 redirect_uri="http://localhost/userpage/login.html";
+			 response.sendRedirect(redirect_uri);
 			e.printStackTrace();
 		}
 	}
@@ -122,7 +127,7 @@ public class YContorller {
 		System.out.println("예외 처리 " + e.getMessage());
 		e.printStackTrace();
 		
-		String redirect_uri="http://localhost/login.html";
+		String redirect_uri="http://localhost/userpage/login.html";
 		response.sendRedirect(redirect_uri);
 	}
 	
@@ -168,7 +173,7 @@ public class YContorller {
 	
 	@GetMapping("/mypage")
 	public void mypage(HttpServletResponse response) {
-		String redirect_uri="http://localhost/mypage.html";
+		String redirect_uri="http://localhost/userpage/mypage.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -347,20 +352,17 @@ public class YContorller {
 //	}
 	
 	
-	@PostMapping("/findid2")
-	public void findid2(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
+	@PostMapping("/findpswByEmail")
+	public void findpswByEmail(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
 		Puser puser = new Puser();
 		String redirect_uri="";
 		try{
+			System.out.println(email);
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
-			
-				redirect_uri ="http://localhost/index3.html";
+				redirect_uri ="http://localhost/userpage/FindID2.html";
 				amail =email;
 				response.sendRedirect(redirect_uri);
-				System.out.println("패스워드가 틀렸습니다.");
-				throw new Exception("패스워드가 틀립니다.");
 		}catch (Exception e) {
-			//email이 틀렸을경우
 			e.printStackTrace();
 		}
 	}
