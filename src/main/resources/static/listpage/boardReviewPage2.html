@@ -45,6 +45,8 @@
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
+          <li style="cursor: pointer;"><a style="font-size: small; text-align: left;" href="/writepage/boardReview.html">&nbsp &nbsp글쓰기✍</a> </li>
+
         </ul>
       </div>
 
@@ -63,7 +65,7 @@
         <div id="main">
 
           <article class="post" v-if="showBoolean" v-for="review in reviewlist" style="cursor: pointer;">
-            <section  @click="showdetail(review.reviewId)">
+            <section @click="showdetail(review.reviewId)">
               <p>{{review.userEmail}}</p>
               <p>{{review.reviewTitle}}</p>
               <p>{{review.reviewContent}}</p>

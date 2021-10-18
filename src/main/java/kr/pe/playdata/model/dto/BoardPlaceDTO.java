@@ -23,6 +23,6 @@ public class BoardPlaceDTO {
 	private String placeName;
 	private String placeContent;
 	private String placeImg;
-	private int placeDel; // 대여시간
+	private String placeDel; 
 	
 }

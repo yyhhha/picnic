@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-<link rel="stylesheet" href="css/signup.css" >
+<link rel="stylesheet" href="../css/signup.css" >
 <title>로그인</title>
 <style type="text/css"> 
 		a { text-decoration:none } 
@@ -12,7 +12,7 @@
 <body>
 <h2>피그닉 로그인</h2>
     <div class="container">
-    	<form action="ycon/checkLogin" method="post">
+    	<form action="../ycon/checkLogin" method="post">
     	<input type="hidden" name="command" value="userLogin">
       <label for="email"><b>e-mail</b></label>
 	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}"><br>
@@ -22,9 +22,9 @@
       </form>
     </div>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
+      <button type="button" onclick="location.href='../ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
       <span class="psw"> 
-      <button type="button" onclick="location.href='http://localhost/FindId.html'" class="cancelbtn">비밀번호 찾기</button>
+      <button type="button" onclick="location.href='http://localhost/userpage/FindId.html'" class="cancelbtn">비밀번호 찾기</button>
       </span>
     </div>
 

@@ -1,6 +1,7 @@
 package kr.pe.playdata.model.dto;
 
-import kr.pe.playdata.model.domain.BoardTip;
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,8 @@ public class BoardTipDTO {
 	private String tipTitle;
 	private String tipContent;
 	private String tipImg;
-	private String tipDate; 
-	private int tipDel;
+	private Date tipDate; 
+	private String tipDel;
 	private int tipLike; 
 //	private List<Pcomment> pcomment;
 	

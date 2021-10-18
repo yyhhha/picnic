@@ -186,10 +186,10 @@
   
       <nav>
         <ul class="nav-container" >
-          <li class="nav-item"> <a href="/boardRent.html">피크닉 물품대여</a> </li>
-          <li class="nav-item"> <a href="/boardPlace.html">피크닉 장소추천</a> </li>
-          <li class="nav-item"> <a href="/boardReview.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/boardTip.html">피크닉 꿀팁</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
         </ul>
       </nav>
     </header>
@@ -199,11 +199,12 @@
 <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a class="active" href="#home">전체보기</a></li>
-       
-        <li><a href="#news">한강 피크닉</a></li>
-        <li><a href="#contact">바다 피크닉</a></li>
-        <li><a href="#about">글램핑</a></li>
+        <li><a class="active" href="#home">글쓰기</a></li>
+        <li><a href="/writepage/boardRent.html">물품대여</a></li>
+        <li><a href="/writepage/boardPlace.html">장소추천</a></li>
+        <li><a href="/writepage/boardReview.html">장소 후기</a></li>
+        <li><a href="/writepage/boardTip.html">피크닉 꿀팁</a></li>
+        <li><a href="/writepage/locCate.html">위치 추가</a></li>
       </ul>
     </div>
     
@@ -249,17 +250,8 @@
 	              <input type="checkbox" value="도시" name="placeCategory" v-model:values="placeCategory">
 	              <label for="city">도시</label>
 	            
-	              <br>
-	          
-	            <span>상세 내용</span><br>
-	
 				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
 	            
-	            <li v-text="locName"></li>
-	            <li v-text="address"></li>
-	            <li v-text="sido"></li>
-	            <li v-text="sigungu"></li>
-	            <li v-text="placeCategory"></li>
 			</form>
         </div>
     </div>
@@ -303,7 +295,7 @@
   	  created: function () {
         axios({
             method: "get",
-            url: "/scon/searchLoc?searchString=All"
+            url: "/scon/search/loc?searchString=All"
         }).then(resData => {
           this.showBoolean = true;
           this.locList = resData.data;
@@ -315,7 +307,7 @@
         search(searchString) {
             axios({
                 method: "get",
-                url: "/scon/searchLoc?searchString="+this.searchString
+                url: "/scon/search/loc?searchString="+this.searchString
             }).then(resData => {
               this.showBoolean = true;
               this.locList = resData.data[0];

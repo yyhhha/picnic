@@ -22,6 +22,6 @@ public class BoardReviewDTO {
 	private String reviewTitle;
 	private String reviewContent;
 	private String reviewDate;
-	private int reviewDel;
+	private String reviewDel;
 	private int reviewScore;
 }

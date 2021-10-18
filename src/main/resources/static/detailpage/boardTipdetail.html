@@ -185,10 +185,11 @@
   
       <nav>
         <ul class="nav-container" >
-          <li class="nav-item"> <a href="/boardRent.html">피크닉 물품대여</a> </li>
-          <li class="nav-item"> <a href="/boardPlace.html">피크닉 장소추천</a> </li>
-          <li class="nav-item"> <a href="/boardReview.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/boardTip.html">피크닉 꿀팁</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+          
         </ul>
       </nav>
     </header>
@@ -207,21 +208,20 @@
 
         <div class="column middle" style="background-color:#ffffff;">
             <div id="boardTip">
-                <form>
         
-                    <span>제목</span><br>{{tipTitle}}
-                            
-                    <span>상세 내용</span><br>
-                    <div>{{tipContent}}</div><br>
-                    {{tipImg}}
-                    <img src="tipImg">
+              <span>제목</span><br>{{tipTitle}}<br>
+                      
+              <span>상세 내용</span><br>
+              <div>{{tipContent}}</div><br>
+                <img style="height: 263px; width: 464px;" v-bind:src="tipImg" >
+              
 
-                    <br>
-                    <button style="background-color: rgb(68, 68, 248);">수정</button>
-                    <button style="background-color: rgb(68, 68, 248);">삭제</button>
+              <br>
+              <!-- <button style="background-color: rgb(68, 68, 248);">수정</button> -->
+              <button v-on:click="removeTip">삭제</button>
         
                     
-                </form>
+
                 
             </div>
            
@@ -261,6 +261,27 @@
             .catch(error => {
               console.log(error)
             });
+          },
+          methods: {
+
+            removeTip(){
+              var params = new URLSearchParams(location.search);
+
+            axios.put('/con/del/tips/' + params.get('tipId'))
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
+          },
+
+            /*removeTip(tipId){
+              axios({
+                      method: "get",
+                      url: "/con/delBoardTip?tipId=" + tipId
+              });
+          }*/
           }
     
         });
