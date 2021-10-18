@@ -188,10 +188,10 @@
   
       <nav>
         <ul class="nav-container" >
-          <li class="nav-item"> <a href="/boardRent.html">피크닉 물품대여</a> </li>
-          <li class="nav-item"> <a href="/boardPlace.html">피크닉 장소추천</a> </li>
-          <li class="nav-item"> <a href="/boardReview.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/boardTip.html">피크닉 꿀팁</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
         </ul>
       </nav>
     </header>
@@ -210,17 +210,16 @@
 
         <div class="column middle" style="background-color:#ffffff;">
             <div id="boardTip">
-                <form>
+           
                   <h4><strong>{{rentName}}</strong></h4>
                   <div class="w3-row w3-large">
                     <div class="w3-col s6">
-                    안녕 사진넣는 곳
-                   </div>
+                      <img style="height: 263px; width: 464px;" v-bind:src="rentImg" >                   </div>
                     <div class="w3-col s6">
                       <p><i class="fa fa-fw fa-shower"></i> 가격 : {{rentPrice}}</p>
                       <p><i class="fa fa-fw fa-wifi"></i> 위치 : {{rentLoc}}</p>
                       <p><i class="fa fa-fw fa-tv"></i> 대여시간 : {{rentTime}}</p>
-                      <p><i class="fa fa-fw fa-cutlery"></i> 업체 링크 : {{rentLink}}</p>
+                      <p><i class="fa fa-fw fa-cutlery"></i> 업체 링크 : <a :href="rentLink">{{rentLink}}</a></p>
                     </div>
                   </div>
                     
@@ -233,11 +232,11 @@
 
         
                     <br>
-                    <button style="background-color: rgb(68, 68, 248);">수정</button>
-                    <button style="background-color: rgb(68, 68, 248);">삭제</button>
+                    <!-- <button style="background-color: rgb(68, 68, 248);">수정</button> -->
+                    <button v-on:click="removeRent" style="background-color: rgb(68, 68, 248);">삭제</button>
         
                     
-                </form>
+               
                 
             </div>
            
@@ -287,9 +286,23 @@
             .catch(error => {
               console.log(error)
             });
+          },
+          methods: {
+            removeRent(){
+              var params = new URLSearchParams(location.search);
+
+            axios.put('/con/del/rents/' + params.get('rentId'))
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
+          },
           }
     
         });
+        
       </script>
     
     </body>

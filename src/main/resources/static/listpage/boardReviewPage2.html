@@ -208,6 +208,7 @@
           <li style="cursor: pointer;"><a>한강 피크닉</a></li>
           <li style="cursor: pointer;"><a>바다 피크닉</a></li>
           <li style="cursor: pointer;"><a>글램핑</a></li>
+          <li style="cursor: pointer;"><a style="font-size: small; text-align: left;" href="/writepage/boardReview.html">&nbsp &nbsp글쓰기✍</a> </li>
         </ul>
       </div>
 
@@ -226,7 +227,7 @@
         <div id="main">
 
           <article class="post" v-if="showBoolean" v-for="review in reviewlist" style="cursor: pointer;">
-            <section>
+            <section @click="showdetail(review.reviewId)">
               <p>{{review.userEmail}}</p>
               <p>{{review.reviewTitle}}</p>
               <p>{{review.reviewContent}}</p>
@@ -266,6 +267,11 @@
           }).catch(errorData => {
               alert(errorData);
           });
+        },
+        methods: {
+          showdetail : function(id){
+            location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
+          }
         }
       });
 

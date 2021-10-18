@@ -1,5 +1,6 @@
 package kr.pe.playdata.model.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -57,10 +58,10 @@ public class BoardTip {
 	private String tipImg;
 	
 	@Column(name = "tip_date")
-	private String tipDate; //YYYYMMDD    sql date -> java String 
+	private Date tipDate; //YYYYMMDD    sql date -> java String 
 	
 	@Column(name = "tip_del")
-	private int tipDel; // boolean -> int
+	private String tipDel; // boolean -> int
 	
 	//tip_like 추가
 	@Column(name="tip_like")

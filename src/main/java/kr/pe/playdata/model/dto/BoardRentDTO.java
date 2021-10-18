@@ -24,6 +24,6 @@ public class BoardRentDTO {
 	private String rentTime; // 대여시간
 	private String rentContent;
 	private String rentImg;
-	private int rentDel;
+	private String rentDel;
 
 }
