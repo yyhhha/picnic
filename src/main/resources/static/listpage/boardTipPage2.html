@@ -71,6 +71,8 @@
           </select> 
         </div>
 
+        <br>
+
         <div id="main">
           <div class="gallery w3-round" v-if="showBoolean" v-for="tip in tiplist" @click="showdetail(tip.tipId)">
             <img v-bind:src="tip.tipImg">

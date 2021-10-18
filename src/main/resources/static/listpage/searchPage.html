@@ -39,7 +39,7 @@
 
         </div>
 
-        <p class="w3-wide"><a href="/index.html">피그닉</a></p>
+        <p class="w3-wide" style="font-size: 30px; font-weight: bold;"><a href="/index.html">피그닉</a></p>
     
         <nav>
           <ul class="nav-container" >
@@ -174,7 +174,7 @@
       created: function () {
         axios({
           method: "get",
-          url: "/scon/searchAll?searchString=All"
+          url: "/scon/search/all?searchString=All"
         }).then(resData => {
           main.showBoolean = true;
           main.placelist = resData.data[0];
@@ -189,7 +189,7 @@
         search(searchString) {
           axios({
             method: "get",
-            url: "/scon/searchAll?searchString="+ this.searchString
+            url: "/scon/search/all?searchString="+ this.searchString
           }).then(resData => {
             main.showBoolean = true;
             main.placelist = resData.data[0];
