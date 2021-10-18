@@ -17,6 +17,7 @@
 <body>
     <div class="header">
       <header>
+
         <div id="search">
           <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
               <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
@@ -89,7 +90,7 @@
 
           <article class="post" v-if="showBoolean" style="cursor: pointer;">
             <section class="w3-row" v-if="rentBoolean">
-              <div class="gallery" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
+              <div class="gallery" v-for="rent in rentlist" @click="showRentdetail(rent.rentId)">
                 <img v-bind:src="rent.rentImg">
                 <div class="desc">
                   <h3>{{rent.rentName}}</h3>
@@ -103,7 +104,7 @@
             <hr color="blue">
 
             <section class="w3-row" v-if="placeBoolean">
-              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
+              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showPlacedetail(place.placeId)">
                 <img v-bind:src="place.placeImg">
                 <div class="desc" style="max-height: 144px">
                   <h3>{{place.placeName}}</h3>
@@ -116,7 +117,7 @@
 
             <hr color="blue">
             
-            <section class="w3-row" @click="showdetail(review.reviewId)" v-if="reviewBoolean">
+            <section class="w3-row" @click="showReviewdetail(review.reviewId)" v-if="reviewBoolean">
               <table>
                 <tr>
                   <th>장소</th>
@@ -136,7 +137,7 @@
             <hr color="blue">
 
             <section class="w3-row" v-if="tipBoolean">
-              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showdetail(tip.tipId)">
+              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showTipdetail(tip.tipId)">
                 <img v-bind:src="tip.tipImg">
                 <div class="desc">
                   <h3>{{tip.userEmail}}</h3>
@@ -174,9 +175,16 @@
           searchString: ""
       },
       created: function () {
+        var params = new URLSearchParams(location.search);
+        var searchString = params.get('searchString');
+
+        if(searchString == null){
+          searchString == 'All';
+        }
         axios({
           method: "get",
-          url: "/scon/search/all?searchString=All"
+          url: "/scon/search/all?searchString=" + searchString
+        
         }).then(resData => {
           main.showBoolean = true;
           main.placeBoolean = true;
@@ -210,16 +218,17 @@
               alert(errorData);
           });
         },
-        showdetail: function(id){
-          if(id == rent.rentId){
-            location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
-          }else if(id == place.placeId){
-            location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
-          }else if(id == review.reviewId){
-            location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
-          }else if(id == tip.tipId){
-            location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
-          }
+        showRentdetail: function(id){
+          location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+        },
+        showTipdetail : function(id){
+          location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
+        },
+        showPlacedetail: function(id){
+          location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
+        },
+        showReviewdetail: function(id){
+          location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
         }
       }
     });
