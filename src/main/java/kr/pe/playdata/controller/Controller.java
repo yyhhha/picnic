@@ -99,8 +99,8 @@ public class Controller {
 		BoardTip A = new BoardTip();
 		A.setTipTitle(tipDto.getTipTitle());
 		A.setTipContent(tipDto.getTipContent());
-//		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
-		A.setPuser(pur.findPuserByUserEmail("ssss")); //Ycontroller에서 attribute값 지정
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
+//		A.setPuser(pur.findPuserByUserEmail("ssss")); //Ycontroller에서 attribute값 지정
 		A.setTipImg(tipDto.getTipImg());
 
 		btr.save(A);

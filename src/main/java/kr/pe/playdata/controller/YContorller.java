@@ -44,6 +44,7 @@ import kr.pe.playdata.model.dto.BoardPlaceDTO;
 import kr.pe.playdata.model.dto.BoardRentDTO;
 import kr.pe.playdata.model.dto.BoardReviewDTO;
 import kr.pe.playdata.model.dto.BoardTipDTO;
+import kr.pe.playdata.model.dto.PuserDTO;
 import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
@@ -101,13 +102,20 @@ public class YContorller {
 		try{
 			puser = pur.findPuserByUserEmail(email); // find 실패하면 에러. catch로 넘어감.
 			if(puser.getUserPassword().equals(psw)&& puser.getUserOut()== 0) {
-				//성공 로직 
-//				redirect_uri ="http://localhost/successLogin.html";
-				redirect_uri ="http://localhost/index3.html";
-				amail =email;
-				//작성자 세션 불러오기 위함
-				session.setAttribute("userEmail", email);
-				response.sendRedirect(redirect_uri);
+				if(puser.getRoles().equals("admin")||puser.getRoles().equals("ADMIN")) {
+					redirect_uri ="http://localhost/admin/deleteBoardList.html";
+					amail =email;
+					session.setAttribute("userEmail", email);
+					response.sendRedirect(redirect_uri);
+				}else {
+					//성공 로직 
+					redirect_uri ="http://localhost/index3.html";
+					amail =email;
+					//작성자 세션 불러오기 위함
+					session.setAttribute("userEmail", email);
+					response.sendRedirect(redirect_uri);
+				}
+				
 			}else {
 				System.out.println("패스워드가 틀렸습니다.");
 				redirect_uri ="http://localhost/userpage/login.html";
@@ -133,8 +141,11 @@ public class YContorller {
 	
 	//axios로 받기 위해 사용 
 	@GetMapping("/checkLogininfo")
-	public Puser checkLogininfo() {
-		return pur.findPuserByUserEmail(amail);
+	public PuserDTO checkLogininfo() {
+		Puser puser = pur.findPuserByUserEmail(amail);
+		
+		PuserDTO pu = new PuserDTO(puser.getUserEmail(),puser.getUserPassword(),puser.getUserNickname(),puser.getRoles(),puser.getUserOut(),puser.getAssignDate(),puser.getOutDate());
+		return pu;
 	}
 	
 	//가입 메소드
