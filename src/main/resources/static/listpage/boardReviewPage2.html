@@ -19,12 +19,26 @@
 <body>
     <div class="header">
       <header>
-        <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
-          <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
-          <button class="w3-bar-item w3-button w3-mobile">검색</button>
-            <a href="/userpage/mypage.html" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
-            <a href="/userpage/login.html" class="w3-bar-item w3-button w3-mobile">로그인</a>
-            <a href="/userpage/signup.html" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+        <div id="loglog">
+
+          <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+            <div v-if="!logCheck">
+                <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
+                <button class="w3-bar-item w3-button w3-mobile">검색</button>
+                  <a href="../ycon/login" class="w3-bar-item w3-button w3-mobile">로그인</a>
+                  <a href="../ycon/signup" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+            </div>
+
+            <div v-else>
+
+            {{nickname}}님 환영합니다
+
+              <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
+                <button class="w3-bar-item w3-button w3-mobile">검색</button>
+                <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
+                <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+          </div>
+
         </div>
 
         <p class="w3-wide" style="font-size: 30px; font-weight: bold;"><a href="/index.html">피그닉</a></p>
@@ -45,7 +59,7 @@
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
-          <li style="cursor: pointer;"><a style="font-size: small; text-align: left;" href="/writepage/boardReview.html">&nbsp &nbsp글쓰기✍</a> </li>
+          <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardReview.html">&nbsp &nbsp글쓰기✍</a> </li>
         </ul>
       </div>
 
@@ -125,6 +139,28 @@
           }
         }
       });
+
+      var loglog = new Vue({
+        el: '#loglog',
+        data : {
+          logCheck :false,
+          datas: [],
+          nickname: ""
+        },
+        created: function ()  {
+          if(sessionStorage.getItem('loginCheck')=="true"){
+            this.logCheck = true;
+            this.nickname = sessionStorage.getItem('nickname');
+          }
+        },
+      });
+
+      var logout = function(){
+        localStorage.clear();
+        sessionStorage.clear();
+        sessionStorage.removeItem('nickname');
+        window.location.href="../ycon/moveMainPage";
+      }
 
     </script>
     
