@@ -60,7 +60,7 @@ public class BController {
 		
 		while (all.hasNext()) {
 			place = all.next();
-			if(place.getPlaceDel() == 0) {
+			if(place.getPlaceDel() == "0") {
 				test.add(new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),place.getPlaceName(), 
 						place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel()));
 			}
@@ -77,7 +77,7 @@ public class BController {
 		
 		while (all.hasNext()) {
 			review = all.next();
-			if(review.getReviewDel() == 0) {
+			if(review.getReviewDel() == "0") {
 				test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
 						review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
 			}
@@ -94,7 +94,7 @@ public class BController {
 		
 		while (all.hasNext()) {
 			tip = all.next();
-			if(tip.getTipDel() == 0) {
+			if(tip.getTipDel() == "0") {
 				test.add(new BoardTipDTO(tip.getTipId(),tip.getPuser().getUserEmail(),tip.getTipTitle(), 
 										 tip.getTipContent(),tip.getTipImg(),tip.getTipDate(),tip.getTipDel(),tip.getTipLike()));
 			}
@@ -129,7 +129,7 @@ public class BController {
 		
 		while (all.hasNext()) {
 			rent = all.next();
-			if(rent.getRentDel() == 0) {
+			if(rent.getRentDel() == "0") {
 				test.add(new BoardRentDTO(rent.getRentId(),
 										  rent.getRentCateName(),
 										  rent.getLocCate().getLocName(),
@@ -157,7 +157,7 @@ public class BController {
 		
 		while (han.hasNext()) {
 			rent = han.next();
-			if(rent.getRentDel() == 0) {
+			if(rent.getRentDel() == "0") {
 				test.add(new BoardRentDTO(rent.getRentId(),
 										  rent.getRentCateName(),
 										  rent.getLocCate().getLocName(),

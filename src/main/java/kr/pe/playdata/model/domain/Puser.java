@@ -1,5 +1,6 @@
 package kr.pe.playdata.model.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -66,10 +67,10 @@ public class Puser {
 	private int userOut; // boolean -> int 
 	
 	@Column(name = "assign_date")
-	private String assignDate;//YYYYMMDD    sql date -> java String 
+	private Date assignDate;//YYYYMMDD    sql date -> java String 
 	
 	@Column(name = "out_date")
-	private String outDate;//YYYYMMDD    sql date -> java String 
+	private Date outDate;//YYYYMMDD    sql date -> java String 
 
 	@Override
 	public String toString() {
