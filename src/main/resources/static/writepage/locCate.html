@@ -250,17 +250,8 @@
 	              <input type="checkbox" value="도시" name="placeCategory" v-model:values="placeCategory">
 	              <label for="city">도시</label>
 	            
-	              <br>
-	          
-	            <span>상세 내용</span><br>
-	
 				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
 	            
-	            <li v-text="locName"></li>
-	            <li v-text="address"></li>
-	            <li v-text="sido"></li>
-	            <li v-text="sigungu"></li>
-	            <li v-text="placeCategory"></li>
 			</form>
         </div>
     </div>
@@ -304,7 +295,7 @@
   	  created: function () {
         axios({
             method: "get",
-            url: "/scon/searchLoc?searchString=All"
+            url: "/scon/search/loc?searchString=All"
         }).then(resData => {
           this.showBoolean = true;
           this.locList = resData.data;
@@ -316,7 +307,7 @@
         search(searchString) {
             axios({
                 method: "get",
-                url: "/scon/searchLoc?searchString="+this.searchString
+                url: "/scon/search/loc?searchString="+this.searchString
             }).then(resData => {
               this.showBoolean = true;
               this.locList = resData.data[0];

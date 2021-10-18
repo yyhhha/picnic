@@ -52,7 +52,7 @@ public class SearchController {
 	private PuserRepo pur;
 	
 	
-	@GetMapping("/searchAll")
+	@GetMapping("/search/all")
 	@ResponseBody
 	public JSONArray searchAll(@RequestParam String searchString) {
 		
@@ -105,7 +105,7 @@ public class SearchController {
 		return array;
 	}
 	
-	@GetMapping("/searchUser")
+	@GetMapping("/search/user")
 	@ResponseBody
 	public JSONArray searchUser(@RequestParam String searchString) {
 		JSONParser jsonParse = new JSONParser();
@@ -138,7 +138,7 @@ public class SearchController {
 		return array;
 	}
 	
-	@GetMapping("/searchLoc")
+	@GetMapping("/search/loc")
 	@ResponseBody
 	public JSONArray searchLoc(@RequestParam String searchString) {
 		JSONParser jsonParse = new JSONParser();

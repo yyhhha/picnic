@@ -210,48 +210,69 @@
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
+		
+        <div id= "placeapp">
+        
+			<input type="text" v-model:values="searchString">
+			<button v-on:click="search(searchString)">장소검색</button>
+			<section class="w3-row" v-if="showBoolean">
+			    <div id="placelist" class="box alt"  >
+			      <div class="row gtr-uniform">
+			        <div class="col-4">
+			          <table>
+			          	<tr>
+			              <th>장소 Id</th>
+			              <th>장소 이름</th>
+						</tr>
+						<tr v-for="place in placeList">
+						  <td>{{place.placeId}}</td>
+						  <td>{{place.placeName}}</td>
+						</tr>
+			          </table>
+			        </div> 
+			      </div>
+			    </div>
+  			</section> <br>
+  			<input type="text" v-model:values="searchString2">
+			<button v-on:click="search2(searchString)">위치검색</button>
+			<section class="w3-row" v-if="showBoolean2">
+			    <div id="placelist" class="box alt"  >
+			      <div class="row gtr-uniform">
+			        <div class="col-4">
+			          <table>
+			          	<tr>
+			              <th>위치 Id</th>
+			              <th>위치 이름</th>
+						</tr>
+						<tr v-for="loc in locList">
+						  <td>{{loc.locId}}</td>
+						  <td>{{loc.locName}}</td>
+						</tr>
+			          </table>
+			        </div> 
+			      </div>
+			    </div>
+  			</section>
+  			
+  			
+			<form id = "placeform" method="GET" action="con/addplace2">
+	            <span>이메일</span><br>
+	            <input v-model:values="userEmail" name="userEmail" placeholder="이메일을 써주세요."><br>
+	            <span>장소 명칭</span><br>
+	            <input v-model:values="placeName" name="placeName" placeholder="장소 이름을 써주세요."><br>
+	            <span>위치</span><br>
+	            <input v-model:values="placeLoc" name="placeLoc" placeholder="장소에 해당하는 위치이름를 써주세요."><br>
+	          	<span>이미지</span><br>
+	            <input v-model:values="placeImg" name="placeImg" placeholder="장소이미지의 URL을 써주세요."><br>
+	          
+	            <span>상세 내용</span><br>
+	            <textarea v-model="placeContent" name="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
+	
+				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
+	            
+			</form>
+        </div>
 
-      <div id="placeapp">
-      <h3>추천하고 싶은 장소를 알려주세요!</h3>
-
-        <form id="placeform" method="GET" action="con/addplace2">
-          <p>
-            <label class="w3-text-grey">이메일</label>
-            <input class="w3-input w3-border" type="text" v-model:values="userEmail" name="userEmail"
-              placeholder="이메일을 써주세요.">
-          </p>
-          <p>
-            <label class="w3-text-grey">장소 명칭</label>
-            <input class="w3-input w3-border" type="text" v-model:values="placeName" name="placeName"
-              placeholder="장소 이름을 써주세요.">
-          </p>
-          <p>
-            <label class="w3-text-grey">위치</label>
-            <input class="w3-input w3-border" type="text" v-model:values="placeLoc" name="placeLoc"
-              placeholder="장소에 해당하는 위치이름를 써주세요.">
-          </p>
-          <p>
-            <label class="w3-text-grey">이미지</label>
-            <input class="w3-input w3-border" type="text" v-model:values="placeImg" name="placeImg"
-              placeholder="장소이미지의 URL을 써주세요.">
-          </p>
-          <p>
-            <label class="w3-text-grey">상세 내용</label>
-            <textarea class="w3-input w3-border" style="resize:none; height: 200px;" v-model="placeContent"
-              name="placeContent" placeholder="상세 내용을 써주세요."></textarea>
-          </p>
-
-          <li v-text="placeName"></li>
-          <li v-text="placeLoc"></li>
-          <li v-text="placeImg"></li>
-          <li v-text="placeCategory"></li>
-          <li v-text="placeContent"></li>
-
-          <input type="submit" style="background-color: skyblue;" value="저장하기" />
-
-        </form>
-
-      </div>
     </div>
   </div>
 
@@ -273,7 +294,37 @@
       placeCategory: [],
       placeContent: "",
       userEmail: "",
-      placeImg: ""
+
+      placeImg : "",
+      searchString : "",
+      searchString2 : "",
+      placeList : [],
+      locList : []
+      
+    },
+    methods: {
+    	search(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/search/all?searchString="+ this.searchString
+            }).then(resData => {
+              this.showBoolean = true;
+              this.placeList = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          },
+        search2(searchString) {
+            axios({
+                method: "get",
+                url: "/scon/search/loc?searchString="+this.searchString2
+            }).then(resData => {
+              this.showBoolean2 = true;
+              this.locList = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
 
     }
   })
