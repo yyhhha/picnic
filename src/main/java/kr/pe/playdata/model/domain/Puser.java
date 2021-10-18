@@ -67,10 +67,10 @@ public class Puser {
 	private int userOut; // boolean -> int 
 	
 	@Column(name = "assign_date")
-	private Date assignDate;//YYYYMMDD    sql date -> java String 
+	private String assignDate;//YYYYMMDD    sql date -> java String 
 	
 	@Column(name = "out_date")
-	private Date outDate;//YYYYMMDD    sql date -> java String 
+	private String outDate;//YYYYMMDD    sql date -> java String 
 
 	@Override
 	public String toString() {

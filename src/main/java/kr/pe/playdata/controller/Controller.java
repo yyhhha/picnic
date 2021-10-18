@@ -226,6 +226,21 @@ public class Controller {
 		return test;
 
 	}
+	@PutMapping("/add/like")
+	public String plusLike(@RequestParam int tipId) {
+		BoardTip A = btr.findBoardTipByTipId(tipId);
+		A.setTipLike(A.getTipLike() + 1);
+		btr.save(A);
+		return null;
+	}
+	
+	@PutMapping("/del/like")
+	public String minusLike(@RequestParam int tipId) {
+		BoardTip A = btr.findBoardTipByTipId(tipId);
+		A.setTipLike(A.getTipLike() - 1);
+		btr.save(A);
+		return null;
+	}
 	
 	
 
@@ -280,31 +295,28 @@ public class Controller {
 }
 	
 
-	@GetMapping("add/PUser") //test용
-	@Transactional
-	public String addPUser() {
-		Puser B = new Puser();
-		B.setUserEmail("aa.gmail.com");
-		B.setUserPassword("aaab");
-		B.setUserNickname("jokea");
-		B.setRoles("admin");
-		B.setUserOut(0);
-		pur.save(B);
-
-		return "puser 저장 성공";
-	}
+//	@GetMapping("add/PUser") //test용
+//	@Transactional
+//	public String addPUser() {
+//		Puser B = new Puser();
+//		B.setUserEmail("aa.gmail.com");
+//		B.setUserPassword("aaab");
+//		B.setUserNickname("jokea");
+//		B.setRoles("admin");
+//		B.setUserOut(0);
+//		pur.save(B);
+//
+//		return "puser 저장 성공";
+//	}
 
 	@GetMapping("/del/PUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		System.out.println(userEmail);
-		Date to = null;
-		try {
-			to = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.nnn").parse(LocalDate.now(ZoneId.of("Asia/Seoul"))+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+		String to = null;
+		to = LocalDate.now(ZoneId.of("Asia/Seoul"))+ " " +LocalTime.now(ZoneId.of("Asia/Seoul")).toString();
 			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		
 		Puser A = null;
 		A = pur.findPuserByUserEmail(userEmail);
 		A.setRoles("out"); // 로그인에서 확인

@@ -1,6 +1,9 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -143,7 +146,6 @@ public class YContorller {
 	@GetMapping("/checkLogininfo")
 	public PuserDTO checkLogininfo() {
 		Puser puser = pur.findPuserByUserEmail(amail);
-		
 		PuserDTO pu = new PuserDTO(puser.getUserEmail(),puser.getUserPassword(),puser.getUserNickname(),puser.getRoles(),puser.getUserOut(),puser.getAssignDate(),puser.getOutDate());
 		return pu;
 	}
@@ -154,10 +156,10 @@ public class YContorller {
 	public void addPuser(@RequestParam("email")String email,@RequestParam("psw")String psw,@RequestParam("nickname")String nickname,HttpServletResponse response) {
 		Puser B = new Puser();
 		String redirect_uri ="";
-		
 		B.setUserEmail(email);
 		B.setUserPassword(psw);
 		B.setUserNickname(nickname);
+		B.setAssignDate(LocalDate.now(ZoneId.of("Asia/Seoul"))+ " " +LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
 		try {
 			pur.save(B);
 			//저장 확인.
@@ -165,8 +167,6 @@ public class YContorller {
 			response.sendRedirect(redirect_uri);
 		}catch (Exception e) {
 			e.printStackTrace();
-//			redirect_uri="http://localhost/index.html";
-//			response.sendRedirect(redirect_uri);
 		}
 		
 	}

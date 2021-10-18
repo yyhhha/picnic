@@ -25,8 +25,8 @@ public class PuserDTO {
 	private String userNickname;
 	private String roles;
 	private int userOut; // boolean -> int 
-	private Date assignDate;//YYYYMMDD    sql date -> java String 
-	private Date outDate;//YYYYMMDD    sql date -> java String 
+	private String assignDate;//YYYYMMDD    sql date -> java String 
+	private String outDate;//YYYYMMDD    sql date -> java String 
 
 	
 }

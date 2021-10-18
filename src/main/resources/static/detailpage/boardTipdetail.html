@@ -63,8 +63,9 @@
         <span>상세 내용</span><br>
         <div>{{tipContent}}</div><br>
         <img style="height: 263px; width: 464px;" v-bind:src="tipImg">
-
-
+		<br>
+		{{tipLike}}
+		<button v-on:click="addlike()">up</button> <button v-on:click="dellike()">down</button>
         <br>
         <div v-if="checkBoolean">
           <!-- <button style="background-color: rgb(68, 68, 248);">수정</button> -->
@@ -96,6 +97,7 @@
         tipTitle: "",
         tipContent: "",
         tipImg: "",
+        tipLike : 0,
         checkBoolean: false
 
       },
@@ -104,6 +106,7 @@
 
         axios.get('/con/board/tips/' + params.get('tipId'))
           .then(response => {
+        	this.tipLike = response.data.tipLike;
             this.tipTitle = response.data.tipTitle;
             this.tipContent = response.data.tipContent;
             this.tipImg = response.data.tipImg;
@@ -143,6 +146,16 @@
             location.href="http://localhost/listpage/boardTipPage2.html";
 
         },
+        addlike : function(){
+         	var params = new URLSearchParams(location.search);
+         	axios.put('/con/add/like?tipId=' + params.get('tipId'))
+            location.href= "http://localhost/detailpage/boardTipdetail.html?tipId=" + params.get('tipId')
+       },
+        dellike : function(){
+           var params = new URLSearchParams(location.search);
+           axios.put('/con/del/like?tipId=' + params.get('tipId'))
+           location.href= "http://localhost/detailpage/boardTipdetail.html?tipId=" + params.get('tipId')
+         }
 
 
         /*removeTip(tipId){
