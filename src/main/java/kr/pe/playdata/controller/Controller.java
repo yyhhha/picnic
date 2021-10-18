@@ -296,6 +296,7 @@ public class Controller {
 		Date to = null;
 		try {
 			to = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.nnn").parse(LocalDate.now(ZoneId.of("Asia/Seoul"))+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

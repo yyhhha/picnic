@@ -86,11 +86,13 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder"> 피크닉의 모든 정보!</h1>
-                    <form class="searchform"> <input style="width: 435px; 
+                    <div id ="search">
+                    <form class="searchform" action="http://localhost/listpage/searchPage.html?searchString={{searchstring}}"> 
+                    <input style="width: 435px; 
                         height: 64px;
                         background: rgba(255,255,255,1);
-                        opacity: 1; border:0;" type="text">
-                    <input style="width: 60px;
+                        opacity: 1; border:0;" type="text" v-model="searchString" placeholder="검색어 입력">
+                    <button style="width: 60px;
                     height: 64px;
                     color: rgba(255,252,252,1);
                     position: absolute;
@@ -101,8 +103,8 @@
                     border: 0;
                     outline: 0;
                     cursor: pointer;
-                    background-color: rgba(255,138,30,1); cursor: pointer;" type="button" value="검색"></form>
-                
+                    background-color: rgba(255,138,30,1); cursor: pointer;" v-on:click ="">검색</button></form>
+                </div>
                 </div>
             </div>
 
@@ -153,6 +155,18 @@
          <!--   <iframe src="https://drive.google.com/file/d/12YTf5XIyzOUw54_CfyHB27Q-Zbphk9AX/view?usp=sharing" allow="autoplay" id="audio"></iframe>  -->
           <!--  <iframe width="560" height="315"  src="https://drive.google.com/file/d/12YTf5XIyzOUw54_CfyHB27Q-Zbphk9AX/view?usp=sharing" frameborder="0" allowfullscreen></iframe>
           --> <script>
+          new Vue({
+        	 el: '#search',
+        	 data:{
+        		 searchString :"",
+        		 goSearch : "",
+        	 },
+        	 methods : {
+        		 search(searchString){
+        			 this.goSearch +=""+this.searchString;
+        		 }
+        	 }
+          }),
         new Vue({
 			el: '#loglog',
 			data : {
@@ -247,7 +261,8 @@
                selectAll: function(){
                  axios({
                      method: "get",
-                     url: "/bcon/boardrentpage22?command=rent&rentCateName=all"
+                     /* url: "/bcon/boardrentpage22?command=rent&rentCateName=all" */
+                    	 url: "/bcon/board/rents?command=rent&rentCateName=all"
                  }).then(resData => {
                    main.showBoolean = true;
                    main.datas = resData.data;
@@ -258,7 +273,8 @@
                selectHan: function(){
                  axios({
                      method: "get",
-                     url: "/bcon/boardrentpage22?command=rent&rentCateName=한강피크닉"
+                     /* url: "/bcon/boardrentpage22?command=rent&rentCateName=한강피크닉" */
+                     url:"/bcon/board/rents?command=rent&rentCateName=한강피크닉"
                  }).then(resData => {
                    main.showBoolean = true;
                    main.datas = resData.data;
@@ -269,7 +285,8 @@
                selectBa: function(){
                  axios({
                      method: "get",
-                     url: "/bcon/boardrentpage22?command=rent&rentCateName=바다피크닉"
+                     /* url: "/bcon/boardrentpage22?command=rent&rentCateName=바다피크닉" */
+                     url: "/bcon/board/rents?command=rent&rentCateName=바다피크닉"
                  }).then(resData => {
                    main.showBoolean = true;
                    main.datas = resData.data;
@@ -280,7 +297,8 @@
                selectG: function(){
                  axios({
                      method: "get",
-                     url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑"
+                     /* url: "/bcon/boardrentpage22?command=rent&rentCateName=글램핑" */
+                     url: "/bcon/board/rents?command=rent&rentCateName=글램핑"
                  }).then(resData => {
                    main.showBoolean = true;
                    main.datas = resData.data;

@@ -143,7 +143,7 @@
       created: function () {
         axios({
           method: "get",
-          url: "/scon/searchAll?searchString=All"
+          url: "/scon/search/all?searchString=All"
         }).then(resData => {
           main.showBoolean = true;
           main.placelist = resData.data[0];
@@ -158,7 +158,7 @@
         search(searchString) {
           axios({
             method: "get",
-            url: "/scon/searchAll?searchString="+ this.searchString
+            url: "/scon/search/all?searchString="+ this.searchString
           }).then(resData => {
             main.showBoolean = true;
             main.placelist = resData.data[0];
