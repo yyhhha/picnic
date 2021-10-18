@@ -12,7 +12,7 @@
 <body>
 <h2>피그닉 회원 가입</h2>
     <div class="container">
-	    <form action="ycon/addPUser" method="post">
+	    <form action="../ycon/addPUser" method="post">
 		<!-- <input type="hidden" name="command" value="userInsert"> -->
 	      <label for="email"><b>e-mail</b></label>
 	      <input type="text" placeholder="이메일을 입력하세요" name="email" required th:value="${email}">
@@ -42,7 +42,7 @@
     </div>
     <div class="container" style="background-color:#f1f1f1">
     <form action="review" method="post">
-      <button type="button" onclick="location.href='ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
+      <button type="button" onclick="location.href='../ycon/moveMainPage'" class="cancelbtn"> Cancel</button>
  	 </form>
     </div>
 </div>

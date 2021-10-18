@@ -1,10 +1,13 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -290,10 +293,16 @@ public class Controller {
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		System.out.println(userEmail);
+		Date to = null;
+		try {
+			to = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.nnn").parse(LocalDate.now(ZoneId.of("Asia/Seoul"))+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		Puser A = null;
 		A = pur.findPuserByUserEmail(userEmail);
 		A.setRoles("out"); // 로그인에서 확인
-		A.setOutDate(LocalDate.now(ZoneId.of("Asia/Seoul")).toString()+" "+LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
+		A.setOutDate(to);
 		A.setUserOut(1);
 
 		pur.save(A);
