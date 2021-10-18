@@ -72,7 +72,7 @@ public class YContorller {
 	
 	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
-		String redirect_uri="http://localhost/signup.html";
+		String redirect_uri="http://localhost/userpage/signup.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -81,7 +81,7 @@ public class YContorller {
 	}
 	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
-		String redirect_uri="http://localhost/login.html";
+		String redirect_uri="http://localhost/userpage/login.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -123,7 +123,7 @@ public class YContorller {
 		System.out.println("예외 처리 " + e.getMessage());
 		e.printStackTrace();
 		
-		String redirect_uri="http://localhost/login.html";
+		String redirect_uri="http://localhost/userpage/login.html";
 		response.sendRedirect(redirect_uri);
 	}
 	
@@ -171,7 +171,7 @@ public class YContorller {
 	
 	@GetMapping("/mypage")
 	public void mypage(HttpServletResponse response) {
-		String redirect_uri="http://localhost/mypage.html";
+		String redirect_uri="http://localhost/userpage/mypage.html";
     	try {
 			response.sendRedirect(redirect_uri);
 		} catch (IOException e) {
@@ -219,7 +219,7 @@ public class YContorller {
 				response.sendRedirect(redirect_uri);
 			}
 		} catch (IOException e) {
-			redirect_uri="http://localhost/mypage.html";
+			redirect_uri="http://localhost/userpage/mypage.html";
 			response.sendRedirect(redirect_uri);
 			e.printStackTrace();
 		}

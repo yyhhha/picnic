@@ -104,7 +104,7 @@ public class Controller {
 		return "";
 	}
 
-	@GetMapping("/delBoardTip")
+	@GetMapping("/del/tip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
 		btr.findBoardTipByTipId(tipId).setTipDel(1);
@@ -133,7 +133,7 @@ public class Controller {
 		return null;
 	}
 	
-	@GetMapping("/delBoardRent")
+	@GetMapping("/del/rent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
 		brr.findBoardRentByRentId(rentId).setRentDel(1);
@@ -329,7 +329,7 @@ public class Controller {
 
 	}
 
-	@GetMapping("/delBoardPlace")
+	@GetMapping("/del/place")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
 		bpr.findBoardPlaceByPlaceId(placeId).setPlaceDel(1);
@@ -406,7 +406,7 @@ public class Controller {
 		return "리뷰 저장 성공";
 	}
 
-	@GetMapping("/delBoardReview")
+	@GetMapping("/del/review")
 	@Transactional
 	public String delBoardReview(@RequestParam int reviewId) {
 		BoardReview A = brer.findBoardReviewByReviewId(reviewId);

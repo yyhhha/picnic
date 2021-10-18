@@ -10,211 +10,25 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/main.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/main.css">
     
-    <title>Document</title>
-  
-    <style>
-        * {
-          box-sizing: border-box;
-          overflow: auto;
-        }
-    
-        body {
-          font-family: Arial, Helvetica, sans-serif;
-          margin: 0 10%;
-    
-        }
-    
-        /* Container for flexboxes */
-        .row {
-          display: flex;
-          height: 100%;
-        }
-    
-        /* Create three unequal columns that sits next to each other */
-        .column {
-          padding: 10px;
-    
-        }
-    
-        /* Left and right column */
-        .column.side {
-          -webkit-flex: 1;
-          -ms-flex: 1;
-          flex: 1;
-          border-right: 2px solid hsl(0, 0%, 51%);
-          font-size: 21px;
-          font-weight: bold;
-        }
-    
-        /* Middle column */
-        .column.middle {
-          -webkit-flex: 4;
-          -ms-flex: 4;
-          flex: 4;
-        }
-    
-        /*메뉴바 관련 설정*/
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: auto;
-        }
-    
-        li a {
-          display: block;
-          color: #000;
-          padding: 8px 16px;
-          text-decoration: none;
-        }
-    
-        li a.active {
-          color: rgb(248, 70, 0);
-        }
-    
-    
-        /* Style the footer */
-        .footer {
-          background-color: #ffffff;
-          padding: 10px;
-          text-align: center;
-          position: absolute fixed;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-    
-        }
-    
-        /*헤더헤더헤더헤더*/
-        .nav-container {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-          font-size: 23px;
-          font-weight: bold;
-          background-color: rgb(255, 90, 14);
-          list-style-type: none;
-          /*목록 기호 제거*/
-        }
-    
-        .nav-item {
-          padding: 0 15px;
-          cursor: pointer;
-          /*마우스 커서를 pointer 모양으로 함*/
-        }
-    
-        .nav-item a {
-          /*nav-item 클래스 아래의 a 요소를 선택함*/
-          text-align: center;
-          text-decoration: none;
-          /*밑줄 없앰*/
-          color: white;
-        }
-    
-        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-        @media (max-width: 600px) {
-          .row {
-            -webkit-flex-direction: column;
-            flex-direction: column;
-          }
-        }
-    
-        .header {
-          background-color: #f1f1f1;
-          position: relative;
-          top: 0;
-          text-align: center;
-          font-size: 30px;
-          border-bottom: 2px solid hsl(0, 1%, 31%);
-          /*background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fzhm4C%2FbtrhtVXaZJQ%2FRIZsJKvlR00qFvXPbyrJe0%2Fimg.png);
-        */}
-    
-        #header{
-          position: sticky;
-          top: 0;
-        }
-    
-        /* Style the header */
-    
-        form.example input[type=text] {
-          padding: 10px;
-          font-size: 17px;
-          border: 2px solid #ff6f1c;
-          float: left;
-          width: 80%;
-          background: #f1f1f1;
-        }
-    
-        form.example button {
-          float: left;
-          width: 20%;
-          padding: 10px;
-          background: #ff6f1c;
-          color: white;
-          font-size: 17px;
-          border: 1.25px solid #ff6f1c;
-          border-left: none;
-          cursor: pointer;
-        }
-    
-        form.example button:hover {
-          background: #ff580b;
-        }
-    
-        form.example::after {
-          content: "";
-          clear: both;
-          display: table;
-        }
-
-        div.gallery {
-          margin: 5px;
-          border: 1px solid #ccc;
-          float: left;
-          width: 180px;
-        }
-
-        div.gallery:hover {
-          border: 1px solid #777;
-        }
-
-        div.gallery img {
-          width: 100%;
-          height: auto;
-        }
-
-        div.desc {
-          padding: 15px;
-          text-align: center;
-        }
-      </style>
+    <title>피그닉</title>
 </head>
 
 <body>
     <div class="header">
       <header>
-        <div style="font-size: small; text-align: right; ">
-          <a href="/mypage.html">마이페이지</a>
-          <a href="/login.html">로그인</a>
-          <a href="/signup.html">회원가입</a>
+        <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+          <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" placeholder="Search">
+          <button class="w3-bar-item w3-button w3-mobile">검색</button>
+            <a href="/userpage/mypage.html" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+            <a href="/userpage/login.html" class="w3-bar-item w3-button w3-mobile">로그인</a>
+            <a href="/userpage/signup.html" class="w3-bar-item w3-button w3-mobile">회원가입</a>
         </div>
 
-        <p>피그닉 사이트</p>
+        <p class="w3-wide" style="font-size: 30px; font-weight: bold;"><a href="/index.html">피그닉</a></p>
         
-        <div> 
-          <form class="example" action="" style="margin:auto;max-width:500px">
-            <input type="text" placeholder="Search.." name="search2">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div> <br><br>
-    
         <nav>
           <ul class="nav-container" >
             <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
@@ -231,9 +45,6 @@
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
-          <li style="cursor: pointer;"><a>한강 피크닉</a></li>
-          <li style="cursor: pointer;"><a>바다 피크닉</a></li>
-          <li style="cursor: pointer;"><a>글램핑</a></li>
         </ul>
       </div>
 
@@ -242,13 +53,13 @@
 
         <div id="main">
 
-          <div class="gallery" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
+		<br><br>
+          <div class="gallery w3-round" v-if="showBoolean" v-for="place in placelist" style="cursor: pointer; height:500px" @click="showdetail(place.placeId)">
             <img v-bind:src="place.placeImg">
-            <div class="desc">
-              <h3>{{place.placeName}}</h3>
-              <h5>{{place.placeContent}}</h5>
-              <h5>{{place.placeScore}}</h5>
-              <h5>{{place.userEmail}}</h5>
+            <div class="desc" style="max-height: 144px">
+              <p style="font-size:0.8rem">{{place.placeName}}</p>
+              <p style="font-size:0.8rem">{{place.placeContent}}</p>
+              <p style="font-size:0.8rem">{{place.userEmail}}</p>
             </div>
           </div>
 
@@ -277,7 +88,7 @@
         created: function () {
           axios({
               method: "get",
-              url: "/bcon/boardplaces"
+              url: "/bcon/board/places"
           }).then(resData => {
             main.showBoolean = true;
             main.placelist = resData.data;
@@ -289,7 +100,7 @@
         methods : {
           showdetail: function(id){
             //페이지로 이동
-            location.href = "/boardPlacedetail.html?placeId=" + id;
+            location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
           }
         }
       });

@@ -7,367 +7,276 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>게시글 삭제</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/css/search.css">
+    
+    <title>피그닉</title>
 </head>
 
-<style>
-   * {
-     box-sizing: border-box;
-     overflow: auto;
-   }
-
-   body {
-     font-family: Arial, Helvetica, sans-serif;
-     margin: 0 10%;
-
-   }
-
-   /* Container for flexboxes */
-   .row {
-     display: flex;
-     height: 100%;
-   }
-
-   /* Create three unequal columns that sits next to each other */
-   .column {
-     padding: 10px;
-
-   }
-
-   /* Left and right column */
-   .column.side {
-     -webkit-flex: 1;
-     -ms-flex: 1;
-     flex: 1;
-     border-right: 2px solid hsl(0, 0%, 51%);
-     font-size: 21px;
-     font-weight: bold;
-   }
-
-   /* Middle column */
-   .column.middle {
-     -webkit-flex: 4;
-     -ms-flex: 4;
-     flex: 4;
-   }
-
-   /*메뉴바 관련 설정*/
-   ul {
-     list-style-type: none;
-     margin: 0;
-     padding: 0;
-     overflow: auto;
-   }
-
-   li a {
-     display: block;
-     color: #000;
-     padding: 8px 16px;
-     text-decoration: none;
-   }
-
-   li a.active {
-     color: rgb(248, 70, 0);
-   }
-
-
-   /* Style the footer */
-   .footer {
-     background-color: #ffffff;
-     padding: 10px;
-     text-align: center;
-     position: absolute fixed;
-     left: 0;
-     bottom: 0;
-     width: 100%;
-
-   }
-
-   /*헤더헤더헤더헤더*/
-   .nav-container {
-     display: flex;
-     flex-direction: row;
-     width: 100%;
-     font-size: 23px;
-     font-weight: bold;
-     background-color: rgb(255, 90, 14);
-     list-style-type: none;
-     /*목록 기호 제거*/
-   }
-
-   .nav-item {
-     padding: 0 15px;
-     cursor: pointer;
-     /*마우스 커서를 pointer 모양으로 함*/
-   }
-
-   .nav-item a {
-     /*nav-item 클래스 아래의 a 요소를 선택함*/
-     text-align: center;
-     text-decoration: none;
-     /*밑줄 없앰*/
-     color: white;
-   }
-
-   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-   @media (max-width: 600px) {
-     .row {
-       -webkit-flex-direction: column;
-       flex-direction: column;
-     }
-   }
-
-   .header {
-     background-color: #f1f1f1;
-     position: relative;
-     top: 0;
-     text-align: center;
-     font-size: 30px;
-     border-bottom: 2px solid hsl(0, 1%, 31%);
-     /*background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fzhm4C%2FbtrhtVXaZJQ%2FRIZsJKvlR00qFvXPbyrJe0%2Fimg.png);
-   */}
-
-   #header{
-     position: sticky;
-     top: 0;
-   }
-
-   /* Style the header */
-
- 	form.example input[type=text] {
-     padding: 10px;
-     font-size: 17px;
-     border: 2px solid #ff6f1c;
-     float: left;
-     width: 80%;
-     background: #f1f1f1;
-   }
-
-   form.example button {
-     float: left;
-     width: 20%;
-     padding: 10px;
-     background: #ff6f1c;
-     color: white;
-     font-size: 17px;
-     border: 1.25px solid #ff6f1c;
-     border-left: none;
-     cursor: pointer;
-   }
-
-   form.example button:hover {
-     background: #ff580b;
-   }
-
-   form.example::after {
-     content: "";
-     clear: both;
-     display: table;
-   }
-
-   
-</style>
-<header>
-	   <div style="font-size: small; text-align: right; ">
-	   <button class="btn btn-outline-dark" onclick="logout()">
-	                         <a href="con/moveMainPage">로그아웃</a>
-	   </button>
-	 </div>
-	 <a>피그닉 사이트</a>
-	   <div> 
-	   <form class="example" action="/searchall" style="margin:auto;max-width:500px">
-	     <input type="text" placeholder="Search.." name="search2">
-	     <button type="submit"><i class="fa fa-search"></i></button>
-	   </form>
-	 </div> <br><br>
-	
-	   <nav>
-	     <ul class="nav-container" >
-	       <li class="nav-item"> <a href="#">마이 페이지</a> </li>
-	     </ul>
-	   </nav>
-</header>
-
-<nav>
-  <ul class="nav-container" >
-    <li class="nav-item"> <a href="/boardRent.html">업체 게시글 삭제</a> </li>
-    <li class="nav-item"> <a href="/boardPlace.html">장소 게시글 삭제</a> </li>
-    <li class="nav-item"> <a href="/boardReview.html">후기 게시글 삭제</a> </li>
-    <li class="nav-item"> <a href="/boardTip.html">팁 게시글 삭제</a> </li>
-  </ul>
-</nav>
 <body>
-
-<div id = "main">
-  <input type="text" v-model:value="searchString" placeholder = "검색할 장소 이름을 입력하세요">
-  <button v-on:click="search(searchString)">검색</button>
-
-  <section class="w3-row" v-if="showBoolean">
-    <div class="box alt"  >
-      <div class="row gtr-uniform">
-        <div class="col-4">
-          <table>
-          	<tr>
-              <th>업체 Id</th>
-              <th>업체 이름</th>
-              <th></th>
-			</tr>
-			<tr v-for="rent in rentlist">
-			  <td>{{rent.rentDel}}</td>
-			  <td>{{rent.rentName}}</td>
-			  
-			  <td><button v-on:click="removeRent(rent.rentId)">삭제</button></td>
-			</tr>
-          </table>
-        </div> 
-      </div> 
-    </div>
-  </section>
-
-  <hr color="blue">
-
-  <section class="w3-row" v-if="showBoolean">
-    <div id="placelist" class="box alt"  >
-      <div class="row gtr-uniform">
-        <div class="col-4">
-          <table>
-          	<tr>
-              <th>장소 Id</th>
-              <th>장소 이름</th>
-              <th></th>
-			</tr>
-			<tr v-for="place in placelist">
-			  <td>{{place.placeDel}}</td>
-			  <td>{{place.placeName}}</td>
-			  <td><button v-on:click="removePlace(place.placeId)">삭제</button></td>
-			</tr>
-          </table>
-        </div> 
-      </div>
-    </div>
-  </section>
-
-  <hr color="blue">
-
-  <section class="w3-row" v-if="showBoolean">
-    <div id="tiplist" class="box alt" >
-      <div class="row gtr-uniform">
-        <div class="col-4">
-          <table>
-          	<tr>
-              <th>팁 Id</th>
-              <th>팁 이름</th>
-              <th></th>
-			</tr>
-			<tr v-for="tip in tiplist">
-			  <td>{{tip.tipDel}}</td>
-			  <td>{{tip.tipTitle}}</td>
-			  <td><button v-on:click="removeTip(tip.tipId)">삭제</button></td>
-			</tr>
-          </table>
-        </div> 
-      </div> 
-    </div> 
-  </section>
-
-    <hr color="blue">
-
-  <section class="w3-row" v-if="showBoolean">
-    <div id="reviewlist" class="box alt"  >
-      <div class="row gtr-uniform">
-        <div class="col-4">
-          <table>
-          	<tr>
-              <th>리뷰 Id</th>
-              <th>리뷰 이름</th>
-              <th></th>
-			</tr>
-			<tr v-for="review in reviewlist">
-			  <td>{{review.reviewDel}}</td>
-			  <td>{{review.reviewTitle}}</td>
-			  <td><button v-on:click="removeReview(review.reviewId)">삭제</button></td>
-			</tr>
-          </table>
+    <div class="header">
+      <header>
+        <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+          <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
+          <button v-on:click="search(searchString)" class="w3-bar-item w3-button w3-mobile">검색</button>
+            <a href="/userpage/mypage.html" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+            <a href="/userpage/login.html" class="w3-bar-item w3-button w3-mobile">로그인</a>
+            <a href="/userpage/signup.html" class="w3-bar-item w3-button w3-mobile">회원가입</a>
         </div>
-      </div>
+
+        <p class="w3-wide"><a href="/index.html">피그닉</a></p>
+    
+        <nav>
+          <ul class="nav-container" >
+            <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
+            <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+          </ul>
+        </nav>
+      </header>
     </div>
-  </section>
 
-  <hr color="blue">
+    <div class="row">
+      <div id="nav" class="column side" style="background-color:#ffffff; ">
+        <ul>
+          <li style="cursor: pointer;"><a>전체보기</a></li>
+        </ul>
+      </div>
 
-</div>
+      <div class="column middle" style="background-color:#ffffff;">
+
+        <div id="filter">
+          <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="" selected disabled hidden>-필터적용-</option>
+            <option value="0">전체보기</option>
+            <option value="1">피크닉 물품대여</option>
+            <option value="2">피크닉 장소추천</option>
+            <option value="3">피크닉 장소후기</option>
+            <option value="4">피크닉 꿀팁</option>
+          </select>
+        </div>
+
+        <div id="sort">
+          <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
+            <option value="" selected disabled hidden>-정렬방식-</option>
+            <option value="1">낮은 가격순</option>
+            <option value="2">높은 가격순</option>
+            <option value="3">높은 평점순</option>
+          </select>
+        </div>
+
+        <br>
+
+        <div id="main">
+
+          <article class="post" v-if="showBoolean" style="cursor: pointer;">
+            <section v-if="rentBoolean">
+              <div class="gallery" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
+                <img v-bind:src="rent.rentImg">
+                <div class="desc">
+                  <h3>{{rent.rentName}}</h3>
+                  <h5>{{rent.rentCateName}}</h5>
+                  <h5>{{rent.rentTime}}시간</h5>
+                  <h5>{{rent.rentPrice}}원</h5>
+                </div>
+              </div>
+            </section>
+
+            <hr color="blue">
+
+            <section v-if="placeBoolean">
+              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
+                <img v-bind:src="place.placeImg">
+                <div class="desc" style="max-height: 144px">
+                  <h3>{{place.placeName}}</h3>
+                  <h5>{{place.placeContent}}</h5>
+                  <h5>{{place.placeScore}}</h5>
+                  <h5>{{place.userEmail}}</h5>
+                </div>
+              </div>
+            </section>
+
+            <hr color="blue">
+            
+            <section @click="showdetail(review.reviewId)" v-if="reviewBoolean">
+              <table>
+                <tr>
+                  <th>장소</th>
+                  <th>상세 내용</th>
+                  <th>상세 내용</th>
+                  <th>상세 내용</th>
+                </tr>
+                <tr v-for="review in reviewlist">
+                  <td>{{review.userEmail}}</td>
+                  <td>{{review.reviewTitle}}</td>
+                  <td>{{review.reviewContent}}</td>
+                  <td>{{review.reviewScore}}</td>
+                </tr>
+              </table>
+            </section>
+
+            <hr color="blue">
+
+            <section v-if="tipBoolean">
+              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showdetail(tip.tipId)">
+                <img v-bind:src="tip.tipImg">
+                <div class="desc">
+                  <h3>{{tip.userEmail}}</h3>
+                  <h5>{{tip.tipTitle}}</h5>
+                  <h5>{{tip.tipContent}}</h5>
+                  <h5>{{tip.tipDate}}</h5>
+                  <h5>{{tip.tipLike}}</h5>
+                </div>
+              </div>
+            </section>
+          </article>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+    var main = new Vue({
+      el: "#main",
+      data: {
+          showBoolean: false,
+          rentBoolean: false,
+          placeBoolean: false,
+          reviewBoolean: false,
+          tipBoolean: false,
+          placelist: [],
+          rentlist: [],
+          reviewlist: [],
+          tiplist: [],
+          searchString: ""
+      },
+      created: function () {
+        axios({
+          method: "get",
+          url: "/scon/searchAll?searchString=All"
+        }).then(resData => {
+          main.showBoolean = true;
+          main.placelist = resData.data[0];
+          main.rentlist = resData.data[1];
+          main.reviewlist = resData.data[2];
+          main.tiplist = resData.data[3];
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+      methods: {
+        search(searchString) {
+          axios({
+            method: "get",
+            url: "/scon/searchAll?searchString="+ this.searchString
+          }).then(resData => {
+            main.showBoolean = true;
+            main.placelist = resData.data[0];
+            main.rentlist = resData.data[1];
+            main.reviewlist = resData.data[2];
+            main.tiplist = resData.data[3];
+          }).catch(errorData => {
+              alert(errorData);
+          });
+        }
+      }
+    });
+
+    var sort = new Vue({
+      el: "#sort",
+      methods: {
+        onChange: function(event){
+          if(event.target.value == '1'){ //낮은 가격순
+            main.rentlist.sort(function(a,b){
+              return a.rentPrice - b.rentPrice;
+            });
+          }else if(event.target.value == '2'){ //높은 가격순
+            main.rentlist.sort(function(a,b){
+              return b.rentPrice - a.rentPrice;
+            });
+          }else if(event.target.value == '3'){ //평점순
+            main.reviewlist.sort(function(a,b){
+              return b.reviewScore - a.reviewScore;
+            });
+          }
+        }
+      }
+    });
+
+    var filter = new Vue({
+      el: "#filter",
+      methods: {
+        onChange: function(event){
+          if(event.target.value == '0'){ //전체보기
+            axios({
+              method: "get",
+              url: "/bcon/search?command=all&searchString=all"
+            }).then(resData => {
+              main.showBoolean = true;
+              main.placelist = resData.data[0];
+              main.rentlist = resData.data[1];
+              main.reviewlist = resData.data[2];
+              main.tiplist = resData.data[3];
+            }).catch(errorData => {
+              alert(errorData);
+            });
+          }else if(event.target.value == '1'){ //피크닉 물품대여
+            axios({
+              method: "get",
+              url: "/bcon/search?command=rent&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentBoolean = true;
+              main.rentlist = resData.data[1];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '2'){ //피크닉 장소추천
+            axios({
+              method: "get",
+              url: "/bcon/search?command=place&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.placeBoolean = true;
+              main.placelist = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '3'){ //피크닉 장소후기
+            axios({
+              method: "get",
+              url: "/bcon/search?command=review&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.reviewBoolean = true;
+              main.reviewlist = resData.data[2];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '4'){ //피크닉 꿀팁
+            axios({
+              method: "get",
+              url: "/bcon/search?command=tip&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.tipBoolean = true;
+              main.tiplist = resData.data[3];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }
+        }
+      }
+    });
+
+   </script>
 
 </body>
-
-<script type="text/javascript">
-          new Vue({
-            el: "#main",
-            data: {
-                sorted: "",
-                showBoolean: false,
-                placelist: [],
-                rentlist: [],
-                reviewlist:[],
-                tiplist:[],
-                searchString:""
-            },
-            created: function () {
-              axios({
-                  method: "get",
-                  url: "/scon/searchAll?searchString=All"
-              }).then(resData => {
-                this.showBoolean = true;
-                this.placelist = resData.data[0];
-                this.rentlist = resData.data[1];
-                this.reviewlist = resData.data[2];
-                this.tiplist = resData.data[3];
-              }).catch(errorData => {
-                  alert(errorData);
-              });
-            },
-            methods: {
-              removeRent(rentId){
-                axios({
-                        method: "get",
-                        url: "/con/delBoardRent?rentId=" + rentId
-                });
-              
-            },
-            removePlace(placeId){
-                axios({
-                        method: "get",
-                        url: "/con/delBoardPlace?placeId=" + placeId
-                });
-              
-            },
-            removeTip(tipId){
-                axios({
-                        method: "get",
-                        url: "/con/delBoardTip?tipId=" + tipId
-                });
-              
-            },
-            removeReview(reviewId){
-                axios({
-                        method: "get",
-                        url: "/con/delBoardReview?reviewId=" + reviewId                });
-            },
-			search(searchString) {
-              axios({
-                  method: "get",
-                  url: "/scon/searchAll?searchString="+ this.searchString
-              }).then(resData => {
-                this.showBoolean = true;
-                this.placelist = resData.data[0];
-                this.rentlist = resData.data[1];
-                this.reviewlist = resData.data[2];
-                this.tiplist = resData.data[3];
-              }).catch(errorData => {
-                  alert(errorData);
-              });
-            }
-            }
-            });
-      
-   </script>
 </html>
