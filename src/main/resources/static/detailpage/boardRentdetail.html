@@ -49,7 +49,7 @@
   <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a class="active" href="#home">전체보기</a></li>
+        <li><a class="active" onclick="goBack()">뒤로 가기</a></li>
 
 
       </ul>
@@ -61,14 +61,14 @@
 
         <h4><strong>{{rentName}}</strong></h4>
         <div class="w3-row w3-large">
-          <div class="w3-col s6">
+          <div class="w3-col s6" v-if="checkImg">
             <img style="height: 263px; width: 464px;" v-bind:src="rentImg">
           </div>
           <div class="w3-col s6">
-            <p><i class="fa fa-fw fa-shower"></i> 가격 : {{rentPrice}}</p>
-            <p><i class="fa fa-fw fa-wifi"></i> 위치 : {{rentLoc}}</p>
-            <p><i class="fa fa-fw fa-tv"></i> 대여시간 : {{rentTime}}</p>
-            <p><i class="fa fa-fw fa-cutlery"></i> 업체 링크 : <a :href="rentLink">{{rentLink}}</a></p>
+            <p><i class="fa fa-money"></i> 가격 : {{rentPrice}}</p>
+            <p><i class="fa fa-location-arrow"></i> 위치 : {{rentLoc}}</p>
+            <p><i class="fa fa-clock-o"></i> 대여시간 : {{rentTime}}</p>
+            <p><i class="fa fa-external-link"></i> 업체 링크 : <a :href="rentLink">{{rentLink}}</a></p>
           </div>
         </div>
 
@@ -116,7 +116,8 @@
         rentTime: "",
         rentContent: "",
         rentImg: "",
-        checkBoolean: false
+        checkBoolean: false,
+        checkImg: false
 
       },
       created: function () {
@@ -132,6 +133,9 @@
             this.rentPrice = response.data.rentPrice;
             this.rentContent = response.data.rentContent;
             this.rentImg = response.data.rentImg;
+            if (response.data.rentImg != null) {
+              this.checkImg = true;
+            }
             console.log(response)
           })
           .catch(error => {
@@ -164,10 +168,15 @@
             .catch(error => {
               console.log(error)
             });
+            location.href="http://localhost/listpage/boardRentPage2.html";
         },
       }
 
     });
+
+    function goBack() {
+      window.history.back();
+    }
 
   </script>
 

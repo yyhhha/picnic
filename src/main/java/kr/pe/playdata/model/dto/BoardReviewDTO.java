@@ -1,5 +1,6 @@
 package kr.pe.playdata.model.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import kr.pe.playdata.model.domain.LocCategory;
@@ -17,11 +18,12 @@ import lombok.Setter;
 public class BoardReviewDTO {
 	
 	private int reviewId;
-	private String placeName;
+//	private String placeName;
+	private int placeId;
 	private String userEmail;
 	private String reviewTitle;
 	private String reviewContent;
-	private String reviewDate;
+	private Date reviewDate;
 	private String reviewDel;
 	private int reviewScore;
 }

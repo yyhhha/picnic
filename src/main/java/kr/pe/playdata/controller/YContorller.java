@@ -286,7 +286,7 @@ public class YContorller {
 		List<BoardReview> han = brer.findBoardReviewByPuser(puer);
 		
 		for(BoardReview review:han) {
-			test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
+			test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceId(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
 					review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
 		}
 		return test;

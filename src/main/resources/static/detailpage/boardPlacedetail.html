@@ -49,7 +49,7 @@
   <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a class="active" href="#home">전체보기</a></li>
+        <li><a class="active" onclick="goBack()">뒤로 가기</a></li>
 
 
       </ul>
@@ -59,13 +59,13 @@
     <div class="column middle" style="background-color:#ffffff;">
       <div id="boardTip">
 
-        <h4><strong>{{placeName}}</strong></h4>
+        <h2><strong>{{placeName}}</strong></h2>
         <div class="w3-row w3-large">
-          <div class="w3-col s6">
+          <div class="w3-col s6" v-if="checkImg">
             <img style="height: 263px; width: 464px;" v-bind:src="placeImg">
           </div>
           <div class="w3-col s6">
-            <p><i class="fa fa-fw fa-wifi"></i> 위치 : {{locName}}</p>
+            <p><i class="fa fa-location-arrow"></i> 위치 : {{locName}}</p>
 
           </div>
         </div>
@@ -110,7 +110,8 @@
         placeName: "",
         placeContent: "",
         placeImg: "",
-        checkBoolean: false
+        checkBoolean: false,
+        checkImg : false
 
       },
       created: function () {
@@ -122,7 +123,9 @@
             this.placeName = response.data.placeName;
             this.placeContent = response.data.placeContent;
             this.placeImg = response.data.placeImg;
-
+            if (response.data.placeImg != null) {
+              this.checkImg = true;
+            }
             console.log(response)
           })
           .catch(error => {
@@ -154,10 +157,16 @@
             .catch(error => {
               console.log(error)
             });
+            location.href="http://localhost/listpage/boardPlacePage2.html";
         },
       }
 
     });
+
+    function goBack() {
+      window.history.back();
+    }
+
   </script>
 
 </body>

@@ -48,7 +48,7 @@
   <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a class="active" href="#home">전체보기</a></li>
+        <li><a class="active" onclick="goBack()">뒤로 가기</a></li>
 
 
       </ul>
@@ -56,14 +56,20 @@
 
 
     <div class="column middle" style="background-color:#ffffff;">
-      <div id="boardTip">
 
-        <span>제목</span><br>{{tipTitle}}<br>
 
-        <span>상세 내용</span><br>
-        <div>{{tipContent}}</div><br>
-        <img style="height: 263px; width: 464px;" v-bind:src="tipImg">
 
+
+      <div id="boardTip" class="w3-container w3-white w3-margin w3-padding-large">
+
+        <h2><b>{{tipTitle}}</b></h2>
+        <br>
+        <div v-if="checkImg">
+          <img style="height: 263px; width: 464px;" v-bind:src="tipImg">
+        </div>
+        <br>
+        <div style="font-size: 23px;">{{tipContent}}</div><br>
+        <br>
 
         <br>
         <div v-if="checkBoolean">
@@ -74,6 +80,8 @@
 
 
       </div>
+
+
 
 
 
@@ -96,7 +104,8 @@
         tipTitle: "",
         tipContent: "",
         tipImg: "",
-        checkBoolean: false
+        checkBoolean: false,
+        checkImg: false
 
       },
       created: function () {
@@ -107,6 +116,9 @@
             this.tipTitle = response.data.tipTitle;
             this.tipContent = response.data.tipContent;
             this.tipImg = response.data.tipImg;
+            if (response.data.tipImg != null) {
+              this.checkImg = true;
+            }
             console.log(response)
           })
           .catch(error => {
@@ -140,9 +152,10 @@
               console.log(error)
             });
 
-            location.href="http://localhost/listpage/boardTipPage2.html";
+          location.href = "http://localhost/listpage/boardTipPage2.html";
 
         },
+
 
 
         /*removeTip(tipId){
@@ -154,6 +167,11 @@
       }
 
     });
+
+    function goBack() {
+      window.history.back();
+    }
+
   </script>
 
 </body>

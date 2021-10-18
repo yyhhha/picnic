@@ -46,7 +46,7 @@
   <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li><a class="active" href="#home">전체보기</a></li>
+        <li><a class="active" onclick="goBack()">뒤로 가기</a></li>
 
 
       </ul>
@@ -54,15 +54,15 @@
 
 
     <div class="column middle" style="background-color:#ffffff;">
-      <div id="boardReview">
+      <div id="boardReview" class="w3-container w3-white w3-margin w3-padding-large">
 
+  
+         
+         <h2><b>{{reviewTitle}}</b></h2>
+      <div style="font-size: 23px;">  별점 : {{reviewScore}}/5점</div><br>   
 
-        <span>제목</span><br>{{reviewTitle}}
-        <div>{{placeName}}</div>
-        <div>{{reviewScore}}</div>
-
-        <span>상세 내용</span><br>
-        <div>{{reviewContent}}</div><br>
+       <hr>    
+        <div style="font-size: 23px;">{{reviewContent}}</div><br>
 
         <br>
         <div v-if="checkBoolean">
@@ -139,10 +139,16 @@
             .catch(error => {
               console.log(error)
             });
+            location.href="http://localhost/listpage/boardReviewPage2.html";
         },
       }
 
     });
+
+    function goBack() {
+      window.history.back();
+    }
+
   </script>
 
 </body>

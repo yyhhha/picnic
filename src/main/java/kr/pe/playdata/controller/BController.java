@@ -78,7 +78,7 @@ public class BController {
 		while (all.hasNext()) {
 			review = all.next();
 			if(review.getReviewDel().equals("0")) {
-				test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
+				test.add(new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceId(),review.getPuser().getUserEmail(),review.getReviewTitle(), 
 						review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore()));
 			}
 		}

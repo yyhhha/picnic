@@ -60,10 +60,14 @@
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
-          <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardPlace.html">&nbsp &nbsp글쓰기✍</a> </li>
+          <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardPlace.html" v-if="writecheck">&nbsp &nbsp글쓰기✍</a> </li>
         </ul>
       </div>
 
+     
+    
+
+  
 
       <div class="column middle" style="background-color:#ffffff;">
 
@@ -143,6 +147,19 @@
         sessionStorage.removeItem('nickname');
         window.location.href="../ycon/moveMainPage";
       }
+
+      var nav =  new Vue({
+        el: "#nav",
+        data : {
+          writecheck : false
+        },
+        created : function(){
+          if(sessionStorage.getItem('loginCheck')=="true"){
+            this.writecheck = true;
+            
+          }
+        }
+      });
       
     </script>
 

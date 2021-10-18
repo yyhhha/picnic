@@ -243,10 +243,39 @@
     </div>
     <div class="column middle" style="background-color:#ffffff;">
 
+
+
+      <h3>좋았던 장소에 대한 후기를 남겨주세요.</h3>
+
+      <div id="placeapp">
+        <p>리뷰를 하기 전, 장소를 검색하세요!</p>
+        <input type="text" v-model:values="searchString">
+        <button v-on:click="search(searchString)">장소 검색</button>
+        <section class="w3-row" v-if="showBoolean">
+          <div id="placelist" class="box alt">
+            <div class="row gtr-uniform">
+              <div class="col-4">
+                <table>
+                  <tr>
+                    <th>장소 Id</th>
+                    <th>장소 이름</th>
+                  </tr>
+                  <tr v-for="place in placeList">
+                    <td>{{place.placeId}}</td>
+                    <td>{{place.placeName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section> <br>
+      </div>
+
       <div id="boardReview" style="text-align: left;">
-
-        <h3>좋았던 장소에 대한 후기를 남겨주세요.</h3>
-
+        <p>
+          <label class="w3-text-grey">리뷰를 원하는 장소id를 입력하세요.</label>
+          <input class="w3-input w3-border" style="width: 100px;" type="number" v-model="placeId">
+        </p>
         <p>
           <label class="w3-text-grey">제목</label>
           <input class="w3-input w3-border" type="text" v-model="reviewTitle">
@@ -256,15 +285,15 @@
           <label class="w3-text-grey">별점</label>
         </p>
         <div class="star-rating" style="width: 200px;">
-          <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings" />
+          <input type="radio" id="5-stars" name="rating" value="5" v-model="reviewScore" />
           <label for="5-stars" class="star pr-4">★</label>
-          <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings" />
+          <input type="radio" id="4-stars" name="rating" value="4" v-model="reviewScore" />
           <label for="4-stars" class="star">★</label>
-          <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings" />
+          <input type="radio" id="3-stars" name="rating" value="3" v-model="reviewScore" />
           <label for="3-stars" class="star">★</label>
-          <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings" />
+          <input type="radio" id="2-stars" name="rating" value="2" v-model="reviewScore" />
           <label for="2-stars" class="star">★</label>
-          <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+          <input type="radio" id="1-star" name="rating" value="1" v-model="reviewScore" />
           <label for="1-star" class="star">★</label>
         </div>
 
@@ -276,7 +305,7 @@
             placeholder="상세 내용을 써주세요."></textarea>
         </p>
 
-        <input style="background-color: rgb(68, 68, 248);" type="submit" value="완료">
+        <button class="w3-button w3-yellow" v-on:click="submit()" style="background-color: rgb(68, 68, 248);">완료</button>
 
 
 
@@ -295,6 +324,73 @@
       ＠2021</p>
   </div>
 
+  <script>
+    var place = new Vue({
+      el: "#placeapp",
+      data: {
+        placeName: "",
+        placeLoc: "",
+        placeCategory: [],
+        placeContent: "",
+        userEmail: "",
+        placeImg: "",
+        searchString: "",
+        searchString2: "",
+        placeList: [],
+        locList: []
+
+      },
+      methods: {
+        search(searchString) {
+          axios({
+            method: "get",
+            url: "../scon/search/all?searchString=" + this.searchString
+          }).then(resData => {
+            this.showBoolean = true;
+            this.placeList = resData.data[0];
+          }).catch(errorData => {
+            alert(errorData);
+          });
+        },
+      }
+    });
+
+    var reviewdiv = new Vue({
+      el: "#boardReview",
+      data: {
+        reviewTitle: "",
+        reviewContent: "",
+        reviewScore: "",
+        placeId: ""
+
+      },
+      methods: {
+
+        submit: function () {
+          axios({
+            method: "post",
+            url: "/con/add/review",
+            data: {
+              reviewTitle: this.reviewTitle,
+              reviewContent: this.reviewContent,
+              reviewScore: this.reviewScore,
+              placeId: this.placeId
+            }
+          }).then(resData => {
+            var link = "/listpage/boardReviewPage2.html"
+            location.href = link;
+
+
+          }).catch(errorData => {
+            alert(errorData);
+          });
+
+        }
+
+      }
+
+    });
+  </script>
 </body>
 
 </html>

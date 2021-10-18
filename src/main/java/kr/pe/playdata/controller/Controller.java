@@ -90,12 +90,30 @@ public class Controller {
 	}
 
 	/**/
+	//리뷰 등록
+	@PostMapping("/add/review")
+	@Transactional
+	public String addBoardReviews(HttpServletRequest request, @RequestBody BoardReviewDTO reviewDto, HttpServletResponse response) {
+		System.out.println("하이");
+		HttpSession session = request.getSession();
+		
+		BoardReview board = new BoardReview();
+
+		board.setReviewTitle(reviewDto.getReviewTitle());
+		board.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+		board.setBoardPlace(bpr.findBoardPlaceByPlaceId(reviewDto.getPlaceId()));
+		board.setReviewContent(reviewDto.getReviewContent());
+		board.setReviewScore(reviewDto.getReviewScore());
+		
+		brer.save(board);
+
+		return "";
+	}
 
 	// 피크닉 꿀팁 작성하는 메소드
 	@PostMapping("/add/tip")
 	@Transactional
 	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
-		System.out.println(111);
 		HttpSession session = request.getSession();
 		BoardTip A = new BoardTip();
 		A.setTipTitle(tipDto.getTipTitle());
@@ -273,7 +291,7 @@ public class Controller {
 		public BoardReviewDTO boardReviewDetail(@PathVariable("reviewId") int reviewId) {
 		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
 		
-		BoardReviewDTO board = new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceName(),review.getPuser().getUserEmail(),
+		BoardReviewDTO board = new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceId(),review.getPuser().getUserEmail(),
 				review.getReviewTitle(),review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore());
 		
 		return board;
@@ -403,7 +421,7 @@ public class Controller {
 			}
 		}
 		try {
-			response.sendRedirect("http://localhost/writepage/boardPlace.html");
+			response.sendRedirect("http://localhost/listpage/boardPlacePage2.html");
 			return "성공";
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -474,7 +492,7 @@ public class Controller {
 
 // review
 
-	@GetMapping("/add/review")
+	@GetMapping("/add/review2")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
 
@@ -535,6 +553,7 @@ public class Controller {
 		return place.getPuser().getUserEmail();
 		
 	}
+
 	
 	
 	

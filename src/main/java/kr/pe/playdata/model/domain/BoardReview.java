@@ -1,5 +1,7 @@
 package kr.pe.playdata.model.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,7 +57,7 @@ public class BoardReview {
 	private String reviewContent;
 	
 	@Column(name = "review_date")
-	private String reviewDate; //YYYYMMDD
+	private Date reviewDate; //YYYYMMDD
 	
 	@Column(name = "review_del")
 	private String reviewDel; //boolean -> int
