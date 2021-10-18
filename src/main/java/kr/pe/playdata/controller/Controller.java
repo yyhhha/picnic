@@ -114,18 +114,20 @@ public class Controller {
 	//1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
 	@PutMapping("/del/tips/{tipId}")
 	@Transactional
-	public boolean delBoardTip1(@PathVariable("tipId") int tipId) {
+	public void delBoardTip1(@PathVariable("tipId") int tipId, HttpServletResponse response) throws IOException {
 		System.out.println("수정");
 
 		try {
-			
 			BoardTip tip = btr.findBoardTipByTipId(tipId);
 			tip.setTipDel("1");
+			response.sendRedirect("http://localhost/listpage/boardTipPage2.html");
 		} catch (Exception e) {
-			return false;
+			System.out.println(e);
 		}
-		return true;
+	
 	}
+	
+
 	
 	@PutMapping("/del/rents/{rentId}")
 	@Transactional
@@ -185,10 +187,10 @@ public class Controller {
 		
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-	//	A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
 		System.out.println("안녕");
 		System.out.println(session.getAttribute("userEmail").toString());
-		A.setPuser(pur.findPuserByUserEmail("sss"));
+//		A.setPuser(pur.findPuserByUserEmail("sss"));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -498,17 +500,40 @@ public class Controller {
 	
 	
 	//작성자 확인 메소드
-	@GetMapping("/check/writer")
-	@Transactional
-	public boolean checkWriter(@RequestParam String userEmail, HttpServletRequest request, HttpServletResponse response) {
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userEmail").equals(userEmail)) {
-			return true;
-		}else {
-			return false;
-		}
+	//vue로 작성자만 넘기고, vue에서는 storageseesion값을 비교해서 맞으면 v-show 
+	@GetMapping("/check/tipwriter/{tipId}")
+	public String checkTWriter(@PathVariable("tipId") int tipId) {
+		BoardTip tip = btr.findBoardTipByTipId(tipId);
 				
+		return tip.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/rentwriter/{rentId}")
+	public String checkRWriter(@PathVariable("rentId") int rentId) {
+		BoardRent rent = brr.findBoardRentByRentId(rentId);
+				
+		return rent.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/reviewwriter/{reviewId}")
+	public String checkRVWriter(@PathVariable("reviewId") int reviewId) {
+		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
+				
+		return review.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/placewriter/{placeId}")
+	public String checkPWriter(@PathVariable("placeId") int placeId) {
+		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
+				
+		return place.getPuser().getUserEmail();
+		
 	}
 	
 	

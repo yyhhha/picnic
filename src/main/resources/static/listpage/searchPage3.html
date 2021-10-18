@@ -9,15 +9,16 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"> -->
     <link rel="stylesheet" href="/css/search.css">
     
     <title>피그닉</title>
 </head>
 
 <body>
+
     <div class="header">
       <header>
-
         <div id="search">
           <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
               <input type="text" class="w3-bar-item w3-input w3-white w3-mobile" v-model:value="searchString" v-on:keyup.enter="search(searchString)" placeholder="Search">
@@ -37,15 +38,15 @@
                     <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
                     <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
                 </div>
-
+                
               </div>
           </div>
         </div>
 
-        <p class="w3-wide" style="font-size: 30px;"><a href="/index.html">피그닉</a></p>
+        <p class="w3-wide" style="font-size: 30px; text-align: center;"><a href="/index.html">피그닉</a></p>
     
         <nav>
-          <ul class="nav-container" >
+          <ul class="nav-container">
             <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
             <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
             <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
@@ -56,6 +57,7 @@
     </div>
 
     <div class="row">
+
       <div id="nav" class="column side" style="background-color:#ffffff; ">
         <ul>
           <li style="cursor: pointer;"><a>전체보기</a></li>
@@ -74,7 +76,7 @@
             <option value="4">피크닉 꿀팁</option>
           </select>
         </div>
-
+        
         <div id="sort">
           <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
             <option value="" selected disabled hidden>-정렬방식-</option>
@@ -83,41 +85,40 @@
             <option value="3">높은 평점순</option>
           </select>
         </div>
-
+        
         <br>
-
+        
         <div id="main">
-
+          
           <article class="post" v-if="showBoolean" style="cursor: pointer;">
-            <section class="w3-row" v-if="rentBoolean">
-              <div class="gallery" v-for="rent in rentlist" @click="showRentdetail(rent.rentId)">
+            <section class="w3-row">
+              <div class="gallery" v-for="rent in rentlist" @click="showdetail(rent.rentId)">
                 <img v-bind:src="rent.rentImg">
                 <div class="desc">
-                  <h3>{{rent.rentName}}</h3>
-                  <h5>{{rent.rentCateName}}</h5>
-                  <h5>{{rent.rentTime}}시간</h5>
-                  <h5>{{rent.rentPrice}}원</h5>
+                  <p>{{rent.rentName}}</p>
+                  <p>{{rent.rentCateName}}</p>
+                  <p>{{rent.rentTime}}</p>
+                  <p>{{rent.rentPrice}}원</p>
                 </div>
               </div>
-            </section>
-
+            </section> <br>
+            
             <hr color="blue">
 
-            <section class="w3-row" v-if="placeBoolean">
-              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showPlacedetail(place.placeId)">
+            <section class="w3-row">
+              <div class="gallery" v-for="place in placelist" style="cursor: pointer;" @click="showdetail(place.placeId)">
                 <img v-bind:src="place.placeImg">
-                <div class="desc" style="max-height: 144px">
-                  <h3>{{place.placeName}}</h3>
-                  <h5>{{place.placeContent}}</h5>
-                  <h5>{{place.placeScore}}</h5>
-                  <h5>{{place.userEmail}}</h5>
+                <div class="desc">
+                  <p style="font-size:0.8rem">{{place.placeName}}</p>
+                  <p style="font-size:0.8rem">{{place.placeContent}}</p>
+                  <p style="font-size:0.8rem">{{place.userEmail}}</p>
                 </div>
               </div>
-            </section>
+            </section> <br>
 
             <hr color="blue">
             
-            <section class="w3-row" @click="showReviewdetail(review.reviewId)" v-if="reviewBoolean">
+            <section class="w3-row" @click="showdetail(review.reviewId)">
               <table>
                 <tr>
                   <th>장소</th>
@@ -132,22 +133,22 @@
                   <td>{{review.reviewScore}}</td>
                 </tr>
               </table>
-            </section>
+            </section> <br>
 
             <hr color="blue">
 
-            <section class="w3-row" v-if="tipBoolean">
-              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showTipdetail(tip.tipId)">
+            <section class="w3-row">
+              <div class="gallery" v-for="tip in tiplist" style="cursor: pointer;" @click="showdetail(tip.tipId)">
                 <img v-bind:src="tip.tipImg">
                 <div class="desc">
-                  <h3>{{tip.userEmail}}</h3>
-                  <h5>{{tip.tipTitle}}</h5>
-                  <h5>{{tip.tipContent}}</h5>
-                  <h5>{{tip.tipDate}}</h5>
-                  <h5>{{tip.tipLike}}</h5>
+                  <p>{{tip.tipTitle}}</p>
+                  <p>{{tip.tipContent}}</p>
+                  <p>{{tip.tipDate}}</p>
+                  <p>{{tip.tipLike}} 좋아요</p>
+                  <p>{{tip.userEmail}}</p>
                 </div>
               </div>
-            </section>
+            </section> <br>
           </article>
 
         </div>
@@ -156,82 +157,7 @@
 
     </div>
 
-  </div>
-
   <script type="text/javascript">
-
-    var main = new Vue({
-      el: "#main",
-      data: {
-          showBoolean: false,
-          placeBoolean: false,
-          rentBoolean: false,
-          reviewBoolean: false,
-          tipBoolean: false,
-          placelist: [],
-          rentlist: [],
-          reviewlist: [],
-          tiplist: [],
-          searchString: ""
-      },
-      created: function () {
-        var params = new URLSearchParams(location.search);
-        var searchString = params.get('searchString');
-
-        if(searchString == null){
-          searchString == 'All';
-        }
-        axios({
-          method: "get",
-          url: "/scon/search/all?searchString=" + searchString
-        
-        }).then(resData => {
-          main.showBoolean = true;
-          main.placeBoolean = true;
-          main.rentBoolean = true;
-          main.reviewBoolean = true;
-          main.tipBoolean = true;
-          main.placelist = resData.data[0];
-          main.rentlist = resData.data[1];
-          main.reviewlist = resData.data[2];
-          main.tiplist = resData.data[3];
-        }).catch(errorData => {
-          alert(errorData);
-        });
-      },
-      methods: {
-        search(searchString) {
-          axios({
-            method: "get",
-            url: "/scon/search/all?searchString="+ this.searchString
-          }).then(resData => {
-            main.showBoolean = true;
-            main.placeBoolean = true;
-            main.rentBoolean = true;
-            main.reviewBoolean = true;
-            main.tipBoolean = true;
-            main.placelist = resData.data[0];
-            main.rentlist = resData.data[1];
-            main.reviewlist = resData.data[2];
-            main.tiplist = resData.data[3];
-          }).catch(errorData => {
-              alert(errorData);
-          });
-        },
-        showRentdetail: function(id){
-          location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
-        },
-        showTipdetail : function(id){
-          location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
-        },
-        showPlacedetail: function(id){
-          location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
-        },
-        showReviewdetail: function(id){
-          location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
-        }
-      }
-    });
 
     var search = new Vue({
       el: "#search",
@@ -253,6 +179,59 @@
       },
     });
 
+    var main = new Vue({
+      el: "#main",
+      data: {
+          showBoolean: false,
+          placelist: [],
+          rentlist: [],
+          reviewlist: [],
+          tiplist: [],
+          searchString: ""
+      },
+      created: function () {
+        axios({
+          method: "get",
+          url: "/scon/search/all?searchString=All"
+        }).then(resData => {
+          main.showBoolean = true;
+          main.placelist = resData.data[0];
+          main.rentlist = resData.data[1];
+          main.reviewlist = resData.data[2];
+          main.tiplist = resData.data[3];
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+      methods: {
+        // search(searchString) {
+        //   axios({
+        //     method: "get",
+        //     url: "/scon/search/all?searchString="+ this.searchString
+        //   }).then(resData => {
+        //     main.showBoolean = true;
+        //     main.placelist = resData.data[0];
+        //     main.rentlist = resData.data[1];
+        //     main.reviewlist = resData.data[2];
+        //     main.tiplist = resData.data[3];
+        //   }).catch(errorData => {
+        //       alert(errorData);
+        //   });
+        // },
+        showdetail: function(id){
+          if(id == rent.rentId){
+            location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+          }else if(id == place.placeId){
+            location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
+          }else if(id == review.reviewId){
+            location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
+          }else if(id == tip.tipId){
+            location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
+          }
+        }
+      }
+    });
+
     var filter = new Vue({
       el: "#filter",
       methods: {
@@ -260,13 +239,9 @@
           if(event.target.value == '0'){ //전체보기
             axios({
               method: "get",
-              url: "/scon/search/all?searchString=All"
+              url: "/bcon/search?command=all&searchString=all"
             }).then(resData => {
               main.showBoolean = true;
-              main.placeBoolean = true;
-              main.rentBoolean = true;
-              main.reviewBoolean = true;
-              main.tipBoolean = true;
               main.placelist = resData.data[0];
               main.rentlist = resData.data[1];
               main.reviewlist = resData.data[2];
@@ -274,30 +249,50 @@
             }).catch(errorData => {
               alert(errorData);
             });
-          }else if(event.target.value == '1'){ //피크닉 물품대여 rent
-            main.showBoolean = true;
-            main.placeBoolean = false;
-            main.rentBoolean = true;
-            main.reviewBoolean = false;
-            main.tipBoolean = false;
-          }else if(event.target.value == '2'){ //피크닉 장소추천 place
-            main.showBoolean = true;
-            main.placeBoolean = true;
-            main.rentBoolean = false;
-            main.reviewBoolean = false;
-            main.tipBoolean = false;
-          }else if(event.target.value == '3'){ //피크닉 장소후기 review
-            main.showBoolean = true;
-            main.placeBoolean = false;
-            main.rentBoolean = false;
-            main.reviewBoolean = true;
-            main.tipBoolean = false;
-          }else if(event.target.value == '4'){ //피크닉 꿀팁 tip
-            main.showBoolean = true;
-            main.placeBoolean = false;
-            main.rentBoolean = false;
-            main.reviewBoolean = false;
-            main.tipBoolean = true;
+          }else if(event.target.value == '1'){ //피크닉 물품대여
+            axios({
+              method: "get",
+              url: "/bcon/search?command=rent&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.rentBoolean = true;
+              main.rentlist = resData.data[1];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '2'){ //피크닉 장소추천
+            axios({
+              method: "get",
+              url: "/bcon/search?command=place&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.placeBoolean = true;
+              main.placelist = resData.data[0];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '3'){ //피크닉 장소후기
+            axios({
+              method: "get",
+              url: "/bcon/search?command=review&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.reviewBoolean = true;
+              main.reviewlist = resData.data[2];
+            }).catch(errorData => {
+                alert(errorData);
+            });
+          }else if(event.target.value == '4'){ //피크닉 꿀팁
+            axios({
+              method: "get",
+              url: "/bcon/search?command=tip&searchString=" + main.searchString
+            }).then(resData => {
+              main.showBoolean = true;
+              main.tipBoolean = true;
+              main.tiplist = resData.data[3];
+            }).catch(errorData => {
+                alert(errorData);
+            });
           }
         }
       }

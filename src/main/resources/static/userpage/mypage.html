@@ -2,80 +2,72 @@
 <html lang="ko">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>마이페이지</title>
-    <link href="../css/mypage.css" rel="stylesheet" />
-
-<style type="text/css">
-div.gallery {
-          margin: 5px;
-          border: 1px solid #ccc;
-          float: left;
-          width: 180px;
-        }
-</style>
+    <!-- <link href="../css/mypage.css" rel="stylesheet" /> -->
+	  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../css/main.css">
+	
 </head>
+
 <body>
-<div class="header">
+  <div class="header">
     <header>
       <div style="font-size: small; text-align: right; ">
-      <button class="btn btn-outline-dark" onclick="logout()">
-         <a href="../ycon/moveMainPage">로그아웃</a>
-      </button>
-    </div>
-    <a>피그닉 사이트</a>
-      <div> 
-      <form class="example" action="/searchall" style="margin:auto;max-width:500px">
-        <input type="text" placeholder="Search.." name="search2">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-    </div> <br><br>
-  
+        <button class="btn btn-outline-dark" onclick="logout()">
+          <a href="../ycon/moveMainPage">로그아웃</a>
+        </button>
+      </div>
+      <a>피그닉 사이트</a>
+      <div>
+        <form class="example" action="/searchall" style="margin:auto;max-width:500px">
+          <input type="text" placeholder="Search.." name="search2">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div> <br><br>
+
       <nav>
-        <ul class="nav-container" >
+        <ul class="nav-container">
           <li class="nav-item"> <a href="#">마이 페이지</a> </li>
         </ul>
       </nav>
     </header>
 
   </div>
+
 <div id="mypage">
 <div class="row">
     <div class="column side" style="background-color:#ffffff; ">
       <ul>
       	 <!-- <button id="myBtn">회원정보 수정</button>  -->
         <!-- <li id="myBtn">회원정보 수정</li> /* class="active" -->
-        <li id="myBtn">회원정보 수정</li> <!-- /* class="active" -->
+        <li v-on:click="showinfo()">회원정보 수정</li> <!-- /* class="active" -->
         <li v-on:click="{selectBoard(),selectPlaceBoard(),selectTipBoard(),selectReviewBoard()}">내가 쓴 글</li>
         <li v-on:click="selectComment()">내가 쓴 댓글</li>
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
-
-        <div>
-            
-                    <!-- The Modal -->
-    <div id="myModal" class="modal">
- 
-      <!-- Modal content -->
-     <!--  <form  action="ycon/captcheck" method="get"> -->
-      <div class="modal-content">
-        <span>회원정보 수정 전,
-			본인확인을 위한 비밀번호를 입력하세요</span><br>
-                <h5>비밀번호</h5>
-                 <input placeholder="비밀번호를 입력하세요" name="psw" th:value="${psw}"><br>
+    
+	<div v-if="showBoolean6">
+            <div class="desc">
+            <span>회원정보 수정 전,
+			본인확인을 위한 닉네임을 입력하세요</span><br>
+                <h5>닉네임</h5>
+                 <input placeholder="닉네임을 입력하세요" name="psw" v-model="nick"><br>
                   <br>
               
-                <input style="background-color: rgb(68, 68, 248);"  type="submit">
-                <input class="close" style="background-color: rgb(68, 68, 248);"  type="submit" value="취소"> 
-      </div>
-      <!--   </form> -->
- 		
-    </div>
+                <input style="background-color: rgb(68, 68, 248);" v-on:click="updateInfo()" type="submit">
+           
+             <hr>
+             </div>
+	 </div>
+
+
      <div  v-if="showBoolean" v-for="rent in rentlist" @click="showRentdetail(rent.rentId)">
             <div class="desc">
             <table>
@@ -93,49 +85,67 @@ div.gallery {
 	 </div>
 	 
 	  <div v-if="showBoolean2" v-for="tip in tiplist" @click="showTipdetail(tip.tipId)" >
+
             <div class="desc">
-            <table>
-            <tr>Tip
-              <td>{{tip.tipTitle}}</td>
-              <td>{{tip.tipContent}}</td>
-              <td>{{tip.tipDate}}</td>
-              <td>{{tip.tipLike}}</td>
-              </tr>
-            </table>
-            <hr>
-            </div>
-     </div>
-     
-     <div  v-if="showBoolean3" v-for="place in placelist" @click="showPlacedetail(place.placeId)">
-            <div class="desc">
-            <table>
-            <tr>Place
-               <td>{{place.placeName}}</td>
-              <td>{{place.placeContent}}</td>
-              <td>{{place.userEmail}}</td>
-              </tr>
+              <table>
+                <tr>Rent
+                  <td>{{rent.rentName}}
+                  <td>
+                  <td>{{rent.rentCateName}}원</td>
+                  <td>{{rent.rentTime}}시간</td>
+                  <td>{{rent.rentPrice}}원</td>
+
+                </tr>
+
               </table>
               <hr>
             </div>
-     </div>
-     <div  v-if="showBoolean4"  v-for="review in reviewlist" @click="showPlacedetail(place.placeId)">
+          </div>
+
+          <div v-if="showBoolean2" v-for="tip in tiplist" @click="showTipdetail(tip.tipId)">
             <div class="desc">
-            <table>
-            <tr>Review
-              <td>{{review.userEmail}}</td>
-              <td>{{review.reviewTitle}}</td>
-              <td>{{review.reviewContent}}</td>
-              <td>{{review.reviewScore}}</td>
-            </tr>
+              <table>
+                <tr>Tip
+                  <td>{{tip.tipTitle}}</td>
+                  <td>{{tip.tipContent}}</td>
+                  <td>{{tip.tipDate}}</td>
+                  <td>{{tip.tipLike}}</td>
+                </tr>
               </table>
               <hr>
+            </div>
           </div>
+
+          <div v-if="showBoolean3" v-for="place in placelist" @click="showPlacedetail(place.placeId)">
+            <div class="desc">
+              <table>
+                <tr>Place
+                  <td>{{place.placeName}}</td>
+                  <td>{{place.placeContent}}</td>
+                  <td>{{place.userEmail}}</td>
+                </tr>
+              </table>
+              <hr>
+            </div>
           </div>
-          
+          <div v-if="showBoolean4" v-for="review in reviewlist" @click="showPlacedetail(place.placeId)">
+            <div class="desc">
+              <table>
+                <tr>Review
+                  <td>{{review.userEmail}}</td>
+                  <td>{{review.reviewTitle}}</td>
+                  <td>{{review.reviewContent}}</td>
+                  <td>{{review.reviewScore}}</td>
+                </tr>
+              </table>
+              <hr>
+            </div>
+          </div>
+
         </div>
+      </div>
     </div>
   </div>
-</div>
   <div class="footer">
     <p>운영자: 권대안, 박서은, 방지원, 유영훈<br>
       게시된 정보는 무단으로 배포할 수 없습니다.</a>
@@ -144,45 +154,28 @@ div.gallery {
 
 </body>
 <script>
+
+
 var logout = function(){
     localStorage.clear();
     sessionStorage.clear();
-     window.location.href="ycon/moveMainPage";
-}
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];                                          
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
+     window.location.href="../ycon/moveMainPage";
 }
 
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 
-var email = sessionStorage.getItem('email');
-var tmp = "/ycon/mypage2?command=rent&myCate=board&useremail="+email+"";
-var tmp2 = "/ycon/mypage21?command=rent&myCate=board&useremail="+email+"";
-var tmp3 = "/ycon/mypage22?command=rent&myCate=board&useremail="+email+"";
-var tmp4 = "/ycon/mypage23?command=rent&myCate=board&useremail="+email+"";
-var tmp5 = "/ycon/mypage24?useremail="+email+"";
+  var email = sessionStorage.getItem('email');
+  var tmp = "/ycon/mypage2?command=rent&myCate=board&useremail=" + email + "";
+  var tmp2 = "/ycon/mypage21?command=rent&myCate=board&useremail=" + email + "";
+  var tmp3 = "/ycon/mypage22?command=rent&myCate=board&useremail=" + email + "";
+  var tmp4 = "/ycon/mypage23?command=rent&myCate=board&useremail=" + email + "";
+  var tmp5 = "/ycon/mypage24?useremail=" + email + "";
 
-var nav = new Vue({
+  var nav = new Vue({
     el: "#mypage",
     data: {
+
         sorted: "",
         showBoolean: false,
         rentlist: [],
@@ -197,85 +190,111 @@ var nav = new Vue({
         showBoolean5: false,
         commenttiplist: [],
  
+        showBoolean6: false,
+        nick :"",
         
+
     },
-    
+
     methods: {
-    	showRentdetail: function(id){
-            location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
-          },
-          showTipdetail : function(id){
-              location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
-            },
-            showPlacedetail: function(id){
-                //페이지로 이동
-                location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
-              },
-    	selectBoard: function(){
-    		
-            axios({
-                method: "get",
-                url: tmp
-            }).then(resData => {
-            	nav.showBoolean = true;
-            	nav.rentlist = resData.data;
-            }).catch(errorData => {
-                alert(errorData);
-            });
+
+      showinfo: function(){
+            	nav.showBoolean6 = true;
+            	nav.showBoolean = false;
+            	nav.showBoolean2= false;
+            	nav.showBoolean3= false;
+            	nav.showBoolean4= false;
           }, 
-          
-    	selectTipBoard: function(){
-    		
-            axios({
-                method: "get",
-                url: tmp2
-            }).then(resData => {
-            	nav.showBoolean2 = true;
-            	nav.tiplist = resData.data;
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          
-          },
-          
-    	selectPlaceBoard: function(){
-      		
-            axios({
-                method: "get",
-                url: tmp3
-            }).then(resData => {
-            	nav.showBoolean3 = true;
-            	nav.placelist = resData.data;
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          },
-          
-          selectReviewBoard: function(){
-      		
-              axios({
-                  method: "get",
-                  url: tmp4
-              }).then(resData => {
-              	nav.showBoolean4 = true;
-              	nav.reviewlist = resData.data;
-              }).catch(errorData => {
-                  alert(errorData);
-              });
-            },
-          
-      selectComment: function(){
-       axios({
-           method: "get",
-           url: "/bcon/boardrentpage22?command=rent&rentCateName=한강 피크닉"
-       }).then(resData => {
-         main.showBoolean5 = true;
-         main.commenttiplist = resData.data;
-       }).catch(errorData => {
-           alert(errorData);
-       });
+          updateInfo: function(){
+        	  if(nav.nick == sessionStorage.getItem('nickname')){
+        		  location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+        	  }else{
+        		  alert("닉네임이 다릅니다. 다시 시도해주세요");
+        		  nav.showBoolean6 = false;
+        	  }
+        		  
+          }, 
+      
+      showRentdetail: function (id) {
+        location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+      },
+      showTipdetail: function (id) {
+        location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
+      },
+      showPlacedetail: function (id) {
+        //페이지로 이동
+        location.href = "/detailpage/boardPlacedetail.html?placeId=" + id;
+      },
+      showReviewdetail: function (id) {
+        location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
+      },
+      selectBoard: function () {
+
+        axios({
+          method: "get",
+          url: tmp
+        }).then(resData => {
+          nav.showBoolean = true;
+          nav.rentlist = resData.data;
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+
+      selectTipBoard: function () {
+
+        axios({
+          method: "get",
+          url: tmp2
+        }).then(resData => {
+          nav.showBoolean2 = true;
+          nav.tiplist = resData.data;
+        }).catch(errorData => {
+          alert(errorData);
+        });
+
+      },
+
+      selectPlaceBoard: function () {
+
+        axios({
+          method: "get",
+          url: tmp3
+        }).then(resData => {
+          nav.showBoolean3 = true;
+          nav.placelist = resData.data;
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+
+      selectReviewBoard: function () {
+
+        axios({
+          method: "get",
+          url: tmp4
+        }).then(resData => {
+          nav.showBoolean4 = true;
+          nav.reviewlist = resData.data;
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+
+      selectComment: function () {
+        axios({
+          method: "get",
+          url: "/bcon/boardrentpage22?command=rent&rentCateName=한강 피크닉"
+        }).then(resData => {
+          main.showBoolean5 = true;
+          main.commenttiplist = resData.data;
+        }).catch(errorData => {
+          alert(errorData);
+        });
+
       },
     }
   });
 </script>
+
 </html>
