@@ -127,6 +127,8 @@ public class Controller {
 		return true;
 	}
 	
+	
+	
 	@PutMapping("/del/rents/{rentId}")
 	@Transactional
 	public boolean delBoardRent1(@PathVariable("rentId") int rentId) {
@@ -185,10 +187,10 @@ public class Controller {
 		
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-	//	A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
 		System.out.println("안녕");
 		System.out.println(session.getAttribute("userEmail").toString());
-		A.setPuser(pur.findPuserByUserEmail("sss"));
+//		A.setPuser(pur.findPuserByUserEmail("sss"));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -497,17 +499,40 @@ public class Controller {
 	
 	
 	//작성자 확인 메소드
-	@GetMapping("/check/writer")
-	@Transactional
-	public boolean checkWriter(@RequestParam String userEmail, HttpServletRequest request, HttpServletResponse response) {
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userEmail").equals(userEmail)) {
-			return true;
-		}else {
-			return false;
-		}
+	//vue로 작성자만 넘기고, vue에서는 storageseesion값을 비교해서 맞으면 v-show 
+	@GetMapping("/check/tipwriter/{tipId}")
+	public String checkTWriter(@PathVariable("tipId") int tipId) {
+		BoardTip tip = btr.findBoardTipByTipId(tipId);
 				
+		return tip.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/rentwriter/{rentId}")
+	public String checkRWriter(@PathVariable("rentId") int rentId) {
+		BoardRent rent = brr.findBoardRentByRentId(rentId);
+				
+		return rent.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/reviewwriter/{reviewId}")
+	public String checkRVWriter(@PathVariable("reviewId") int reviewId) {
+		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
+				
+		return review.getPuser().getUserEmail();
+		
+	}
+	
+	//작성자 확인 메소드
+	@GetMapping("/check/placewriter/{placeId}")
+	public String checkPWriter(@PathVariable("placeId") int placeId) {
+		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
+				
+		return place.getPuser().getUserEmail();
+		
 	}
 	
 	
