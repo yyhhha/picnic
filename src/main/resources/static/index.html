@@ -119,9 +119,9 @@
             <div class="w3-section w3-bottombar w3-padding-16" id ="nav">
                 <!-- <span class="w3-margin-right">테마:</span>  -->
                 <button v-on:click="selectAll" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>전체보기</button>
-                <button v-on:click="selectHan" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>한강 피크닉</button>
-                <button v-on:click="selectBa" class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>바다 피크닉</button>
-                <button v-on:click="selectG" class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>글램핑</button>
+                <button v-on:click="selectHan" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>봄에 가고 싶은 곳</button>
+                <button v-on:click="selectBa" class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>여름에 가고 싶은 곳</button>
+                <button v-on:click="selectG" class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>별보러 가고 싶은 날</button>
               </div><br>
         </div>
         
@@ -131,7 +131,7 @@
 	<div class="swiper-wrapper">
 				  <div class="swiper-slide" v-if="showBoolean" v-for="data in datas"  >
 				  <!-- <img src="https://ktsmemo.cafe24.com/p/0401.jpg"> -->
-				  <img v-bind:src="data.rentImg" >
+				  <img width="410px" height="408px"  v-bind:src="data.rentImg" >
 				  </div>
 	</div>
 

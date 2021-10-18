@@ -294,63 +294,87 @@ public class YContorller {
 	
 	@GetMapping("/mypage2")
 	public List<BoardRentDTO> findBoardRentList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
-//		List<BoardRentDTO> rent = null;
 		List<BoardRentDTO> rent = null;
+		List<BoardRentDTO> rent2 = new ArrayList<BoardRentDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUser(useremail);
+				for(BoardRentDTO tmp:rent) {
+					if(tmp.getRentDel().equals("0")) {
+						System.out.println(tmp);
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 
 	@GetMapping("/mypage21")
 	public List<BoardTipDTO> findBoardTipList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardTipDTO> rent = null;
+		List<BoardTipDTO> rent2 = new ArrayList<BoardTipDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserT(useremail);
+				for(BoardTipDTO tmp :rent) {
+					if(tmp.getTipDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 
 	@GetMapping("/mypage22")
 	public List<BoardPlaceDTO> findBoardPlaceList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardPlaceDTO> rent = null;
+		List<BoardPlaceDTO> rent2 = new ArrayList<BoardPlaceDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserP(useremail);
+				for(BoardPlaceDTO tmp : rent) {
+					if(tmp.getPlaceDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 	
 	@GetMapping("/mypage23")
 	public List<BoardReviewDTO> findBoardReviewList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardReviewDTO> rent = null;
+		List<BoardReviewDTO> rent2 = new ArrayList<BoardReviewDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserR(useremail);
+				for(BoardReviewDTO tmp : rent) {
+					if(tmp.getReviewDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 	
 //	@GetMapping("/mypage24")
