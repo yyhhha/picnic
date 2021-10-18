@@ -214,7 +214,7 @@
               <th></th>
 			</tr>
 			<tr v-for="(rent,index) in rentlist">
-			  <td><input type="checkbox" :id="index" name="checked1" v-model:value="checked1[index]"></td>
+			  <td><input type="checkbox" :id="index" name="checked1" v-model:value="checked2[index]"></td>
 			  <td>{{rent.rentDel}}</td>
 			  <td>{{rent.rentName}}</td>
 			  <td><button v-on:click="removeRent(rent.rentId)">삭제</button></td>
@@ -239,7 +239,7 @@
               <th></th>
 			</tr>
 			<tr v-for="(place,index) in placelist">
-			  <td><input type="checkbox" :id="index" name="checked2" v-model:value="checked2[index]"></td><!--@change="update(user.userEmail)"-->
+			  <td><input type="checkbox" :id="index" name="checked2" v-model:value="checked1[index]"></td><!--@change="update(user.userEmail)"-->
 			  <td>{{place.placeDel}}</td>
 			  <td>{{place.placeName}}</td>
 			  <td><button v-on:click="removePlace(place.placeId)">삭제</button></td>
@@ -264,7 +264,7 @@
               <th></th>
 			</tr>
 			<tr v-for="(tip,index) in tiplist">
-			  <td><input type="checkbox" :id="index" name="checked3" v-model:value="checked3[index]"></td>
+			  <td><input type="checkbox" :id="index" name="checked3" v-model:value="checked4[index]"></td>
 			  <td>{{tip.tipDel}}</td>
 			  <td>{{tip.tipTitle}}</td>
 			  <td><button v-on:click="removeTip(tip.tipId)">삭제</button></td>
@@ -289,7 +289,7 @@
               <th></th>
 			</tr>
 			<tr v-for="(review,index) in reviewlist">
-			  <td><input type="checkbox" :id="index" name="checked4" v-model:value="checked4[index]"></td>
+			  <td><input type="checkbox" :id="index" name="checked4" v-model:value="checked3[index]"></td>
 			  <td>{{review.reviewDel}}</td>
 			  <td>{{review.reviewTitle}}</td>
 			  <td><button v-on:click="removeReview(review.reviewId)">삭제</button></td>
@@ -382,19 +382,27 @@
             delAll(checked1,checked2,checked3,checked4, placelist,rentlist,reviewlist,tiplist) {
             	for(i in this.checked1) {
             		if(i) {
+            			console.log(i)
+            			console.log(this.placelist[i])
             			this.removePlace(this.placelist[i].placeId)
-            		}}
+            		}
+            	}
             	for(i in this.checked2) {
             		if(i) {
+            			console.log(i)
             			this.removeRent(this.rentlist[i].rentId)
-            		}}
+            		}
+            	}
             	for(i in this.checked3) {
             		if(i) {
+            			console.log(i)
             			this.removeReview(this.reviewlist[i].reviewId)
-            		}}
+            		}
+            	}
             	for(i in this.checked4) {
-                		if(i) {
-            			this.tiplist(this.tiplist[i].tipId)
+                	if(i) {
+                		console.log(i)
+            			this.removeTip(this.tiplist[i].tipId)
             		}
             	}
             }

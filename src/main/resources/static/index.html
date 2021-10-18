@@ -87,12 +87,12 @@
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder"> 피크닉의 모든 정보!</h1>
                     <div id ="search">
-                    <form class="searchform" action="http://localhost/listpage/searchPage.html?searchString={{searchstring}}"> 
+                    <form class="searchform" action="http://localhost/listpage/searchPage2.html"> 
                     <input style="width: 435px; 
                         height: 64px;
                         background: rgba(255,255,255,1);
-                        opacity: 1; border:0;" type="text" v-model="searchString" placeholder="검색어 입력">
-                    <button style="width: 60px;
+                        opacity: 1; border:0;" type="text" id="searchString" name="searchString" v-model="searchString" placeholder="검색어 입력">
+                    <input style="width: 60px;
                     height: 64px;
                     color: rgba(255,252,252,1);
                     position: absolute;
@@ -103,7 +103,7 @@
                     border: 0;
                     outline: 0;
                     cursor: pointer;
-                    background-color: rgba(255,138,30,1); cursor: pointer;" v-on:click ="">검색</button></form>
+                    background-color: rgba(255,138,30,1); cursor: pointer;" type="submit" value="검색"></form>
                 </div>
                 </div>
             </div>
