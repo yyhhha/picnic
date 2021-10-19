@@ -25,7 +25,7 @@ import kr.pe.playdata.model.dto.BoardTipDTO;
 
 @RestController
 @RequestMapping("/bcon")
-public class BController {
+public class ListController {
 
 	@Autowired
 	private BoardPlaceRepo bpr;
