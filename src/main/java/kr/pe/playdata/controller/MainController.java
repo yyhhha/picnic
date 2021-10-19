@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -67,25 +68,6 @@ public class MainController {
 	@Autowired
 	private PuserRepo pur;
 
-	@GetMapping("/signup")
-	public void signin(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/signup.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@GetMapping("/login")
-	public void login(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/login.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**/
 	// 리뷰 등록
@@ -93,7 +75,6 @@ public class MainController {
 	@Transactional
 	public String addBoardReviews(HttpServletRequest request, @RequestBody BoardReviewDTO reviewDto,
 			HttpServletResponse response) {
-		System.out.println("하이");
 		HttpSession session = request.getSession();
 
 		BoardReview board = new BoardReview();
@@ -302,6 +283,7 @@ public class MainController {
 		return board;
 	}
 
+	@ApiOperation(value = "유저 삭제", notes = "API 설명 부분 : 유저의 상태를 변경하여 유저탈퇴일을 설정하고 로그인 안되게 설정")
 	@GetMapping("/del/PUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
@@ -321,7 +303,8 @@ public class MainController {
 
 		return null;
 	}
-
+	
+	@ApiOperation(value = "장소 추가", notes = "API 설명 부분 : 받은 값으로 장소 추가 ")
 	@GetMapping("/add/loc")
 	@Transactional
 	public String addLocCate2(HttpServletResponse response, @RequestParam String locName, @RequestParam String sido,
@@ -342,6 +325,7 @@ public class MainController {
 		return "성공";
 	}
 
+	@ApiOperation(value = "위치 삭제", notes = "API 설명 부분 : 위치정보 삭제 기능")
 	@GetMapping("/del/loc")
 	@Transactional
 	public String delLocCate(@RequestParam int locId) {
@@ -349,6 +333,7 @@ public class MainController {
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
+	@ApiOperation(value = "장소 추가", notes = "API 설명 부분 : 받은값을 이용하여 장소 추천 추가 ")
 	@GetMapping("/add/place2")
 	@Transactional
 	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response,
@@ -387,6 +372,7 @@ public class MainController {
 
 	}
 
+	@ApiOperation(value = "장소 삭제", notes = "API 설명 부분 : 장소의 상태를 변경하여 표시되지않게 설정 ")
 	@GetMapping("/del/place")
 	@Transactional
 	public String delBoardPlace(@RequestParam int placeId) {
@@ -394,6 +380,7 @@ public class MainController {
 		return "장소 게시글 삭제되었습니다.";
 	}
 
+	@ApiOperation(value = "댓글 삭제", notes = "API 설명 부분 : 댓글의 상태를 변경하여 표시되지않게 설정 ")
 	@GetMapping("/del/Pcomment")
 	@Transactional
 	public String delPcomment(@RequestParam int commentid) {
@@ -402,6 +389,7 @@ public class MainController {
 		return "댓글 삭제되었습니다.";
 	}
 
+	@ApiOperation(value = "리뷰 추가", notes = "API 설명 부분 : 받은 값을 이용하여 리뷰 추가 ")
 	@GetMapping("/add/review2")
 	public String addBoardReview() {
 		BoardReview A = new BoardReview();
@@ -418,6 +406,7 @@ public class MainController {
 		return "리뷰 저장 성공";
 	}
 
+	@ApiOperation(value = "리뷰 삭제", notes = "API 설명 부분 : 리뷰의 상태를 변경하여 표시되지 않게 만드는 기능 ")
 	@GetMapping("/del/review")
 	@Transactional
 	public String delBoardReview(@RequestParam int reviewId) {
@@ -428,6 +417,7 @@ public class MainController {
 
 	// 작성자 확인 메소드
 	// vue로 작성자만 넘기고, vue에서는 storageseesion값을 비교해서 맞으면 v-show
+	@ApiOperation(value = "작성자 체크", notes = "API 설명 부분 : 작성자를 체크해서 이메일값을 반환. ")
 	@GetMapping("/check/tipwriter/{tipId}")
 	public String checkTWriter(@PathVariable("tipId") int tipId) {
 		BoardTip tip = btr.findBoardTipByTipId(tipId);
@@ -437,6 +427,7 @@ public class MainController {
 	}
 
 	// 작성자 확인 메소드
+	@ApiOperation(value = "작성자 체크", notes = "API 설명 부분 : 작성자를 체크해서 이메일값을 반환. ")
 	@GetMapping("/check/rentwriter/{rentId}")
 	public String checkRWriter(@PathVariable("rentId") int rentId) {
 		BoardRent rent = brr.findBoardRentByRentId(rentId);
@@ -446,6 +437,7 @@ public class MainController {
 	}
 
 	// 작성자 확인 메소드
+	@ApiOperation(value = "작성자 체크", notes = "API 설명 부분 : 작성자를 체크해서 이메일값을 반환. ")
 	@GetMapping("/check/reviewwriter/{reviewId}")
 	public String checkRVWriter(@PathVariable("reviewId") int reviewId) {
 		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
@@ -455,6 +447,7 @@ public class MainController {
 	}
 
 	// 작성자 확인 메소드
+	@ApiOperation(value = "작성자 체크", notes = "API 설명 부분 : 작성자를 체크해서 이메일값을 반환. ")
 	@GetMapping("/check/placewriter/{placeId}")
 	public String checkPWriter(@PathVariable("placeId") int placeId) {
 		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
