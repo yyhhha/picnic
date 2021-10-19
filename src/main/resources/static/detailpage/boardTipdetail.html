@@ -63,6 +63,7 @@
 
       <div id="boardTip" class="w3-container w3-white w3-margin w3-padding-large">
 
+
         <h2><b>{{tipTitle}}</b></h2>
         <br>
         <div v-if="checkImg">
@@ -74,11 +75,11 @@
 
         <span>상세 내용</span><br>
         <div>{{tipContent}}</div><br>
-        <img style="height: 263px; width: 464px;" v-bind:src="tipImg">
+        <!-- <img style="height: 263px; width: 464px;" v-bind:src="tipImg"> -->
 		<br>
-		{{tipLike}}
-		<button v-on:click="addlike()">up</button> <button v-on:click="dellike()">down</button>
-
+		
+		<button class="w3-button w3-light-grey" v-on:click="addlike()">좋아요😍</button> <button class="w3-button w3-light-grey" v-on:click="dellike()">별로에요😡</button>
+총 좋아요: {{tipLike}}<br>
         <br>
         <div v-if="checkBoolean">
           <!-- <button style="background-color: rgb(68, 68, 248);">수정</button> -->
