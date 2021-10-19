@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/css/main.css">
 
   <title>피그닉</title>
+
 </head>
 
 <body>
@@ -40,7 +41,6 @@
 
           <div v-else>
             {{nickname}}님 환영합니다
-
             <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
             <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
           </div>
@@ -64,46 +64,54 @@
 
   <div class="row">
 
-    <div id="nav" class="column side" style="background-color:#ffffff;">
+    <div id="nav" class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li v-on:click="selectAll" style="cursor: pointer; "><a>전체보기</a></li>
-        <li v-on:click="selectHan" style="cursor: pointer;"><a>한강 피크닉</a></li>
-        <li v-on:click="selectBa" style="cursor: pointer;"><a>바다 피크닉</a></li>
-        <li v-on:click="selectG" style="cursor: pointer;"><a>글램핑</a></li>
-        <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardRent.html">&nbsp &nbsp글쓰기✍</a>
+        <li style="cursor: pointer;"><a>전체보기</a></li>
+        <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardReview.html">&nbsp &nbsp글쓰기✍</a>
         </li>
       </ul>
     </div>
+
 
     <div class="column middle" style="background-color:#ffffff;">
 
       <div id="sort">
         <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
           <option value="" selected disabled hidden>-정렬방식-</option>
-          <option value="1">낮은 가격순</option>
-          <option value="2">높은 가격순</option>
-          <option value="3">가나다순</option>
+          <option value="1">높은 평점순</option>
         </select>
       </div>
 
       <br>
 
       <div id="main">
-        <div class="gallery w3-round" v-if="showBoolean" v-for="rent in rentlist" @click="showdetail(rent.rentId)"
-          style="max-width:400px;max-height:500px">
-          <img v-bind:src="rent.rentImg">
-          <div class="desc">
-            <p>{{rent.rentName}}</p>
-            <p>{{rent.rentCateName}}</p>
-            <p>{{rent.rentTime}}시간 대여 가능</p>
-            <p>{{rent.rentPrice}}원</p>
-          </div>
-        </div>
+        <article class="post" v-if="showBoolean" v-for="review in reviewlist" style="cursor: pointer;">
+          <section @click="showdetail(review.reviewId)">
+            <p>리뷰 제목 : {{review.reviewTitle}}</p>
+            <p>평점 : {{review.reviewScore}}</p>
+            <p>
+              <div class="star-ratings" v-for="star in starlist">
+                <div class="star-ratings-fill space-x-2 text-lg" :style="{ width: ratingTo + '%' }">
+                <!-- <div class="star-ratings-fill space-x-2 text-lg" :style="{ width: {{star.reviewScore}} }"> -->
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="star-ratings-base space-x-2 text-lg">
+                  <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div>
+              </div>
+            </p>
+
+            <p>작성자 : {{review.userEmail}}</p>
+            <hr />
+
+
+          </section>
+        </article>
       </div>
 
-    </div> <!-- column middle div -->
+    </div>
 
-  </div> <!-- row div -->
+  </div>
 
 
   <div class="footer">
@@ -119,22 +127,29 @@
       el: "#main",
       data: {
         showBoolean: false,
-        rentlist: []
+        reviewlist: [],
+        // starlist: []
       },
       created: function () {
         axios({
           method: "get",
-          url: "/bcon/board/rents?command=rent&rentCateName=all"
+          url: "/bcon/board/reviews"
         }).then(resData => {
           main.showBoolean = true;
-          main.rentlist = resData.data;
+          main.reviewlist = resData.data;
+          // main.starlist = resData.data.reviewScore;
+          // console.log(resData.data[0].reviewScore);
         }).catch(errorData => {
           alert(errorData);
         });
       },
       methods: {
         showdetail: function (id) {
-          location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+          location.href = "/detailpage/boardReviewdetail.html?reviewId=" + id;
+        },
+        ratingTo() {
+          const score = +main.reviewlist.reviewScore * 20;
+          return score;
         }
       }
     });
@@ -144,74 +159,16 @@
       methods: {
         onChange: function (event) {
           if (event.target.value == '1') {
-            main.rentlist.sort(function (a, b) {
-              return a.rentPrice - b.rentPrice;
-            });
-          } else if (event.target.value == '2') {
-            main.rentlist.sort(function (a, b) {
-              return b.rentPrice - a.rentPrice;
-            });
-          } else if (event.target.value == '3') {
-            main.rentlist.sort(function (a, b) {
-              return a.rentName.localeCompare(b.rentName);
+            main.reviewlist.sort(function (a, b) {
+              return b.reviewScore - a.reviewScore;
             });
           }
         }
       }
     });
 
-    var nav = new Vue({
-      el: "#nav",
-      methods: {
-        selectAll: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=all"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectHan: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=한강피크닉"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectBa: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=바다피크닉"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectG: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=글램핑"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        }
-      }
-    });
-
     var loglog = new Vue({
-      el: "#loglog",
+      el: '#loglog',
       data: {
         logCheck: false,
         datas: [],
@@ -222,14 +179,14 @@
           this.logCheck = true;
           this.nickname = sessionStorage.getItem('nickname');
         }
-      }
+      },
     });
 
     var logout = function () {
       localStorage.clear();
       sessionStorage.clear();
       sessionStorage.removeItem('nickname');
-      window.location.href = "/bcon/move/rentPage";
+      window.location.href = "../ycon/moveMainPage";
     }
 
   </script>
