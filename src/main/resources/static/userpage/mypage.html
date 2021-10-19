@@ -19,22 +19,29 @@
 <body>
   <div class="header">
     <header>
-      <div style="font-size: small; text-align: right; ">
-        <button class="btn btn-outline-dark" onclick="logout()">
-          <a href="../ycon/moveMainPage">로그아웃</a>
-        </button>
+      <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+
+        <div id="search">
+          <form class="searchform" action="http://localhost/listpage/searchPage.html">
+            <input id="searchString" type="text" class="w3-bar-item w3-input w3-white w3-mobile" style="width: 350px;"
+              name="searchString" v-model="searchString" placeholder="업체명, 장소명, 후기 or 팁 제목으로 검색해보세요!">
+            <input class="w3-bar-item w3-button w3-mobile" style="cursor: pointer;" type="submit" value="검색">
+          </form>
+        </div>
+<a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
+
       </div>
+      <br>
       <a>피그닉 사이트</a>
-      <div>
-        <form class="example" action="/searchall" style="margin:auto;max-width:500px">
-          <input type="text" placeholder="Search.." name="search2">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div> <br><br>
+       <br><br>
 
       <nav>
         <ul class="nav-container">
-          <li class="nav-item"> <a href="#">마이 페이지</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardRentPage.html">피크닉 물품대여</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardPlacePage.html">피크닉 장소추천</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardReviewPage.html">피크닉 장소후기</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardTipPage.html">피크닉 꿀팁</a> </li>
+
         </ul>
       </nav>
     </header>
@@ -296,6 +303,7 @@ var logout = function(){
       },
     }
   });
+  
 </script>
 
 </html>

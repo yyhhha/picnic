@@ -114,7 +114,6 @@
               <img v-bind:src="place.placeImg">
               <div class="desc" style="max-height: 144px">
                 <h3>{{place.placeName}}</h3>
-                <h5>{{place.placeContent}}</h5>
                 <h5>{{place.placeScore}}</h5>
                 <h5>{{place.userEmail}}</h5>
               </div>
@@ -134,7 +133,6 @@
               <tr v-for="review in reviewlist">
                 <td>{{review.userEmail}}</td>
                 <td>{{review.reviewTitle}}</td>
-                <td>{{review.reviewContent}}</td>
                 <td>{{review.reviewScore}}</td>
               </tr>
             </table>
@@ -148,7 +146,6 @@
               <div class="desc">
                 <h3>{{tip.userEmail}}</h3>
                 <h5>{{tip.tipTitle}}</h5>
-                <h5>{{tip.tipContent}}</h5>
                 <h5>{{tip.tipDate}}</h5>
                 <h5>{{tip.tipLike}}</h5>
               </div>
