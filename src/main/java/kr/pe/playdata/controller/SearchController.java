@@ -51,12 +51,11 @@ public class SearchController {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-	
-	
+
 	@GetMapping("/search/all")
 	@ResponseBody
 	public JSONArray searchAll(@RequestParam String searchString) {
-		
+
 		JSONParser jsonParse = new JSONParser();
 		Object arrayA = null;
 		Object arrayB = null;
@@ -75,11 +74,11 @@ public class SearchController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			}else {
-				List<BoardPlace> A = bpr.findBoardPlaceByPlaceNameContaining(searchString);
-				List<BoardRent> B = brr.findBoardRentByRentNameContaining(searchString);
-				List<BoardReview> C = brer.findBoardReviewByReviewTitleContaining(searchString);
-				List<BoardTip> D = btr.findBoardTipByTipTitleContaining(searchString);
+		} else {
+			List<BoardPlace> A = bpr.findBoardPlaceByPlaceNameContaining(searchString);
+			List<BoardRent> B = brr.findBoardRentByRentNameContaining(searchString);
+			List<BoardReview> C = brer.findBoardReviewByReviewTitleContaining(searchString);
+			List<BoardTip> D = btr.findBoardTipByTipTitleContaining(searchString);
 			try {
 				arrayA = jsonParse.parse(A.toString());
 				arrayB = jsonParse.parse(B.toString());
@@ -91,12 +90,12 @@ public class SearchController {
 		}
 		String all = null;
 		JSONArray array = null;
-		
-		all = "["+arrayA;
-		all = all+arrayB;
-		all = all+arrayC;
-		all = all+arrayD+"]";
-		
+
+		all = "[" + arrayA;
+		all = all + arrayB;
+		all = all + arrayC;
+		all = all + arrayD + "]";
+
 		try {
 			array = (JSONArray) jsonParse.parse(all);
 		} catch (ParseException e) {
@@ -105,13 +104,13 @@ public class SearchController {
 		System.out.println(array);
 		return array;
 	}
-	
+
 	@GetMapping("/search/user")
 	@ResponseBody
 	public JSONArray searchUser(@RequestParam String searchString) {
 		JSONParser jsonParse = new JSONParser();
 		Object arrayA = null;
-		
+
 		if (searchString.equals("All")) {
 			List<Puser> A = (List<Puser>) pur.findAll();
 			try {
@@ -119,7 +118,7 @@ public class SearchController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			List<Puser> A = pur.findPuserByUserEmailContaining(searchString);
 			try {
 				arrayA = jsonParse.parse(A.toString());
@@ -138,13 +137,13 @@ public class SearchController {
 		System.out.println(array);
 		return array;
 	}
-	
+
 	@GetMapping("/search/loc")
 	@ResponseBody
 	public JSONArray searchLoc(@RequestParam String searchString) {
 		JSONParser jsonParse = new JSONParser();
 		Object arrayA = null;
-		
+
 		if (searchString.equals("All")) {
 			List<LocCategory> A = lcr.findLocCategoryByLocName("");
 			try {
@@ -152,7 +151,7 @@ public class SearchController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			List<LocCategory> A = lcr.findLocCategoryByLocNameContaining(searchString);
 			try {
 				arrayA = jsonParse.parse(A.toString());
@@ -170,25 +169,5 @@ public class SearchController {
 		}
 		return array;
 	}
-	
-//	@GetMapping("boardrentpage2222")
-//	@Transactional
-//	public JSONArray findBoardRentAll4(@RequestParam String command){ // toString 재정의 안됨
-//		List<BoardRent> al = new ArrayList<>();
-//		
-//		JSONParser jsonParse = new JSONParser();
-//		JSONArray array = null;
-//		
-//		if(command == "all") {
-//			al.addAll(brr.findAll());
-//			try {
-//				array = (JSONArray) jsonParse.parse(al.toString());
-//				return array;
-//			} catch (ParseException e) {
-//				System.out.println("변환에 실패");
-//				e.printStackTrace();
-//			}
-//			return array;}}
-	
-	
+
 }

@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -52,9 +54,9 @@ import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
 @RestController
-@RequestMapping("/ycon") // ycon/boardrentpage222222
+@RequestMapping("/ycon") 
 @SessionAttributes({"puser","nickname","email"})
-public class YContorller {
+public class UserContorller {
 
 	static String amail="";
 	
@@ -151,9 +153,13 @@ public class YContorller {
 	}
 	
 	//가입 메소드
+	@ApiOperation(value = "회원가입", notes = "API 설명 부분 : 회원 한명 가입")
 	@PostMapping("/addPUser")
 	@Transactional
-	public void addPuser(@RequestParam("email")String email,@RequestParam("psw")String psw,@RequestParam("nickname")String nickname,HttpServletResponse response) {
+	public void addPuser(@ApiParam(value = "email을 입력해주세요", required = true, 
+			   example = "test@gmail.com") @RequestParam("email")String email,@ApiParam(value = "password를 입력해주세요", required = true, 
+			   example = "123") @RequestParam("psw")String psw,@ApiParam(value = "nickname을 입력해주세요", required = true, 
+			   example = "test") @RequestParam("nickname")String nickname,HttpServletResponse response) {
 		Puser B = new Puser();
 		String redirect_uri ="";
 		B.setUserEmail(email);
@@ -205,10 +211,8 @@ public class YContorller {
 		al.addAll(brr.findAll());
 		
 		JSONParser jsonParse = new JSONParser();
-//		JSONObject jsonObj = null;
 		JSONArray array = null;
 		try {
-//			jsonObj = (JSONObject) jsonParse.parse(al.toString());
 			array = (JSONArray) jsonParse.parse(al.toString());
 			
 			return array;
@@ -376,16 +380,6 @@ public class YContorller {
 		}
 		return rent2;
 	}
-	
-//	@GetMapping("/mypage24")
-//	public List<PcommentDTO> findComment(@RequestParam String useremail ) {
-////		List<PcommentDTO> rent = null;
-//		
-//		/* rent */
-////				rent = findUserR(useremail);
-//		return rent;
-//	}
-	
 	
 	@PostMapping("/findpswByEmail")
 	public void findpswByEmail(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
