@@ -9,6 +9,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <title>Document</title>
 </head>
 
@@ -210,54 +211,54 @@
       </ul>
     </div>
     <div class="column middle" style="background-color:#ffffff;">
-		
-        <div id= "placeapp">
-        
-			<input type="text" v-model:values="searchString">
-			<button v-on:click="search(searchString)">장소검색</button>
-			<section class="w3-row" v-if="showBoolean">
-			    <div id="placelist" class="box alt"  >
-			      <div class="row gtr-uniform">
-			        <div class="col-4">
-			          <table>
-			          	<tr>
-			              <th>장소 Id</th>
-			              <th>장소 이름</th>
-						</tr>
-						<tr v-for="place in placeList">
-						  <td>{{place.placeId}}</td>
-						  <td>{{place.placeName}}</td>
-						</tr>
-			          </table>
-			        </div> 
-			      </div>
-			    </div>
-  			</section> <br>
-  			<input type="text" v-model:values="searchString2">
-			<button v-on:click="search2(searchString)">위치검색</button>
-			<section class="w3-row" v-if="showBoolean2">
-			    <div id="placelist" class="box alt"  >
-			      <div class="row gtr-uniform">
-			        <div class="col-4">
-			          <table>
-			          	<tr>
-			              <th>위치 Id</th>
-			              <th>위치 이름</th>
-						</tr>
-						<tr v-for="loc in locList">
-						  <td>{{loc.locId}}</td>
-						  <td>{{loc.locName}}</td>
-						</tr>
-			          </table>
-			        </div> 
-			      </div>
-			    </div>
-  			</section>
-  			
-  			
-			<form id = "placeform" method="GET" action="../con/add/place2">
-	           
-	            <span>장소 명칭</span><br>
+
+      <div id="placeapp">
+
+        <input type="text" v-model:values="searchString">
+        <button v-on:click="search(searchString)">장소검색</button>
+        <section class="w3-row" v-if="showBoolean">
+          <div id="placelist" class="box alt">
+            <div class="row gtr-uniform">
+              <div class="col-4">
+                <table>
+                  <tr>
+                    <th>장소 Id</th>
+                    <th>장소 이름</th>
+                  </tr>
+                  <tr v-for="place in placeList">
+                    <td>{{place.placeId}}</td>
+                    <td>{{place.placeName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section> <br>
+        <input type="text" v-model:values="searchString2">
+        <button v-on:click="search2(searchString)">위치검색</button>
+        <section class="w3-row" v-if="showBoolean2">
+          <div id="placelist" class="box alt">
+            <div class="row gtr-uniform">
+              <div class="col-4">
+                <table>
+                  <tr>
+                    <th>위치 Id</th>
+                    <th>위치 이름</th>
+                  </tr>
+                  <tr v-for="loc in locList">
+                    <td>{{loc.locId}}</td>
+                    <td>{{loc.locName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <form id="placeform" method="GET" action="../con/add/place2">
+
+          <!-- <span>장소 명칭</span><br>
 	            <input v-model:values="placeName" name="placeName" placeholder="장소 이름을 써주세요."><br>
 	            <span>위치</span><br>
 	            <input v-model:values="placeLoc" name="placeLoc" placeholder="장소에 해당하는 위치이름를 써주세요."><br>
@@ -265,12 +266,36 @@
 	            <input v-model:values="placeImg" name="placeImg" placeholder="장소이미지의 URL을 써주세요."><br>
 	          
 	            <span>상세 내용</span><br>
-	            <textarea v-model="placeContent" name="placeContent" placeholder="상세 내용을 써주세요."></textarea><br>
-	
-				<input type="submit" style="background-color: skyblue;"value="저장하기"/>	
-	            
-			</form>
-        </div>
+	            <textarea v-model="placeContent" name="placeContent" placeholder="상세 내용을 써주세요."></textarea><br> -->
+
+          <p>
+            <label class="w3-text-grey">추천하고 싶은 장소이름</label>
+            <input class="w3-input w3-border" type="text" v-model:values="placeName" name="placeName"
+              placeholder="추천 장소명을 적어주세요.">
+          </p>
+
+          <p>
+            <label class="w3-text-grey">위치를 검색 후 장소에 해당하는 위치를 적어주세요.</label>
+            <input class="w3-input w3-border" type="text" v-model:values="placeLoc" name="placeLoc"
+              placeholder="위치 검색 기능을 사용하세요">
+          </p>
+
+          <p>
+            <label class="w3-text-grey">이미지 추가</label>
+            <input class="w3-input w3-border" type="text" v-model:values="placeImg" name="placeImg"
+              placeholder="현재 파일을 받지 못합니다. 이미지 주소복사를 해주세요">
+          </p>
+
+          <p>
+            <label class="w3-text-grey">상세내용</label>
+            <textarea class="w3-input w3-border" style="resize:none; height: 300px;" v-model="placeContent"
+              name="placeContent" placeholder="상세 내용을 써주세요."></textarea>
+          </p>
+
+          <input class="w3-button w3-yellow" type="submit" v-on:click="movePage()" style="background-color: skyblue;" value="저장하기" />
+
+        </form>
+      </div>
 
     </div>
   </div>
@@ -293,36 +318,40 @@
       placeCategory: [],
       placeContent: "",
       userEmail: "",
-      placeImg : "",
-      searchString : "",
-      searchString2 : "",
-      placeList : [],
-      locList : []
-      
+      placeImg: "",
+      searchString: "",
+      searchString2: "",
+      placeList: [],
+      locList: []
+
     },
     methods: {
-    	search(searchString) {
-            axios({
-                method: "get",
-                url: "../scon/search/all?searchString="+ this.searchString
-            }).then(resData => {
-              this.showBoolean = true;
-              this.placeList = resData.data[0];
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          },
-        search2(searchString) {
-            axios({
-                method: "get",
-                url: "../scon/search/loc?searchString="+this.searchString2
-            }).then(resData => {
-              this.showBoolean2 = true;
-              this.locList = resData.data[0];
-            }).catch(errorData => {
-                alert(errorData);
-            });
-          }
+      search(searchString) {
+        axios({
+          method: "get",
+          url: "../scon/search/all?searchString=" + this.searchString
+        }).then(resData => {
+          this.showBoolean = true;
+          this.placeList = resData.data[0];
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+      search2(searchString) {
+        axios({
+          method: "get",
+          url: "../scon/search/loc?searchString=" + this.searchString2
+        }).then(resData => {
+          this.showBoolean2 = true;
+          this.locList = resData.data[0];
+        }).catch(errorData => {
+          alert(errorData);
+        });
+      },
+      movePage(){
+        var link = "http://localhost/listpage/boardPlacePage2.html"
+        location.href=link;
+      }
 
     }
   })
