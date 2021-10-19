@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>피크닉은 피그닉</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../img/pignicLogo.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -24,9 +24,7 @@
     </head>
     <body>
 	
-        <audio autoplay controls>
-            <source src="../audio/sing.mp3" type="audio/mp3">
-        </audio>
+        
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -38,26 +36,15 @@
                         <li class="nav-item"><a class="nav-link" href="http://localhost/listpage/boardplacepage2.html">피크닉 장소추천</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://localhost/listpage/boardReviewPage2.html">피크닉 장소후기</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://localhost/listpage/boardTipPage2.html">피크닉 꿀팁</a></li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">피크닉 플레이스</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">장소 베스트</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">장소 추천</a></li>
-                                <li><a class="dropdown-item" href="#!">장소 후기</a></li>
-                            </ul>
-                        </li> -->
                     </ul>
                     <div id="loglog">
                     <div v-if="!logCheck">
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" >
-                            <i class="bi-cart-fill me-1"></i>
                             <a href="ycon/login">로그인</a>
                         </button>
                        <a style="color: aliceblue;"></a>
                         <button class="btn btn-outline-dark">
-                            <i class="bi-cart-fill me-1"></i>
                             <a href="ycon/signup">회원가입</a>
                         </button>
                     </form>
@@ -88,8 +75,9 @@
         <header class="bg-dark1 py-5">
         
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder"> 피크닉의 모든 정보!</h1>
+            
+                <div class="text-center ">
+                    <h1 class="display-4 fw-bolder" style="color:#A566FF "> 피크닉의 모든 정보!</h1>
                     <div id ="search">
                     <form class="searchform" action="http://localhost/listpage/searchPage2.html"> 
                     <input style="width: 435px; 
@@ -107,7 +95,7 @@
                     border: 0;
                     outline: 0;
                     cursor: pointer;
-                    background-color: rgba(255,138,30,1); cursor: pointer;" type="submit" value="검색"></form>
+                    background-color: #A566FF; cursor: pointer;" type="submit" value="검색"></form>
                 </div>
                 </div>
             </div>
@@ -143,6 +131,7 @@
 
 	<!-- 페이징 -->
 	<div class="swiper-pagination"></div>
+	
 </div>
 </div>
 
@@ -151,7 +140,10 @@
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark1">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Pignic Company</p></div>
+            <div class="container"><p class="m-0 text-center " style="color:#5D5D5D ">Copyright &copy; Pignic Company</p></div>
+            <audio autoplay controls>
+            <source src="../audio/sing.mp3" type="audio/mp3">
+       		 </audio>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
