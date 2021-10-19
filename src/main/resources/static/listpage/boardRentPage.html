@@ -70,8 +70,8 @@
         <li v-on:click="selectHan" style="cursor: pointer;"><a>한강 피크닉</a></li>
         <li v-on:click="selectBa" style="cursor: pointer;"><a>바다 피크닉</a></li>
         <li v-on:click="selectG" style="cursor: pointer;"><a>글램핑</a></li>
-        <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardRent.html">&nbsp &nbsp글쓰기✍</a>
-        </li>
+        <li style="cursor: pointer;" v-if="writecheck"><a style="font-size: small" href="/writepage/boardRent.html" >&nbsp &nbsp글쓰기✍️</a> </li>
+
       </ul>
     </div>
 
@@ -161,7 +161,16 @@
     });
 
     var nav = new Vue({
-      el: "#nav",
+    	el: "#nav",
+        data :{
+          writecheck : false
+        },
+        created : function(){
+          if(sessionStorage.getItem('loginCheck')=="true"){
+            this.writecheck = true;
+            
+          }
+        },
       methods: {
         selectAll: function () {
           axios({

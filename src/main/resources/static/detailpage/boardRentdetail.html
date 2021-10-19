@@ -21,25 +21,43 @@
 <body>
   <div class="header">
     <header>
-      <div style="font-size: small; text-align: right; ">
-        <a href="/mypage.html">마이페이지</a>
-        <a href="/login.html">로그인</a>
-        <a href="/signup.html">회원가입</a>
+      <div class="w3-bar w3-border" style="font-size: small; text-align: right;">
+
+        <div id="search">
+          <form class="searchform" action="http://localhost/listpage/searchPage.html">
+            <input id="searchString" type="text" class="w3-bar-item w3-input w3-white w3-mobile" style="width: 350px;"
+              name="searchString" v-model="searchString" placeholder="업체명, 장소명, 후기 or 팁 제목으로 검색해보세요!">
+            <input class="w3-bar-item w3-button w3-mobile" style="cursor: pointer;" type="submit" value="검색">
+          </form>
+        </div>
+
+        <div id="loglog">
+
+          <div v-if="!logCheck">
+            <a href="../ycon/login" class="w3-bar-item w3-button w3-mobile">로그인</a>
+            <a href="../ycon/signup" class="w3-bar-item w3-button w3-mobile">회원가입</a>
+          </div>
+
+          <div v-else>
+            {{nickname}}님 환영합니다
+            <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
+            <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
+          </div>
+
+        </div>
+
       </div>
+      <br>
       <a>피그닉 사이트</a>
-      <div>
-        <form class="example" action="searchall" style="margin:auto;max-width:500px">
-          <input type="text" placeholder="Search.." name="search2">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div> <br><br>
+       <br><br>
 
       <nav>
         <ul class="nav-container">
-          <li class="nav-item"> <a href="/listpage/boardRentPage2.html">피크닉 물품대여</a> </li>
-          <li class="nav-item"> <a href="/listpage/boardPlacePage2.html">피크닉 장소추천</a> </li>
-          <li class="nav-item"> <a href="/listpage/boardReviewPage2.html">피크닉 장소후기</a> </li>
-          <li class="nav-item"> <a href="/listpage/boardTipPage2.html">피크닉 꿀팁</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardRentPage.html">피크닉 물품대여</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardPlacePage.html">피크닉 장소추천</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardReviewPage.html">피크닉 장소후기</a> </li>
+          <li class="nav-item"> <a href="/listpage/boardTipPage.html">피크닉 꿀팁</a> </li>
+
         </ul>
       </nav>
     </header>
@@ -168,7 +186,7 @@
             .catch(error => {
               console.log(error)
             });
-            location.href="http://localhost/listpage/boardRentPage2.html";
+            location.href="http://localhost/listpage/boardRentPage.html";
         },
       }
 
@@ -177,7 +195,39 @@
     function goBack() {
       window.history.back();
     }
+    var loglog = new Vue({
+        el: '#loglog',
+        data: {
+          logCheck: false,
+          datas: [],
+          nickname: ""
+        },
+        created: function () {
+          if (sessionStorage.getItem('loginCheck') == "true") {
+            this.logCheck = true;
+            this.nickname = sessionStorage.getItem('nickname');
+          }
+        },
+      });
 
+      var logout = function () {
+        localStorage.clear();
+        sessionStorage.clear();
+        sessionStorage.removeItem('nickname');
+        window.location.href = "../ycon/moveMainPage";
+      }
+      var nav =  new Vue({
+          el: "#nav",
+          data : {
+            writecheck : false
+          },
+          created : function(){
+            if(sessionStorage.getItem('loginCheck')=="true"){
+              this.writecheck = true;
+              
+            }
+          }
+        });
   </script>
 
 </body>

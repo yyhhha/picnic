@@ -138,7 +138,7 @@ public class Controller {
 		try {
 			BoardTip tip = btr.findBoardTipByTipId(tipId);
 			tip.setTipDel("1");
-			response.sendRedirect("http://localhost/listpage/boardTipPage2.html");
+			response.sendRedirect("http://localhost/listpage/boardTipPage.html");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -433,7 +433,7 @@ public class Controller {
 			}
 		}
 		try {
-			response.sendRedirect("http://localhost/listpage/boardPlacePage2.html");
+			response.sendRedirect("http://localhost/listpage/boardPlacePage.html");
 			return "성공";
 		} catch (IOException e) {
 			e.printStackTrace();
