@@ -75,6 +75,7 @@ public class UserContorller {
 	@Autowired
 	private PuserRepo pur;
 	
+	@ApiOperation(value = "회원가입", notes = "API 설명 부분 : 회원 가입창으로 리다이렉트")
 	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
 		String redirect_uri="http://localhost/userpage/signup.html";
@@ -84,6 +85,8 @@ public class UserContorller {
 			e.printStackTrace();
 		}
 	}
+	
+	@ApiOperation(value = "로그인", notes = "API 설명 부분 : 로그인 가입창으로 리다이렉트")
 	@GetMapping("/login")
 	public void login(HttpServletResponse response) {
 		String redirect_uri="http://localhost/userpage/login.html";
@@ -97,6 +100,7 @@ public class UserContorller {
 	
 	
 	//로그인 확인 메소드
+	@ApiOperation(value = "로그인 확인", notes = "API 설명 부분 :email psw 확인")
 	@PostMapping("/checkLogin")
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response,Model model,@RequestParam("email")String email,@RequestParam("psw")String psw) throws IOException {
 		Puser puser = new Puser();
@@ -145,6 +149,7 @@ public class UserContorller {
 	}
 	
 	//axios로 받기 위해 사용 
+	@ApiOperation(value = "회원정보 호출", notes = "API 설명 부분 : 회원 정보를 호출")
 	@GetMapping("/checkLogininfo")
 	public PuserDTO checkLogininfo() {
 		Puser puser = pur.findPuserByUserEmail(amail);
@@ -177,7 +182,7 @@ public class UserContorller {
 		
 	}
 	
-	
+	@ApiOperation(value = "메인화면", notes = "API 설명 부분 : 메인 화면으로 리다이렉트")
 	@GetMapping("/moveMainPage")
 	public void moveMainPage(HttpServletResponse response) {
 		String redirect_uri="http://localhost/index.html";
@@ -188,6 +193,7 @@ public class UserContorller {
 		}
 	}
 	
+	@ApiOperation(value = "마이페이지", notes = "API 설명 부분 : 마이페이지로 리다이렉트")
 	@GetMapping("/mypage")
 	public void mypage(HttpServletResponse response) {
 		String redirect_uri="http://localhost/userpage/mypage.html";
@@ -203,6 +209,7 @@ public class UserContorller {
 		return"";
 	}
 	/* read (all) */
+	@ApiOperation(value = "보드 렌트", notes = "API 설명 부분 : 모든 보드 렌트 호출")
 	@GetMapping("/boardrentpage2222")
 	@Transactional
 	public JSONArray findBoardRentAll4(){ // toString 재정의 안됨
@@ -223,6 +230,7 @@ public class UserContorller {
 		return array;
 	}
 	
+	@ApiOperation(value = "마이페이지 체크 로직", notes = "API 설명 부분 : 마이페이지에서 닉네임으로 체크 성공 실패시 리다이렉트")
 	@RequestMapping("/captcheck")
 	public void captcheck( HttpServletResponse response,@RequestParam("psw")String psw) throws IOException {
 		
@@ -295,7 +303,7 @@ public class UserContorller {
 		}
 		return test;
 	}
-	
+	@ApiOperation(value = "보드 렌트DTO 호출", notes = "API 설명 부분 : 작성자가 본인인 보드 렌트 호출")
 	@GetMapping("/mypage2")
 	public List<BoardRentDTO> findBoardRentList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardRentDTO> rent = null;
@@ -317,7 +325,7 @@ public class UserContorller {
 		}
 		return rent2;
 	}
-
+	@ApiOperation(value = "보드 팁DTO 호출", notes = "API 설명 부분 : 작성자가 본인인 보드 팁 호출")
 	@GetMapping("/mypage21")
 	public List<BoardTipDTO> findBoardTipList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardTipDTO> rent = null;
@@ -339,6 +347,7 @@ public class UserContorller {
 		return rent2;
 	}
 
+	@ApiOperation(value = "보드 플레이스DTO 호출", notes = "API 설명 부분 : 작성자가 본인인 보드 플레이스 호출")
 	@GetMapping("/mypage22")
 	public List<BoardPlaceDTO> findBoardPlaceList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardPlaceDTO> rent = null;
@@ -360,6 +369,7 @@ public class UserContorller {
 		return rent2;
 	}
 	
+	@ApiOperation(value = "보드 리뷰DTO 호출", notes = "API 설명 부분 : 작성자가 본인인 보드 리뷰 호출")
 	@GetMapping("/mypage23")
 	public List<BoardReviewDTO> findBoardReviewList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardReviewDTO> rent = null;
@@ -381,6 +391,7 @@ public class UserContorller {
 		return rent2;
 	}
 	
+	@ApiOperation(value = "회원 찾기", notes = "API 설명 부분 : email로 비밀번호 조회")
 	@PostMapping("/findpswByEmail")
 	public void findpswByEmail(HttpServletRequest request,HttpServletResponse response,@RequestParam("email")String email) {
 		Puser puser = new Puser();
