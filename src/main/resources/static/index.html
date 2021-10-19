@@ -91,26 +91,24 @@
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder"> 피크닉의 모든 정보!</h1>
                     <div id ="search">
-                        <form class="searchform" action="http://localhost/listpage/searchPage.html"> 
-                        <input style="width: 435px; 
-                            height: 64px;
-                            background: rgba(255,255,255,1);
-                            opacity: 1; border:0;" type="text" id="searchString" name="searchString" v-model="searchString" placeholder="검색어 입력">
-                        <input style="width: 60px;
+                    <form class="searchform" action="http://localhost/listpage/searchPage2.html"> 
+                    <input style="width: 435px; 
                         height: 64px;
-
-                        color: rgba(255,252,252,1);
-                        position: absolute;
-                        font-weight: Bold;
-                        font-size: 24px;
-                        opacity: 1;
-                        text-align: left;
-                        border: 0;
-                        outline: 0;
-                        cursor: pointer;
-                        background-color: rgba(255,138,30,1); cursor: pointer;" type="submit" value="검색"></form>
-                    </div>
-
+                        background: rgba(255,255,255,1);
+                        opacity: 1; border:0;" type="text" id="searchString" name="searchString" v-model="searchString" placeholder="검색어 입력">
+                    <input style="width: 60px;
+                    height: 64px;
+                    color: rgba(255,252,252,1);
+                    position: absolute;
+                    font-weight: Bold;
+                    font-size: 24px;
+                    opacity: 1;
+                    text-align: left;
+                    border: 0;
+                    outline: 0;
+                    cursor: pointer;
+                    background-color: rgba(255,138,30,1); cursor: pointer;" type="submit" value="검색"></form>
+                </div>
                 </div>
             </div>
 
@@ -123,9 +121,9 @@
             <div class="w3-section w3-bottombar w3-padding-16" id ="nav">
                 <!-- <span class="w3-margin-right">테마:</span>  -->
                 <button v-on:click="selectAll" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>전체보기</button>
-                <button v-on:click="selectHan" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>한강 피크닉</button>
-                <button v-on:click="selectBa" class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>바다 피크닉</button>
-                <button v-on:click="selectG" class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>글램핑</button>
+                <button v-on:click="selectHan" class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>봄에 가고 싶은 곳</button>
+                <button v-on:click="selectBa" class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>여름에 가고 싶은 곳</button>
+                <button v-on:click="selectG" class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>별보러 가고 싶은 날</button>
               </div><br>
         </div>
         
@@ -135,7 +133,7 @@
 	<div class="swiper-wrapper">
 				  <div class="swiper-slide" v-if="showBoolean" v-for="data in datas"  >
 				  <!-- <img src="https://ktsmemo.cafe24.com/p/0401.jpg"> -->
-				  <img v-bind:src="data.rentImg" >
+				  <img width="410px" height="408px"  v-bind:src="data.rentImg" >
 				  </div>
 	</div>
 

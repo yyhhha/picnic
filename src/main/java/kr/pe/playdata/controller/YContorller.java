@@ -1,6 +1,9 @@
 package kr.pe.playdata.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -143,7 +146,6 @@ public class YContorller {
 	@GetMapping("/checkLogininfo")
 	public PuserDTO checkLogininfo() {
 		Puser puser = pur.findPuserByUserEmail(amail);
-		
 		PuserDTO pu = new PuserDTO(puser.getUserEmail(),puser.getUserPassword(),puser.getUserNickname(),puser.getRoles(),puser.getUserOut(),puser.getAssignDate(),puser.getOutDate());
 		return pu;
 	}
@@ -154,10 +156,10 @@ public class YContorller {
 	public void addPuser(@RequestParam("email")String email,@RequestParam("psw")String psw,@RequestParam("nickname")String nickname,HttpServletResponse response) {
 		Puser B = new Puser();
 		String redirect_uri ="";
-		
 		B.setUserEmail(email);
 		B.setUserPassword(psw);
 		B.setUserNickname(nickname);
+		B.setAssignDate(LocalDate.now(ZoneId.of("Asia/Seoul"))+ " " +LocalTime.now(ZoneId.of("Asia/Seoul")).toString());
 		try {
 			pur.save(B);
 			//저장 확인.
@@ -165,8 +167,6 @@ public class YContorller {
 			response.sendRedirect(redirect_uri);
 		}catch (Exception e) {
 			e.printStackTrace();
-//			redirect_uri="http://localhost/index.html";
-//			response.sendRedirect(redirect_uri);
 		}
 		
 	}
@@ -294,63 +294,87 @@ public class YContorller {
 	
 	@GetMapping("/mypage2")
 	public List<BoardRentDTO> findBoardRentList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
-//		List<BoardRentDTO> rent = null;
 		List<BoardRentDTO> rent = null;
+		List<BoardRentDTO> rent2 = new ArrayList<BoardRentDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUser(useremail);
+				for(BoardRentDTO tmp:rent) {
+					if(tmp.getRentDel().equals("0")) {
+						System.out.println(tmp);
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 
 	@GetMapping("/mypage21")
 	public List<BoardTipDTO> findBoardTipList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardTipDTO> rent = null;
+		List<BoardTipDTO> rent2 = new ArrayList<BoardTipDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserT(useremail);
+				for(BoardTipDTO tmp :rent) {
+					if(tmp.getTipDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 
 	@GetMapping("/mypage22")
 	public List<BoardPlaceDTO> findBoardPlaceList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardPlaceDTO> rent = null;
+		List<BoardPlaceDTO> rent2 = new ArrayList<BoardPlaceDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserP(useremail);
+				for(BoardPlaceDTO tmp : rent) {
+					if(tmp.getPlaceDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 	
 	@GetMapping("/mypage23")
 	public List<BoardReviewDTO> findBoardReviewList22(@RequestParam String command, @RequestParam String myCate, @RequestParam String useremail ) {
 		List<BoardReviewDTO> rent = null;
+		List<BoardReviewDTO> rent2 = new ArrayList<BoardReviewDTO>();
 		
 		/* rent */
 		if(command.equals("rent")) {
 			if(myCate.equals("board")) {
 				rent = findUserR(useremail);
+				for(BoardReviewDTO tmp : rent) {
+					if(tmp.getReviewDel().equals("0")) {
+						rent2.add(tmp);
+					}
+				}
 			}else if(myCate.equals("comment")) {
 //				rent = brr.findUser(myCate);
 			}
 		}
-		return rent;
+		return rent2;
 	}
 	
 //	@GetMapping("/mypage24")

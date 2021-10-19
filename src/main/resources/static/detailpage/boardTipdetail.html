@@ -60,6 +60,7 @@
 
 
 
+
       <div id="boardTip" class="w3-container w3-white w3-margin w3-padding-large">
 
         <h2><b>{{tipTitle}}</b></h2>
@@ -70,6 +71,13 @@
         <br>
         <div style="font-size: 23px;">{{tipContent}}</div><br>
         <br>
+
+        <span>상세 내용</span><br>
+        <div>{{tipContent}}</div><br>
+        <img style="height: 263px; width: 464px;" v-bind:src="tipImg">
+		<br>
+		{{tipLike}}
+		<button v-on:click="addlike()">up</button> <button v-on:click="dellike()">down</button>
 
         <br>
         <div v-if="checkBoolean">
@@ -104,8 +112,12 @@
         tipTitle: "",
         tipContent: "",
         tipImg: "",
+
         checkBoolean: false,
-        checkImg: false
+        checkImg: false,
+        tipLike : 0
+ 
+
 
       },
       created: function () {
@@ -113,6 +125,7 @@
 
         axios.get('/con/board/tips/' + params.get('tipId'))
           .then(response => {
+        	this.tipLike = response.data.tipLike;
             this.tipTitle = response.data.tipTitle;
             this.tipContent = response.data.tipContent;
             this.tipImg = response.data.tipImg;
@@ -155,6 +168,16 @@
           location.href = "http://localhost/listpage/boardTipPage2.html";
 
         },
+        addlike : function(){
+         	var params = new URLSearchParams(location.search);
+         	axios.put('/con/add/like?tipId=' + params.get('tipId'))
+            location.href= "http://localhost/detailpage/boardTipdetail.html?tipId=" + params.get('tipId')
+       },
+        dellike : function(){
+           var params = new URLSearchParams(location.search);
+           axios.put('/con/del/like?tipId=' + params.get('tipId'))
+           location.href= "http://localhost/detailpage/boardTipdetail.html?tipId=" + params.get('tipId')
+         }
 
 
 
