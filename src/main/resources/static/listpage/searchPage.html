@@ -125,13 +125,10 @@
           <section class="w3-row" @click="showReviewdetail(review.reviewId)" v-if="reviewBoolean">
             <table>
               <tr>
-                <th>장소</th>
-                <th>상세 내용</th>
-                <th>상세 내용</th>
-                <th>상세 내용</th>
+                <th>장소 후기 제목</th>
+                <th>별점</th>
               </tr>
               <tr v-for="review in reviewlist">
-                <td>{{review.userEmail}}</td>
                 <td>{{review.reviewTitle}}</td>
                 <td>{{review.reviewScore}}</td>
               </tr>

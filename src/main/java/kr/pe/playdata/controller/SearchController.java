@@ -65,14 +65,38 @@ public class SearchController {
 		Object arrayD = null;
 		if (searchString.equals("All")) {
 			List<BoardPlace> A = bpr.findAll();
+			List<BoardPlace> Aa = new ArrayList<BoardPlace>();
+			for(BoardPlace tmp:A) {
+				if(tmp.getPlaceDel().equals("0")) {
+					Aa.add(tmp);
+				}
+			}
 			List<BoardRent> B = brr.findAll();
+			List<BoardRent> Bb = new ArrayList<BoardRent>();
+			for(BoardRent tmp: B) {
+				if(tmp.getRentDel().equals("0")) {
+					Bb.add(tmp);
+				}
+			}
 			List<BoardReview> C = brer.findAll();
+			List<BoardReview> Cc = new ArrayList<BoardReview>();
+			for(BoardReview tmp:Cc) {
+				if(tmp.getReviewDel().equals("0")) {
+					Cc.add(tmp);
+				}
+			}
 			List<BoardTip> D = btr.findAll();
+			List<BoardTip> Dd = new ArrayList<BoardTip>();
+			for(BoardTip tmp:D) {
+				if(tmp.getTipDel().equals("0")) {
+					Dd.add(tmp);
+				}
+			}
 			try {
-				arrayA = jsonParse.parse(A.toString());
-				arrayB = jsonParse.parse(B.toString());
-				arrayC = jsonParse.parse(C.toString());
-				arrayD = jsonParse.parse(D.toString());
+				arrayA = jsonParse.parse(Aa.toString());
+				arrayB = jsonParse.parse(Bb.toString());
+				arrayC = jsonParse.parse(Cc.toString());
+				arrayD = jsonParse.parse(Dd.toString());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
