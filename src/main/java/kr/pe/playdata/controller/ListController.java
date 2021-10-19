@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -36,6 +37,7 @@ public class ListController {
 	@Autowired
 	private BoardTipRepo btr;
 
+	@ApiOperation(value = "게시판 장소추천 조회", notes = "API 설명 부분 : 게시판 장소추천 리스트 전체 조회")
 	@GetMapping("/board/places")
 	public List<BoardPlaceDTO> findBoardPlaceList() {
 		Iterator<BoardPlace> all = bpr.findAll().iterator();
@@ -54,6 +56,7 @@ public class ListController {
 		return test;
 	}
 
+	@ApiOperation(value = "게시판 장소후기 조회", notes = "API 설명 부분 : 게시판 장소후기 리스트 전체 조회")
 	@GetMapping("/board/reviews")
 	public List<BoardReviewDTO> findBoardReviewList() {
 		Iterator<BoardReview> all = brer.findAll().iterator();
@@ -71,6 +74,7 @@ public class ListController {
 		return test;
 	}
 
+	@ApiOperation(value = "게시판 피크닉 꿀팁 조회", notes = "API 설명 부분 : 게시판 피크닉 꿀팁 리스트 전체 조회")
 	@GetMapping("/board/tips")
 	public List<BoardTipDTO> findBoardTipList() {
 		Iterator<BoardTip> all = btr.findAll().iterator();
@@ -88,6 +92,7 @@ public class ListController {
 		return test;
 	}
 
+	@ApiOperation(value = "게시판 피크닉 대여업체 조회", notes = "API 설명 부분 : 게시판 피크닉 대여업체 리스트 전체 조회")
 	@GetMapping("/board/rents")
 	public List<BoardRentDTO> findBoardRentList(@RequestParam String command, @RequestParam String rentCateName) {
 		List<BoardRentDTO> rent = null;
