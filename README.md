@@ -101,7 +101,7 @@
 
 설계 : DDL 생성 후 프로젝트 진행
 
- ![diagram](https://user-images.githubusercontent.com/87870107/137854969-616262ac-8c46-4a19-aa18-82f2a95e3b1b.PNG)
+ ![diagramerd](https://user-images.githubusercontent.com/87870107/137858218-da336f6c-0313-4f7e-b169-ebcf1bdc7461.PNG)
     
     
     
