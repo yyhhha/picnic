@@ -48,11 +48,12 @@
 
 : [https://www.erdcloud.com/d/xssNYfrTFjFd9Nstx](https://www.erdcloud.com/d/xssNYfrTFjFd9Nstx)
 
+
 ### 기능명세서&화면기획안
 
 - 기획안
-    
-    ![Untitled](%E1%84%91%E1%85%B5%E1%84%8F%E1%85%B3%E1%84%82%E1%85%B5%E1%86%A8%20%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%80%E1%85%A2%E1%84%89%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3%20-%20%E1%84%91%E1%85%B5%E1%84%80%E1%85%B3%E1%84%82%E1%85%B5%E1%86%A8%20%E1%84%89%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3%20999e16e9d4bf4919a460718257810ddd/Untitled%201.png)
+    ![first](https://user-images.githubusercontent.com/87870107/137854848-7505c72b-da42-435f-a852-bf0340cd3d40.PNG)
+   
     
 
 ### 기능
@@ -89,10 +90,8 @@
     
     - 리스트페이지, 수정
     - 삭제(email, user_out만 남기고 나머지 전부삭제)
-    ****
-    
-    
-    ---
+   
+ ---
 
 # 1️⃣DB 구성
 
@@ -101,8 +100,8 @@
 설계 : DDL 생성 후 프로젝트 진행
 
 - 초안 다이어그램
+    ![diagram](https://user-images.githubusercontent.com/87870107/137854969-616262ac-8c46-4a19-aa18-82f2a95e3b1b.PNG)
     
-    ![Untitled](%E1%84%91%E1%85%B5%E1%84%8F%E1%85%B3%E1%84%82%E1%85%B5%E1%86%A8%20%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%80%E1%85%A2%E1%84%89%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3%20-%20%E1%84%91%E1%85%B5%E1%84%80%E1%85%B3%E1%84%82%E1%85%B5%E1%86%A8%20%E1%84%89%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3%20999e16e9d4bf4919a460718257810ddd/Untitled%202.png)
     
     
 ---
@@ -122,10 +121,10 @@
 - Vue 데이터에서 img 소스 가져올때
 - reCAPTCHA 사용
 - reCAPTCHA 값 문제
-- **dto이용해서 무한루프 안빠지고 json형태 가져오기**
+- dto이용해서 무한루프 안빠지고 json형태 가져오기
 - Tomcat 오류 ... 서버가 안켜진다! → 해결
 - Repository id로 딱 1개 나오는건 List 아니게 변경
-- **ORA-01861:literal does not match format string**
+- ORA-01861:literal does not match format string
 
 
 ---
@@ -137,9 +136,10 @@
 - 수정
 - 이미지 AWS 구현
 - 지도  api
-- 캡차로 보안 → 그림찾기..
+- 그림찾기 캡차로 보안
 - 2021년 느낌의 UI (현재는 06년에 머무르고 있음)
-- 예외 처리 ㅠㅠ
+- 예외 처리
+
 
 ---
 
