@@ -1,3 +1,5 @@
+![025](https://user-images.githubusercontent.com/87870107/137855210-a8ac418f-4e97-4799-b262-d6f5362628b9.jpg)
+
 # 피크닉 중개사이트 - 피그닉 사이트
 
 ---
@@ -18,6 +20,7 @@
 ### 우리팀 일정
 
 [일정](https://www.notion.so/0ae98523590c4a4ebf5649ea2f01cd89)
+
 
 ---
 
@@ -51,8 +54,7 @@
 
 ### 기능명세서&화면기획안
 
-- 기획안
-    ![first](https://user-images.githubusercontent.com/87870107/137854848-7505c72b-da42-435f-a852-bf0340cd3d40.PNG)
+![first](https://user-images.githubusercontent.com/87870107/137854848-7505c72b-da42-435f-a852-bf0340cd3d40.PNG)
    
     
 
@@ -99,8 +101,7 @@
 
 설계 : DDL 생성 후 프로젝트 진행
 
-- 초안 다이어그램
-    ![diagram](https://user-images.githubusercontent.com/87870107/137854969-616262ac-8c46-4a19-aa18-82f2a95e3b1b.PNG)
+ ![diagram](https://user-images.githubusercontent.com/87870107/137854969-616262ac-8c46-4a19-aa18-82f2a95e3b1b.PNG)
     
     
     
