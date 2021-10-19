@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -52,6 +53,7 @@ public class SearchController {
 	@Autowired
 	private PuserRepo pur;
 
+	@ApiOperation(value = "전체 검색", notes = "API 설명 부분 : 게시글 전체 검색 기능입니다. ")
 	@GetMapping("/search/all")
 	@ResponseBody
 	public JSONArray searchAll(@RequestParam String searchString) {
@@ -104,7 +106,7 @@ public class SearchController {
 		System.out.println(array);
 		return array;
 	}
-
+	@ApiOperation(value = "유저 검색", notes = "API 설명 부분 : 유저 검색 기능입니다. ")
 	@GetMapping("/search/user")
 	@ResponseBody
 	public JSONArray searchUser(@RequestParam String searchString) {
@@ -138,6 +140,7 @@ public class SearchController {
 		return array;
 	}
 
+	@ApiOperation(value = "위치 검색", notes = "API 설명 부분 : loc 위치 검색 기능입니다. ")
 	@GetMapping("/search/loc")
 	@ResponseBody
 	public JSONArray searchLoc(@RequestParam String searchString) {
