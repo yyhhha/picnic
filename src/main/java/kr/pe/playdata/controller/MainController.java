@@ -50,7 +50,7 @@ import kr.pe.playdata.model.dto.BoardTipDTO;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/con")
-public class Controller {
+public class MainController {
 
 	@Autowired
 	private BoardPlaceRepo bpr;
@@ -66,8 +66,6 @@ public class Controller {
 	private PcommentRepo pcor;
 	@Autowired
 	private PuserRepo pur;
-//	@Autowired
-//	private RentCategoryRepo pcr;
 
 	@GetMapping("/signup")
 	public void signin(HttpServletResponse response) {
@@ -90,13 +88,14 @@ public class Controller {
 	}
 
 	/**/
-	//리뷰 등록
+	// 리뷰 등록
 	@PostMapping("/add/review")
 	@Transactional
-	public String addBoardReviews(HttpServletRequest request, @RequestBody BoardReviewDTO reviewDto, HttpServletResponse response) {
+	public String addBoardReviews(HttpServletRequest request, @RequestBody BoardReviewDTO reviewDto,
+			HttpServletResponse response) {
 		System.out.println("하이");
 		HttpSession session = request.getSession();
-		
+
 		BoardReview board = new BoardReview();
 
 		board.setReviewTitle(reviewDto.getReviewTitle());
@@ -104,7 +103,7 @@ public class Controller {
 		board.setBoardPlace(bpr.findBoardPlaceByPlaceId(reviewDto.getPlaceId()));
 		board.setReviewContent(reviewDto.getReviewContent());
 		board.setReviewScore(reviewDto.getReviewScore());
-		
+
 		brer.save(board);
 
 		return "";
@@ -113,23 +112,22 @@ public class Controller {
 	// 피크닉 꿀팁 작성하는 메소드
 	@PostMapping("/add/tip")
 	@Transactional
-	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto, HttpServletResponse response) {
+	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto,
+			HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		BoardTip A = new BoardTip();
 		A.setTipTitle(tipDto.getTipTitle());
 		A.setTipContent(tipDto.getTipContent());
-		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); //Ycontroller에서 attribute값 지정
-//		A.setPuser(pur.findPuserByUserEmail("ssss")); //Ycontroller에서 attribute값 지정
+		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString())); // Ycontroller에서 attribute값
+																							// 지정
 		A.setTipImg(tipDto.getTipImg());
 
 		btr.save(A);
 
 		return "";
 	}
-	
 
-
-	//1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
+	// 1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
 	@PutMapping("/del/tips/{tipId}")
 	@Transactional
 	public void delBoardTip1(@PathVariable("tipId") int tipId, HttpServletResponse response) throws IOException {
@@ -142,17 +140,15 @@ public class Controller {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	
-	}
-	
 
-	
+	}
+
 	@PutMapping("/del/rents/{rentId}")
 	@Transactional
 	public boolean delBoardRent1(@PathVariable("rentId") int rentId) {
 		System.out.println("렌트수정");
 
-		try {	
+		try {
 			BoardRent rent = brr.findBoardRentByRentId(rentId);
 			rent.setRentDel("1");
 		} catch (Exception e) {
@@ -160,13 +156,13 @@ public class Controller {
 		}
 		return true;
 	}
-	
+
 	@PutMapping("/del/places/{placeId}")
 	@Transactional
 	public boolean delBoardPlace1(@PathVariable("placeId") int placeId) {
 		System.out.println("렌트수정");
 
-		try {	
+		try {
 			BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
 			place.setPlaceDel("1");
 		} catch (Exception e) {
@@ -174,7 +170,7 @@ public class Controller {
 		}
 		return true;
 	}
-	
+
 	@PutMapping("/del/reviews/{reviewId}")
 	@Transactional
 	public boolean delBoardReview1(@PathVariable("reviewId") int reviewId) {
@@ -195,20 +191,18 @@ public class Controller {
 		btr.findBoardTipByTipId(tipId).setTipDel("1");
 		return "업체 게시글 삭제되었습니다.";
 	}
-	
-	//피크닉 rent대여업체 작성하는 메소드
+
+	// 피크닉 rent대여업체 작성하는 메소드
 	@PostMapping("/add/rent")
 	@Transactional
-	public String addBoardRent(HttpServletRequest request,  @RequestBody BoardRentDTO rentDto, HttpServletResponse response) {
+	public String addBoardRent(HttpServletRequest request, @RequestBody BoardRentDTO rentDto,
+			HttpServletResponse response) {
 		System.out.println(222);
 		HttpSession session = request.getSession();
-		
+
 		BoardRent A = new BoardRent();
 		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
 		A.setPuser(pur.findPuserByUserEmail(session.getAttribute("userEmail").toString()));
-		System.out.println("안녕");
-		System.out.println(session.getAttribute("userEmail").toString());
-//		A.setPuser(pur.findPuserByUserEmail("sss"));
 		A.setRentCateName(rentDto.getRentCateName());
 		A.setRentName(rentDto.getRentName());
 		A.setRentContent(rentDto.getRentContent());
@@ -220,7 +214,7 @@ public class Controller {
 		brr.save(A);
 		return null;
 	}
-	
+
 	@GetMapping("/del/rent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
@@ -244,6 +238,7 @@ public class Controller {
 		return test;
 
 	}
+
 	@PutMapping("/add/like")
 	public String plusLike(@RequestParam int tipId) {
 		BoardTip A = btr.findBoardTipByTipId(tipId);
@@ -251,7 +246,7 @@ public class Controller {
 		btr.save(A);
 		return null;
 	}
-	
+
 	@PutMapping("/del/like")
 	public String minusLike(@RequestParam int tipId) {
 		BoardTip A = btr.findBoardTipByTipId(tipId);
@@ -259,82 +254,61 @@ public class Controller {
 		btr.save(A);
 		return null;
 	}
-	
-	
 
-
-	//tip_id로 tip게시글 상세 get 가능
+	// tip_id로 tip게시글 상세 get 가능
 	@GetMapping("/board/tips/{tipId}")
-		public BoardTipDTO boardTipDetail(@PathVariable("tipId") int tipId) {
-			BoardTip all = btr.findBoardTipByTipId(tipId);
-			
-			
-			BoardTipDTO board = new BoardTipDTO(all.getTipId(),all.getPuser().getUserEmail() ,all.getTipTitle(), 
-					all.getTipContent(),all.getTipImg(),all.getTipDate(),all.getTipDel(),all.getTipLike());
-			
-			
-			return board;
+	public BoardTipDTO boardTipDetail(@PathVariable("tipId") int tipId) {
+		BoardTip all = btr.findBoardTipByTipId(tipId);
+
+		BoardTipDTO board = new BoardTipDTO(all.getTipId(), all.getPuser().getUserEmail(), all.getTipTitle(),
+				all.getTipContent(), all.getTipImg(), all.getTipDate(), all.getTipDel(), all.getTipLike());
+
+		return board;
 //			return null;
 	}
-	
-	
-	//rent_id로 rent게시글 상세 get 가능
+
+	// rent_id로 rent게시글 상세 get 가능
 	@GetMapping("/board/rents/{rentId}")
-		public BoardRentDTO boardRentDetail(@PathVariable("rentId") int rentId) {
-			BoardRent rent = brr.findBoardRentByRentId(rentId);
-			
-			BoardRentDTO board = new BoardRentDTO(rent.getRentId(),rent.getRentCateName(),rent.getLocCate().getLocName(),rent.getPuser().getUserEmail(),rent.getRentName(),
-					rent.getRentLink(),rent.getRentPrice(),rent.getRentTime(),rent.getRentContent(),
-					rent.getRentImg(),rent.getRentDel());
-			
-			return board;
+	public BoardRentDTO boardRentDetail(@PathVariable("rentId") int rentId) {
+		BoardRent rent = brr.findBoardRentByRentId(rentId);
+
+		BoardRentDTO board = new BoardRentDTO(rent.getRentId(), rent.getRentCateName(), rent.getLocCate().getLocName(),
+				rent.getPuser().getUserEmail(), rent.getRentName(), rent.getRentLink(), rent.getRentPrice(),
+				rent.getRentTime(), rent.getRentContent(), rent.getRentImg(), rent.getRentDel());
+
+		return board;
 	}
-	
-	//place_id로 place게시글 상세 get가능
+
+	// place_id로 place게시글 상세 get가능
 	@GetMapping("/board/places/{placeId}")
-		public BoardPlaceDTO boardPlaceDetail(@PathVariable("placeId") int placeId) {
+	public BoardPlaceDTO boardPlaceDetail(@PathVariable("placeId") int placeId) {
 		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
-		
-		BoardPlaceDTO board = new BoardPlaceDTO(place.getPlaceId(),place.getLocCate().getLocName(),place.getPuser().getUserEmail(),
-				place.getPlaceName(),place.getPlaceContent(),place.getPlaceImg(),place.getPlaceDel());
-		return board;
-}
 
-	
-	//review_id로 review게시글 상세 get가능
+		BoardPlaceDTO board = new BoardPlaceDTO(place.getPlaceId(), place.getLocCate().getLocName(),
+				place.getPuser().getUserEmail(), place.getPlaceName(), place.getPlaceContent(), place.getPlaceImg(),
+				place.getPlaceDel());
+		return board;
+	}
+
+	// review_id로 review게시글 상세 get가능
 	@GetMapping("/board/reviews/{reviewId}")
-		public BoardReviewDTO boardReviewDetail(@PathVariable("reviewId") int reviewId) {
+	public BoardReviewDTO boardReviewDetail(@PathVariable("reviewId") int reviewId) {
 		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
-		
-		BoardReviewDTO board = new BoardReviewDTO(review.getReviewId(),review.getBoardPlace().getPlaceId(),review.getPuser().getUserEmail(),
-				review.getReviewTitle(),review.getReviewContent(),review.getReviewDate(),review.getReviewDel(),review.getReviewScore());
-		
-		return board;
-}
-	
 
-//	@GetMapping("add/PUser") //test용
-//	@Transactional
-//	public String addPUser() {
-//		Puser B = new Puser();
-//		B.setUserEmail("aa.gmail.com");
-//		B.setUserPassword("aaab");
-//		B.setUserNickname("jokea");
-//		B.setRoles("admin");
-//		B.setUserOut(0);
-//		pur.save(B);
-//
-//		return "puser 저장 성공";
-//	}
+		BoardReviewDTO board = new BoardReviewDTO(review.getReviewId(), review.getBoardPlace().getPlaceId(),
+				review.getPuser().getUserEmail(), review.getReviewTitle(), review.getReviewContent(),
+				review.getReviewDate(), review.getReviewDel(), review.getReviewScore());
+
+		return board;
+	}
 
 	@GetMapping("/del/PUser")
 	@Transactional
 	public String delPUser(@RequestParam String userEmail) {
 		System.out.println(userEmail);
 		String to = null;
-		to = LocalDate.now(ZoneId.of("Asia/Seoul"))+ " " +LocalTime.now(ZoneId.of("Asia/Seoul")).toString();
-			
-		
+		to = LocalDate.now(ZoneId.of("Asia/Seoul")) + " " + LocalTime.now(ZoneId.of("Asia/Seoul")).toString();
+
 		Puser A = null;
 		A = pur.findPuserByUserEmail(userEmail);
 		A.setRoles("out"); // 로그인에서 확인
@@ -346,21 +320,6 @@ public class Controller {
 		System.out.println(A);
 
 		return null;
-	}
-
-	@GetMapping("/add/loc2") // test용
-	@Transactional
-	public String addLocCate() {
-		LocCategory A = new LocCategory();
-		A.setLocId(1);
-		A.setLocName("test loc");
-		A.setLocSido("서울");
-		A.setLocSigungu("용산구");
-		A.setLocAddress("서울시 용산구");
-		A.setPlaceCategory("강/공원/피크닉");
-		lcr.save(A);
-
-		return "loc 저장 성공";
 	}
 
 	@GetMapping("/add/loc")
@@ -390,30 +349,15 @@ public class Controller {
 		return "장소 카테고리 삭제되었습니다.";
 	}
 
-	@GetMapping("/add/place") // test용
-	@Transactional
-	public String addBoardPlace() {
-		BoardPlace A = new BoardPlace();
-		A.setPlaceId(1);
-		A.setLocCate(lcr.findLocCategoryByLocId(1).get(0));
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		A.setPlaceName("test place name");
-		A.setPlaceContent("test place content");
-		A.setPlaceImg("img");
-
-		bpr.save(A);
-
-		return "place 저장 성공";
-	}
-
 	@GetMapping("/add/place2")
 	@Transactional
-	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response, @RequestParam String placeName,
-			@RequestParam String placeLoc, @RequestParam String placeContent,@RequestParam String placeImg) {
-		
+	public String addBoardPlace2(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String placeName, @RequestParam String placeLoc, @RequestParam String placeContent,
+			@RequestParam String placeImg) {
+
 		HttpSession session = request.getSession();
 		BoardPlace A = new BoardPlace();
-		
+
 		if (lcr.findLocCategoryByLocName(placeLoc) != null) {
 			A.setPlaceName(placeName);
 			A.setLocCate(lcr.findLocCategoryByLocName(placeLoc).get(0));
@@ -450,49 +394,6 @@ public class Controller {
 		return "장소 게시글 삭제되었습니다.";
 	}
 
-//	@GetMapping("addBoardTip")
-//	@Transactional
-//	public String addBoardTip() {
-//		BoardTip A = new BoardTip();
-//		A.setTipId(1);
-//		A.setTipTitle("tip title");
-//		A.setTipContent("tip content");
-//		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-//		A.setTipImg("img");
-//		A.setTipLike(0);
-//		A.setTipDel(0);
-//				
-//		btr.save(A);
-//		
-//		return "tip 저장 성공";
-//	}
-
-
-	
-
-//	@GetMapping("delBoardTip")
-//	@Transactional
-//	public String delBoardTip(@RequestParam String tipTitle) {
-//		BoardTip A = btr.findBoardTipByTipTitle(tipTitle).get(0);
-//		return tipTitle;
-//	}
-	
-	
-	@GetMapping("/add/PComment")
-	public String addPComment() {
-		Pcomment A = new Pcomment();
-		A.setCommentId(2);
-		A.setPuser(pur.findPuserByUserEmail("aa.gmail.com"));
-		A.setCommentContent("comment content");
-		A.setCommentDel(0);
-//		A.setBoardRent(brr.findBoardRentByRentId(1));
-		A.setBoardTip(btr.findBoardTipByTipId(1));
-
-		pcor.save(A);
-
-		return "comment 저장 성공";
-	}
-
 	@GetMapping("/del/Pcomment")
 	@Transactional
 	public String delPcomment(@RequestParam int commentid) {
@@ -500,9 +401,6 @@ public class Controller {
 		A.setCommentDel(1);
 		return "댓글 삭제되었습니다.";
 	}
-
-
-// review
 
 	@GetMapping("/add/review2")
 	public String addBoardReview() {
@@ -527,46 +425,42 @@ public class Controller {
 		A.setReviewDel("1");
 		return "리뷰 삭제되었습니다.";
 	}
-	
-	
-	//작성자 확인 메소드
-	//vue로 작성자만 넘기고, vue에서는 storageseesion값을 비교해서 맞으면 v-show 
+
+	// 작성자 확인 메소드
+	// vue로 작성자만 넘기고, vue에서는 storageseesion값을 비교해서 맞으면 v-show
 	@GetMapping("/check/tipwriter/{tipId}")
 	public String checkTWriter(@PathVariable("tipId") int tipId) {
 		BoardTip tip = btr.findBoardTipByTipId(tipId);
-				
+
 		return tip.getPuser().getUserEmail();
-		
+
 	}
-	
-	//작성자 확인 메소드
+
+	// 작성자 확인 메소드
 	@GetMapping("/check/rentwriter/{rentId}")
 	public String checkRWriter(@PathVariable("rentId") int rentId) {
 		BoardRent rent = brr.findBoardRentByRentId(rentId);
-				
+
 		return rent.getPuser().getUserEmail();
-		
+
 	}
-	
-	//작성자 확인 메소드
+
+	// 작성자 확인 메소드
 	@GetMapping("/check/reviewwriter/{reviewId}")
 	public String checkRVWriter(@PathVariable("reviewId") int reviewId) {
 		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
-				
+
 		return review.getPuser().getUserEmail();
-		
+
 	}
-	
-	//작성자 확인 메소드
+
+	// 작성자 확인 메소드
 	@GetMapping("/check/placewriter/{placeId}")
 	public String checkPWriter(@PathVariable("placeId") int placeId) {
 		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
-				
+
 		return place.getPuser().getUserEmail();
-		
+
 	}
 
-	
-	
-	
 }
