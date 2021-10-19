@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -67,28 +68,11 @@ public class MainController {
 	@Autowired
 	private PuserRepo pur;
 
-	@GetMapping("/signup")
-	public void signin(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/signup.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@GetMapping("/login")
-	public void login(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/login.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**/
 	// 리뷰 등록
+	@ApiOperation(value = "review 게시글 생성", notes = "review 게시글 생성, 이메일은 세션을 통해 추가")
 	@PostMapping("/add/review")
 	@Transactional
 	public String addBoardReviews(HttpServletRequest request, @RequestBody BoardReviewDTO reviewDto,
@@ -109,7 +93,8 @@ public class MainController {
 		return "";
 	}
 
-	// 피크닉 꿀팁 작성하는 메소드
+	
+	@ApiOperation(value = "tip 게시글 생성", notes = "tip 게시글 생성, 이메일은 세션을 통해 추가")
 	@PostMapping("/add/tip")
 	@Transactional
 	public String addBoardTip(HttpServletRequest request, @RequestBody BoardTipDTO tipDto,
@@ -128,6 +113,7 @@ public class MainController {
 	}
 
 	// 1) 수정을 하기 위해서 일단 id를 찾고, 그 아이디의 del_tip 값을 변경한다. , 나머지값은 그대로
+	@ApiOperation(value = "tip 게시글 삭제", notes = "Tip_del을 0에서 1로 변경")
 	@PutMapping("/del/tips/{tipId}")
 	@Transactional
 	public void delBoardTip1(@PathVariable("tipId") int tipId, HttpServletResponse response) throws IOException {
@@ -143,6 +129,7 @@ public class MainController {
 
 	}
 
+	@ApiOperation(value = "rent 게시글 삭제", notes = "rent_del을 0에서 1로 변경")
 	@PutMapping("/del/rents/{rentId}")
 	@Transactional
 	public boolean delBoardRent1(@PathVariable("rentId") int rentId) {
@@ -157,6 +144,7 @@ public class MainController {
 		return true;
 	}
 
+	@ApiOperation(value = "place 게시글 삭제", notes = "place_del을 0에서 1로 변경")
 	@PutMapping("/del/places/{placeId}")
 	@Transactional
 	public boolean delBoardPlace1(@PathVariable("placeId") int placeId) {
@@ -171,6 +159,7 @@ public class MainController {
 		return true;
 	}
 
+	@ApiOperation(value = "review 게시글 삭제", notes = "review_del을 0에서 1로 변경")
 	@PutMapping("/del/reviews/{reviewId}")
 	@Transactional
 	public boolean delBoardReview1(@PathVariable("reviewId") int reviewId) {
@@ -185,6 +174,7 @@ public class MainController {
 		return true;
 	}
 
+	@ApiOperation(value = "어드민 tip 게시글 삭제", notes = "tip_del을 0에서 1로 변경")
 	@GetMapping("/del/tip")
 	@Transactional
 	public String delBoardTip(@RequestParam int tipId) {
@@ -193,6 +183,7 @@ public class MainController {
 	}
 
 	// 피크닉 rent대여업체 작성하는 메소드
+	@ApiOperation(value = "rent 게시글 생성", notes = "rent 게시글 생성, 이메일은 세션을 통해 추가")
 	@PostMapping("/add/rent")
 	@Transactional
 	public String addBoardRent(HttpServletRequest request, @RequestBody BoardRentDTO rentDto,
@@ -215,6 +206,7 @@ public class MainController {
 		return null;
 	}
 
+	@ApiOperation(value = "어드민 rent 게시글 삭제", notes = "rent_del을 0에서 1로 변경")
 	@GetMapping("/del/rent")
 	@Transactional
 	public String delBoardRent(@RequestParam int rentId) {
@@ -222,7 +214,7 @@ public class MainController {
 		return "업체 게시글 삭제되었습니다.";
 	}
 
-	// get으로 json 가져오는 방식
+	@ApiOperation(value = "tip 게시글 생성", notes = "tip 게시글 생성, 이메일은 세션을 통해 추가")
 	@GetMapping("/board/tips")
 	public List<BoardTipDTO> boardTipList() {
 		Iterator<BoardTip> all = btr.findAll().iterator();
