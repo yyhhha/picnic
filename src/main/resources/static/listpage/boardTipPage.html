@@ -8,7 +8,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="/css/main.css">
@@ -40,7 +39,6 @@
 
           <div v-else>
             {{nickname}}님 환영합니다
-
             <a href="../ycon/moveMainPage" onclick="logout()" class="w3-bar-item w3-button w3-mobile">로그아웃</a>
             <a href="../ycon/mypage" class="w3-bar-item w3-button w3-mobile">마이페이지</a>
           </div>
@@ -64,13 +62,10 @@
 
   <div class="row">
 
-    <div id="nav" class="column side" style="background-color:#ffffff;">
+    <div id="nav" class="column side" style="background-color:#ffffff; ">
       <ul>
-        <li v-on:click="selectAll" style="cursor: pointer; "><a>전체보기</a></li>
-        <li v-on:click="selectHan" style="cursor: pointer;"><a>한강 피크닉</a></li>
-        <li v-on:click="selectBa" style="cursor: pointer;"><a>바다 피크닉</a></li>
-        <li v-on:click="selectG" style="cursor: pointer;"><a>글램핑</a></li>
-        <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardRent.html">&nbsp &nbsp글쓰기✍</a>
+        <li style="cursor: pointer;"><a>전체보기</a></li>
+        <li style="cursor: pointer;"><a style="font-size: small" href="/writepage/boardTip.html">&nbsp &nbsp글쓰기✍</a>
         </li>
       </ul>
     </div>
@@ -80,30 +75,26 @@
       <div id="sort">
         <select class="w3-select w3-border" name="sortselect" id="sortselect" @change="onChange($event)">
           <option value="" selected disabled hidden>-정렬방식-</option>
-          <option value="1">낮은 가격순</option>
-          <option value="2">높은 가격순</option>
-          <option value="3">가나다순</option>
+          <option value="1">좋아요 순</option>
         </select>
       </div>
 
       <br>
 
       <div id="main">
-        <div class="gallery w3-round" v-if="showBoolean" v-for="rent in rentlist" @click="showdetail(rent.rentId)"
-          style="max-width:400px;max-height:500px">
-          <img v-bind:src="rent.rentImg">
+        <div class="gallery w3-round" v-if="showBoolean" v-for="tip in tiplist" @click="showdetail(tip.tipId)">
+          <img v-bind:src="tip.tipImg">
           <div class="desc">
-            <p>{{rent.rentName}}</p>
-            <p>{{rent.rentCateName}}</p>
-            <p>{{rent.rentTime}}시간 대여 가능</p>
-            <p>{{rent.rentPrice}}원</p>
+            <p>{{tip.tipTitle}}</p>
+            <p>{{tip.tipDate}}</p>
+            <p>{{tip.tipLike}} 좋아요 👍</p>
+            <p>{{tip.userEmail}}</p>
           </div>
         </div>
       </div>
+    </div>
 
-    </div> <!-- column middle div -->
-
-  </div> <!-- row div -->
+  </div>
 
 
   <div class="footer">
@@ -119,22 +110,22 @@
       el: "#main",
       data: {
         showBoolean: false,
-        rentlist: []
+        tiplist: []
       },
       created: function () {
         axios({
           method: "get",
-          url: "/bcon/board/rents?command=rent&rentCateName=all"
+          url: "/bcon/board/tips"
         }).then(resData => {
-          main.showBoolean = true;
-          main.rentlist = resData.data;
+          this.showBoolean = true;
+          this.tiplist = resData.data;
         }).catch(errorData => {
           alert(errorData);
         });
       },
       methods: {
         showdetail: function (id) {
-          location.href = "/detailpage/boardRentdetail.html?rentId=" + id;
+          location.href = "/detailpage/boardTipdetail.html?tipId=" + id;
         }
       }
     });
@@ -144,74 +135,16 @@
       methods: {
         onChange: function (event) {
           if (event.target.value == '1') {
-            main.rentlist.sort(function (a, b) {
-              return a.rentPrice - b.rentPrice;
-            });
-          } else if (event.target.value == '2') {
-            main.rentlist.sort(function (a, b) {
-              return b.rentPrice - a.rentPrice;
-            });
-          } else if (event.target.value == '3') {
-            main.rentlist.sort(function (a, b) {
-              return a.rentName.localeCompare(b.rentName);
+            main.tiplist.sort(function (a, b) {
+              return b.tipLike - a.tipLike;
             });
           }
         }
       }
     });
 
-    var nav = new Vue({
-      el: "#nav",
-      methods: {
-        selectAll: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=all"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectHan: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=한강피크닉"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectBa: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=바다피크닉"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        },
-        selectG: function () {
-          axios({
-            method: "get",
-            url: "/bcon/board/rents?command=rent&rentCateName=글램핑"
-          }).then(resData => {
-            main.showBoolean = true;
-            main.rentlist = resData.data;
-          }).catch(errorData => {
-            alert(errorData);
-          });
-        }
-      }
-    });
-
     var loglog = new Vue({
-      el: "#loglog",
+      el: '#loglog',
       data: {
         logCheck: false,
         datas: [],
@@ -222,14 +155,14 @@
           this.logCheck = true;
           this.nickname = sessionStorage.getItem('nickname');
         }
-      }
+      },
     });
 
     var logout = function () {
       localStorage.clear();
       sessionStorage.clear();
       sessionStorage.removeItem('nickname');
-      window.location.href = "/bcon/move/rentPage";
+      window.location.href = "../ycon/moveMainPage";
     }
 
   </script>
