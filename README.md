@@ -1,4 +1,4 @@
-![025](https://user-images.githubusercontent.com/87870107/137855210-a8ac418f-4e97-4799-b262-d6f5362628b9.jpg)
+![lastlogo](https://user-images.githubusercontent.com/87870107/137855336-1d08f8dd-a29c-4685-8c1b-2484c8841d4e.PNG)
 
 # 피크닉 중개사이트 - 피그닉 사이트
 
