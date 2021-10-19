@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.pe.playdata.dao.BoardPlaceRepo;
 import kr.pe.playdata.dao.BoardRentRepo;
 import kr.pe.playdata.dao.BoardReviewRepo;
@@ -67,25 +68,6 @@ public class MainController {
 	@Autowired
 	private PuserRepo pur;
 
-	@GetMapping("/signup")
-	public void signin(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/signup.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@GetMapping("/login")
-	public void login(HttpServletResponse response) {
-		String redirect_uri = "http://localhost/login.html";
-		try {
-			response.sendRedirect(redirect_uri);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**/
 	// 리뷰 등록
@@ -239,6 +221,7 @@ public class MainController {
 
 	}
 
+	@ApiOperation(value = "게시판 글 좋아요 +1", notes = "API 설명 부분 : 게시판 글 좋아요 클릭시 counting + 1")
 	@PutMapping("/add/like")
 	public String plusLike(@RequestParam int tipId) {
 		BoardTip A = btr.findBoardTipByTipId(tipId);
@@ -247,6 +230,7 @@ public class MainController {
 		return null;
 	}
 
+	@ApiOperation(value = "게시판 글 좋아요 -1", notes = "API 설명 부분 : 게시판 글 좋아요 클릭시 counting - 1")
 	@PutMapping("/del/like")
 	public String minusLike(@RequestParam int tipId) {
 		BoardTip A = btr.findBoardTipByTipId(tipId);
@@ -256,6 +240,7 @@ public class MainController {
 	}
 
 	// tip_id로 tip게시글 상세 get 가능
+	@ApiOperation(value = "피크닉 꿀팁 상세페이지 조회", notes = "API 설명 부분 : tip_id로 피크닉 꿀팁 상세페이지 조회")
 	@GetMapping("/board/tips/{tipId}")
 	public BoardTipDTO boardTipDetail(@PathVariable("tipId") int tipId) {
 		BoardTip all = btr.findBoardTipByTipId(tipId);
@@ -268,6 +253,7 @@ public class MainController {
 	}
 
 	// rent_id로 rent게시글 상세 get 가능
+	@ApiOperation(value = "피크닉 대여업체 상세페이지 조회", notes = "API 설명 부분 : rent_id로 피크닉 대여업체 상세페이지 조회")
 	@GetMapping("/board/rents/{rentId}")
 	public BoardRentDTO boardRentDetail(@PathVariable("rentId") int rentId) {
 		BoardRent rent = brr.findBoardRentByRentId(rentId);
@@ -280,6 +266,7 @@ public class MainController {
 	}
 
 	// place_id로 place게시글 상세 get가능
+	@ApiOperation(value = "피크닉 장소추천 상세페이지 조회", notes = "API 설명 부분 : place_id로 피크닉 장소추천 상세페이지 조회")
 	@GetMapping("/board/places/{placeId}")
 	public BoardPlaceDTO boardPlaceDetail(@PathVariable("placeId") int placeId) {
 		BoardPlace place = bpr.findBoardPlaceByPlaceId(placeId);
@@ -291,6 +278,7 @@ public class MainController {
 	}
 
 	// review_id로 review게시글 상세 get가능
+	@ApiOperation(value = "피크닉 장소후기 상세페이지 조회", notes = "API 설명 부분 : review_id로 피크닉 장소후기 상세페이지 조회")
 	@GetMapping("/board/reviews/{reviewId}")
 	public BoardReviewDTO boardReviewDetail(@PathVariable("reviewId") int reviewId) {
 		BoardReview review = brer.findBoardReviewByReviewId(reviewId);
